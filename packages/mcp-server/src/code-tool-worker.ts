@@ -5,7 +5,7 @@ import util from 'node:util';
 import Fuse from 'fuse.js';
 import ts from 'typescript';
 import { WorkerOutput } from './code-tool-types';
-import { Plaza, ClientOptions } from 'plaza';
+import { Plaza, ClientOptions } from 'plaza-js';
 
 function getRunFunctionSource(code: string): {
   type: 'declaration' | 'expression';
@@ -53,7 +53,7 @@ function getRunFunctionSource(code: string): {
 function getTSDiagnostics(code: string): string[] {
   const functionSource = getRunFunctionSource(code)!;
   const codeWithImport = [
-    'import { Plaza } from "plaza";',
+    'import { Plaza } from "plaza-js";',
     functionSource.type === 'declaration' ?
       `async function run(${functionSource.client}: Plaza)`
     : `const run: (${functionSource.client}: Plaza) => Promise<unknown> =`,

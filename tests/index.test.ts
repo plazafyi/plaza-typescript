@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'plaza/core/api-promise';
+import { APIPromise } from 'plaza-js/core/api-promise';
 
 import util from 'node:util';
-import Plaza from 'plaza';
-import { APIUserAbortError } from 'plaza';
+import Plaza from 'plaza-js';
+import { APIUserAbortError } from 'plaza-js';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {

@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "plaza/*": ["./dist/src/*"],
-      "plaza": ["./dist/src/index.ts"]
+      "plaza-js/*": ["./dist/src/*"],
+      "plaza-js": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
