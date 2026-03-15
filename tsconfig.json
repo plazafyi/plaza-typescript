@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "plaza/*": ["./src/*"],
-      "plaza": ["./src/index.ts"]
+      "plaza-js/*": ["./src/*"],
+      "plaza-js": ["./src/index.ts"]
     },
     "noEmit": true,
 

@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'plaza/internal/uploads';
-import { toFile } from 'plaza/core/uploads';
+import { multipartFormRequestOptions, createForm } from 'plaza-js/internal/uploads';
+import { toFile } from 'plaza-js/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {
