@@ -9,7 +9,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 Because it's not published yet, clone the repo and build it:
 
 ```sh
-git clone git@github.com:stainless-sdks/plaza-typescript.git
+git clone git@github.com:plazafyi/plaza-typescript.git
 cd plaza-typescript
 ./scripts/bootstrap
 ./scripts/build

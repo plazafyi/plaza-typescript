@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stainless-sdks/plaza-typescript.git"
+    "url": "git+https://github.com/plazafyi/plaza-typescript.git"
   },
-  "homepage": "https://github.com/stainless-sdks/plaza-typescript/tree/main/packages/mcp-server#readme",
+  "homepage": "https://github.com/plazafyi/plaza-typescript/tree/main/packages/mcp-server#readme",
   "server": {
     "type": "node",
     "entry_point": "index.js",
