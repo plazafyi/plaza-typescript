@@ -119,7 +119,7 @@ importers:
       pino-pretty:
         specifier: ^13.1.3
         version: 13.1.3
-      plaza:
+      plaza-js:
         specifier: workspace:*
         version: link:../..
       qs:

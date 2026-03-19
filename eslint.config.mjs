@@ -25,7 +25,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              regex: '^plaza(/.*)?',
+              regex: '^plaza-js(/.*)?',
               message: 'Use a relative import, not a package import.',
             },
           ],
