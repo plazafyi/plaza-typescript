@@ -21,7 +21,7 @@ export const newMcpServer = async (stainlessApiKey: string | undefined) =>
   new McpServer(
     {
       name: 'plaza_js_api',
-      version: '0.0.1',
+      version: '0.0.2',
     },
     {
       instructions: await getInstructions(stainlessApiKey),
