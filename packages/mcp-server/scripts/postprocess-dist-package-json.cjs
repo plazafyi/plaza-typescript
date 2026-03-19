@@ -4,7 +4,7 @@ const parentPkgJson = require('../../../package.json');
 
 for (const dep in pkgJson.dependencies) {
   // ensure we point to NPM instead of a local directory
-  if (dep === 'plaza-js') {
+  if (dep === '@plazafyi/sdk') {
     pkgJson.dependencies[dep] = '^' + parentPkgJson.version;
   }
 }

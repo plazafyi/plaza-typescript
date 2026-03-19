@@ -11,7 +11,7 @@ You can run the MCP Server directly via `npx`:
 ```sh
 export PLAZA_API_KEY="My API Key"
 export PLAZA_ENVIRONMENT="production"
-npx -y plaza-mcp@latest
+npx -y @plazafyi/mcp@latest
 ```
 
 ### Via MCP Client
@@ -24,9 +24,9 @@ For clients with a configuration JSON, it might look something like this:
 ```json
 {
   "mcpServers": {
-    "plaza_js_api": {
+    "plazafyi_sdk_api": {
       "command": "npx",
-      "args": ["-y", "plaza-mcp"],
+      "args": ["-y", "@plazafyi/mcp"],
       "env": {
         "PLAZA_API_KEY": "My API Key",
         "PLAZA_ENVIRONMENT": "production"
@@ -41,14 +41,14 @@ For clients with a configuration JSON, it might look something like this:
 If you use Cursor, you can install the MCP server by using the button below. You will need to set your environment variables
 in Cursor's `mcp.json`, which can be found in Cursor Settings > Tools & MCP > New MCP Server.
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=plaza-mcp&config=eyJuYW1lIjoicGxhemEtbWNwIiwidHJhbnNwb3J0IjoiaHR0cCIsInVybCI6Imh0dHBzOi8vcGxhemEtbWNwLnN0bG1jcC5jb20iLCJoZWFkZXJzIjp7IngtcGxhemEtYXBpLWtleSI6Ik15IEFQSSBLZXkifX0)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=%40plazafyi%2Fmcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBwbGF6YWZ5aS9tY3AiXSwiZW52Ijp7IlBMQVpBX0FQSV9LRVkiOiJNeSBBUEkgS2V5In19)
 
 ### VS Code
 
 If you use MCP, you can install the MCP server by clicking the link below. You will need to set your environment variables
 in VS Code's `mcp.json`, which can be found via Command Palette > MCP: Open User Configuration.
 
-[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22plaza-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fplaza-mcp.stlmcp.com%22%2C%22headers%22%3A%7B%22x-plaza-api-key%22%3A%22My%20API%20Key%22%7D%7D)
+[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22%40plazafyi%2Fmcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40plazafyi%2Fmcp%22%5D%2C%22env%22%3A%7B%22PLAZA_API_KEY%22%3A%22My%20API%20Key%22%7D%7D)
 
 ### Claude Code
 
@@ -56,7 +56,7 @@ If you use Claude Code, you can install the MCP server by running the command be
 environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
 
 ```
-claude mcp add plaza_mcp_api --header "x-plaza-api-key: My API Key" --transport http https://plaza-mcp.stlmcp.com
+claude mcp add plazafyi_mcp_api --env PLAZA_API_KEY="My API Key" -- npx -y @plazafyi/mcp
 ```
 
 ## Code Mode
@@ -92,7 +92,7 @@ A configuration JSON for this server might look like this, assuming the server i
 ```json
 {
   "mcpServers": {
-    "plaza_js_api": {
+    "plazafyi_sdk_api": {
       "url": "http://localhost:3000",
       "headers": {
         "Authorization": "Bearer <auth value>"

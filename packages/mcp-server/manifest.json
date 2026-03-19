@@ -1,16 +1,18 @@
 {
   "dxt_version": "0.2",
-  "name": "plaza-mcp",
+  "name": "@plazafyi/mcp",
   "version": "0.0.2",
   "description": "The official MCP Server for the Plaza API",
   "author": {
-    "name": "Plaza"
+    "name": "Plaza",
+    "email": "support@plaza.fyi"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/plazafyi/plaza-typescript.git"
   },
   "homepage": "https://github.com/plazafyi/plaza-typescript/tree/main/packages/mcp-server#readme",
+  "documentation": "https://docs.plaza.fyi",
   "server": {
     "type": "node",
     "entry_point": "index.js",
@@ -25,7 +27,7 @@
   "user_config": {
     "PLAZA_API_KEY": {
       "title": "api_key",
-      "description": "API key passed as Bearer token: `Authorization: Bearer <key>`",
+      "description": "Plaza API key",
       "required": true,
       "type": "string"
     }

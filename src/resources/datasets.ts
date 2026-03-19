@@ -1,31 +1,31 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../core/resource';
-import * as ElementsAPI from './elements';
-import { APIPromise } from '../../core/api-promise';
-import { buildHeaders } from '../../internal/headers';
-import { RequestOptions } from '../../internal/request-options';
-import { path } from '../../internal/utils/path';
+import { APIResource } from '../core/resource';
+import * as TopLevelAPI from './top-level';
+import { APIPromise } from '../core/api-promise';
+import { buildHeaders } from '../internal/headers';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class Datasets extends APIResource {
   /**
    * Create a new dataset (admin only)
    */
-  create(body: DatasetCreateParams, options?: RequestOptions): APIPromise<DatasetResponse> {
+  create(body: DatasetCreateParams, options?: RequestOptions): APIPromise<Dataset> {
     return this._client.post('/api/v1/datasets', { body, ...options });
   }
 
   /**
    * Get dataset by ID
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<DatasetResponse> {
+  retrieve(id: string, options?: RequestOptions): APIPromise<Dataset> {
     return this._client.get(path`/api/v1/datasets/${id}`, options);
   }
 
   /**
    * List all datasets
    */
-  list(options?: RequestOptions): APIPromise<DatasetListResponse> {
+  list(options?: RequestOptions): APIPromise<DatasetList> {
     return this._client.get('/api/v1/datasets', options);
   }
 
@@ -42,16 +42,20 @@ export class Datasets extends APIResource {
   /**
    * Query features in a dataset
    */
-  queryFeatures(
+  features(
     id: string,
-    query: DatasetQueryFeaturesParams | null | undefined = {},
+    query: DatasetFeaturesParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<FeatureCollection> {
-    return this._client.get(path`/api/v1/datasets/${id}/features`, { query, ...options });
+  ): APIPromise<TopLevelAPI.FeatureCollection> {
+    return this._client.get(path`/api/v1/datasets/${id}/features`, {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: 'application/geo+json' }, options?.headers]),
+    });
   }
 }
 
-export interface DatasetResponse {
+export interface Dataset {
   /**
    * Dataset ID
    */
@@ -98,40 +102,8 @@ export interface DatasetResponse {
   source_url?: string | null;
 }
 
-export interface FeatureCollection {
-  features: Array<ElementsAPI.GeoJsonFeature>;
-
-  type: 'FeatureCollection';
-
-  pagination?: FeatureCollection.Pagination;
-}
-
-export namespace FeatureCollection {
-  export interface Pagination {
-    /**
-     * Whether more results exist
-     */
-    has_more?: boolean;
-
-    /**
-     * Requested result limit
-     */
-    limit?: number;
-
-    /**
-     * Cursor for next page
-     */
-    next_cursor?: string | null;
-
-    /**
-     * Offset for next page
-     */
-    next_offset?: number | null;
-  }
-}
-
-export interface DatasetListResponse {
-  datasets: Array<DatasetResponse>;
+export interface DatasetList {
+  datasets: Array<Dataset>;
 }
 
 export interface DatasetCreateParams {
@@ -166,7 +138,7 @@ export interface DatasetCreateParams {
   source_url?: string | null;
 }
 
-export interface DatasetQueryFeaturesParams {
+export interface DatasetFeaturesParams {
   /**
    * Cursor for pagination
    */
@@ -180,10 +152,9 @@ export interface DatasetQueryFeaturesParams {
 
 export declare namespace Datasets {
   export {
-    type DatasetResponse as DatasetResponse,
-    type FeatureCollection as FeatureCollection,
-    type DatasetListResponse as DatasetListResponse,
+    type Dataset as Dataset,
+    type DatasetList as DatasetList,
     type DatasetCreateParams as DatasetCreateParams,
-    type DatasetQueryFeaturesParams as DatasetQueryFeaturesParams,
+    type DatasetFeaturesParams as DatasetFeaturesParams,
   };
 }

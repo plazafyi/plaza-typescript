@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "plaza-js/*": ["./src/*"],
-      "plaza-js": ["./src/index.ts"]
+      "@plazafyi/sdk/*": ["./src/*"],
+      "@plazafyi/sdk": ["./src/index.ts"]
     },
     "noEmit": true,
 

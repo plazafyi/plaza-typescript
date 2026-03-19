@@ -15,7 +15,7 @@ import { WorkerInput, WorkerOutput } from './code-tool-types';
 import { getLogger } from './logger';
 import { SdkMethod } from './methods';
 import { McpCodeExecutionMode } from './options';
-import { ClientOptions } from 'plaza-js';
+import { ClientOptions } from '@plazafyi/sdk';
 
 const prompt = `Runs JavaScript code to interact with the Plaza API.
 
@@ -25,9 +25,13 @@ For example:
 
 \`\`\`
 async function run(client) {
-  const datasets = await client.v1.datasets.list();
+  const featureCollection = await client.elements.nearby({
+    lat: 48.8584,
+    lng: 0,
+    radius: 500,
+  });
 
-  console.log(datasets.datasets);
+  console.log(featureCollection.features);
 }
 \`\`\`
 
@@ -247,7 +251,7 @@ const localDenoHandler = async ({
 
   // Follow symlinks in node_modules to allow read access to workspace-linked packages
   try {
-    const sdkPkgName = 'plaza-js';
+    const sdkPkgName = '@plazafyi/sdk';
     const sdkDir = path.resolve(packageNodeModulesPath, sdkPkgName);
     const realSdkDir = fs.realpathSync(sdkDir);
     if (realSdkDir !== sdkDir) {
