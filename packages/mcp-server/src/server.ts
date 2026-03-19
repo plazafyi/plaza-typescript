@@ -7,8 +7,8 @@ import {
   ListToolsRequestSchema,
   SetLevelRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { ClientOptions } from 'plaza-js';
-import Plaza from 'plaza-js';
+import { ClientOptions } from '@plazafyi/sdk';
+import Plaza from '@plazafyi/sdk';
 import { codeTool } from './code-tool';
 import docsSearchTool from './docs-search-tool';
 import { getInstructions } from './instructions';
@@ -20,8 +20,8 @@ import { readEnv } from './util';
 export const newMcpServer = async (stainlessApiKey: string | undefined) =>
   new McpServer(
     {
-      name: 'plaza_js_api',
-      version: '0.0.2',
+      name: 'plazafyi_sdk_api',
+      version: '0.1.0',
     },
     {
       instructions: await getInstructions(stainlessApiKey),

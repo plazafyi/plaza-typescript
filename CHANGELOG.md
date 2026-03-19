@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0 (2026-03-19)
+
+Full Changelog: [v0.0.2...v0.1.0](https://github.com/plazafyi/plaza-typescript/compare/v0.0.2...v0.1.0)
+
+### Features
+
+* initial SDK generation ([2fc6e4e](https://github.com/plazafyi/plaza-typescript/commit/2fc6e4e6c559c5c601ff124e475675c267c0510f))
+
 ## 0.0.2 (2026-03-19)
 
 Full Changelog: [v0.0.1...v0.0.2](https://github.com/plazafyi/plaza-typescript/compare/v0.0.1...v0.0.2)

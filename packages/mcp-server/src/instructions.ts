@@ -56,5 +56,7 @@ async function fetchLatestInstructions(stainlessApiKey: string | undefined): Pro
 
   instructions ??= ((await response.json()) as { instructions: string }).instructions;
 
+  instructions +=
+    '\nPlaza is a geospatial data API serving the complete OpenStreetMap planet dataset.\nAll spatial data uses GeoJSON (RFC 7946). Coordinates are [longitude, latitude].\nUse the routing, geocoding, search, and element query tools to answer questions\nabout real-world geography, places, and navigation.\n';
   return instructions;
 }
