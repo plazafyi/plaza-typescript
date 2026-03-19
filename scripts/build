@@ -8,7 +8,7 @@ node scripts/utils/check-version.cjs
 
 # Build into dist and will publish the package from there,
 # so that src/resources/foo.ts becomes <package root>/resources/foo.js
-# This way importing from `"plaza-js/resources/foo"` works
+# This way importing from `"@plazafyi/sdk/resources/foo"` works
 # even with `"moduleResolution": "node"`
 
 rm -rf dist; mkdir dist
@@ -42,8 +42,8 @@ node scripts/utils/postprocess-files.cjs
 
 # make sure that nothing crashes when we require the output CJS or
 # import the output ESM
-(cd dist && node -e 'require("plaza-js")')
-(cd dist && node -e 'import("plaza-js")' --input-type=module)
+(cd dist && node -e 'require("@plazafyi/sdk")')
+(cd dist && node -e 'import("@plazafyi/sdk")' --input-type=module)
 
 if [ -e ./scripts/build-deno ]
 then
@@ -52,6 +52,6 @@ fi
 # build all sub-packages
 for dir in packages/*; do
   if [ -d "$dir" ]; then
-      (cd "$dir" && pnpm build)
+      (cd "$dir" && yarn install && yarn build)
   fi
 done

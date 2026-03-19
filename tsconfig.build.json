@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "plaza-js/*": ["./dist/src/*"],
-      "plaza-js": ["./dist/src/index.ts"]
+      "@plazafyi/sdk/*": ["./dist/src/*"],
+      "@plazafyi/sdk": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

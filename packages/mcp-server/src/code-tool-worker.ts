@@ -5,7 +5,7 @@ import util from 'node:util';
 import Fuse from 'fuse.js';
 import ts from 'typescript';
 import { WorkerOutput } from './code-tool-types';
-import { Plaza, ClientOptions } from 'plaza-js';
+import { Plaza, ClientOptions } from '@plazafyi/sdk';
 
 function getRunFunctionSource(code: string): {
   type: 'declaration' | 'expression';
@@ -53,7 +53,7 @@ function getRunFunctionSource(code: string): {
 function getTSDiagnostics(code: string): string[] {
   const functionSource = getRunFunctionSource(code)!;
   const codeWithImport = [
-    'import { Plaza } from "plaza-js";',
+    'import { Plaza } from "@plazafyi/sdk";',
     functionSource.type === 'declaration' ?
       `async function run(${functionSource.client}: Plaza)`
     : `const run: (${functionSource.client}: Plaza) => Promise<unknown> =`,
@@ -104,28 +104,33 @@ function getTSDiagnostics(code: string): string[] {
 
 const fuse = new Fuse(
   [
-    'client.v1.calculateDistanceMatrix',
-    'client.v1.calculateIsochrone',
-    'client.v1.calculateRoute',
-    'client.v1.executeOverpass',
-    'client.v1.executeQuery',
-    'client.v1.executeSparql',
-    'client.v1.findNearby',
-    'client.v1.getTile',
-    'client.v1.reverseGeocode',
-    'client.v1.searchFeatures',
-    'client.v1.snapToNearest',
-    'client.v1.datasets.create',
-    'client.v1.datasets.delete',
-    'client.v1.datasets.list',
-    'client.v1.datasets.queryFeatures',
-    'client.v1.datasets.retrieve',
-    'client.v1.elements.fetchBatch',
-    'client.v1.elements.query',
-    'client.v1.elements.retrieve',
-    'client.v1.geocode.autocomplete',
-    'client.v1.geocode.forward',
-    'client.v1.geocode.reverse',
+    'client.elements.batch',
+    'client.elements.nearby',
+    'client.elements.query',
+    'client.elements.retrieve',
+    'client.datasets.create',
+    'client.datasets.delete',
+    'client.datasets.features',
+    'client.datasets.list',
+    'client.datasets.retrieve',
+    'client.geocode.autocomplete',
+    'client.geocode.batch',
+    'client.geocode.forward',
+    'client.geocode.reverse',
+    'client.search.query',
+    'client.routing.isochrone',
+    'client.routing.matrix',
+    'client.routing.nearest',
+    'client.routing.route',
+    'client.elevation.batch',
+    'client.elevation.lookup',
+    'client.elevation.profile',
+    'client.mapMatch.match',
+    'client.optimize.create',
+    'client.optimize.retrieve',
+    'client.query.overpass',
+    'client.query.sparql',
+    'client.tiles.get',
   ],
   { threshold: 1, shouldSort: true },
 );

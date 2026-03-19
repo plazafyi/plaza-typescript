@@ -18,23 +18,75 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
-  V1,
-  V1CalculateDistanceMatrixParams,
-  V1CalculateDistanceMatrixResponse,
-  V1CalculateIsochroneParams,
-  V1CalculateRouteParams,
-  V1CalculateRouteResponse,
-  V1ExecuteOverpassParams,
-  V1ExecuteQueryParams,
-  V1ExecuteSparqlParams,
-  V1ExecuteSparqlResponse,
-  V1FindNearbyParams,
-  V1GetTileParams,
-  V1ReverseGeocodeParams,
-  V1SearchFeaturesParams,
-  V1SnapToNearestParams,
-  V1SnapToNearestResponse,
-} from './resources/v1/v1';
+  Dataset,
+  DatasetCreateParams,
+  DatasetFeaturesParams,
+  DatasetList,
+  Datasets,
+} from './resources/datasets';
+import {
+  BatchRequest,
+  ElementBatchParams,
+  ElementNearbyParams,
+  ElementQueryParams,
+  ElementRetrieveParams,
+  Elements,
+} from './resources/elements';
+import {
+  Elevation,
+  ElevationBatchParams,
+  ElevationBatchResult,
+  ElevationLookupParams,
+  ElevationLookupResult,
+  ElevationProfileParams,
+  ElevationProfileRequest,
+  ElevationProfileResult,
+} from './resources/elevation';
+import {
+  AutocompleteResult,
+  Geocode,
+  GeocodeAutocompleteParams,
+  GeocodeBatchParams,
+  GeocodeBatchResponse,
+  GeocodeForwardParams,
+  GeocodeResult,
+  GeocodeReverseParams,
+  GeocodingFeature,
+  ReverseGeocodeResult,
+} from './resources/geocode';
+import { MapMatch, MapMatchMatchParams, MapMatchRequest, MapMatchResult } from './resources/map-match';
+import {
+  Optimize,
+  OptimizeCompletedResult,
+  OptimizeCreateParams,
+  OptimizeJobStatus,
+  OptimizeProcessingResult,
+  OptimizeRequest,
+  OptimizeResult,
+} from './resources/optimize';
+import {
+  OverpassQuery,
+  Query,
+  QueryOverpassParams,
+  QuerySparqlParams,
+  SparqlQuery,
+  SparqlResult,
+} from './resources/query';
+import {
+  MatrixRequest,
+  MatrixResult,
+  NearestResult,
+  RouteRequest,
+  RouteResult,
+  Routing,
+  RoutingIsochroneParams,
+  RoutingMatrixParams,
+  RoutingNearestParams,
+  RoutingRouteParams,
+} from './resources/routing';
+import { Search, SearchQueryParams } from './resources/search';
+import { TileGetParams, Tiles } from './resources/tiles';
+import { Error, FeatureCollection, GeoJsonFeature, GeoJsonGeometry } from './resources/top-level';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -50,13 +102,13 @@ import { isEmptyObj } from './internal/utils/values';
 
 const environments = {
   production: 'https://plaza.fyi',
-  environment_1: 'http://localhost:4000',
+  local: 'http://localhost:4000',
 };
 type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
-   * API key passed as Bearer token: `Authorization: Bearer <key>`
+   * Plaza API key
    */
   apiKey?: string | undefined;
 
@@ -65,7 +117,7 @@ export interface ClientOptions {
    *
    * Each environment maps to a different base URL:
    * - `production` corresponds to `https://plaza.fyi`
-   * - `environment_1` corresponds to `http://localhost:4000`
+   * - `local` corresponds to `http://localhost:4000`
    */
   environment?: Environment | undefined;
 
@@ -759,30 +811,120 @@ export class Plaza {
 
   static toFile = Uploads.toFile;
 
-  v1: API.V1 = new API.V1(this);
+  elements: API.Elements = new API.Elements(this);
+  datasets: API.Datasets = new API.Datasets(this);
+  geocode: API.Geocode = new API.Geocode(this);
+  search: API.Search = new API.Search(this);
+  routing: API.Routing = new API.Routing(this);
+  elevation: API.Elevation = new API.Elevation(this);
+  mapMatch: API.MapMatch = new API.MapMatch(this);
+  optimize: API.Optimize = new API.Optimize(this);
+  query: API.Query = new API.Query(this);
+  tiles: API.Tiles = new API.Tiles(this);
 }
 
-Plaza.V1 = V1;
+Plaza.Elements = Elements;
+Plaza.Datasets = Datasets;
+Plaza.Geocode = Geocode;
+Plaza.Search = Search;
+Plaza.Routing = Routing;
+Plaza.Elevation = Elevation;
+Plaza.MapMatch = MapMatch;
+Plaza.Optimize = Optimize;
+Plaza.Query = Query;
+Plaza.Tiles = Tiles;
 
 export declare namespace Plaza {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    V1 as V1,
-    type V1CalculateDistanceMatrixResponse as V1CalculateDistanceMatrixResponse,
-    type V1CalculateRouteResponse as V1CalculateRouteResponse,
-    type V1ExecuteSparqlResponse as V1ExecuteSparqlResponse,
-    type V1SnapToNearestResponse as V1SnapToNearestResponse,
-    type V1CalculateDistanceMatrixParams as V1CalculateDistanceMatrixParams,
-    type V1CalculateIsochroneParams as V1CalculateIsochroneParams,
-    type V1CalculateRouteParams as V1CalculateRouteParams,
-    type V1ExecuteOverpassParams as V1ExecuteOverpassParams,
-    type V1ExecuteQueryParams as V1ExecuteQueryParams,
-    type V1ExecuteSparqlParams as V1ExecuteSparqlParams,
-    type V1FindNearbyParams as V1FindNearbyParams,
-    type V1GetTileParams as V1GetTileParams,
-    type V1ReverseGeocodeParams as V1ReverseGeocodeParams,
-    type V1SearchFeaturesParams as V1SearchFeaturesParams,
-    type V1SnapToNearestParams as V1SnapToNearestParams,
+    type Error as Error,
+    type FeatureCollection as FeatureCollection,
+    type GeoJsonFeature as GeoJsonFeature,
+    type GeoJsonGeometry as GeoJsonGeometry,
   };
+
+  export {
+    Elements as Elements,
+    type BatchRequest as BatchRequest,
+    type ElementRetrieveParams as ElementRetrieveParams,
+    type ElementBatchParams as ElementBatchParams,
+    type ElementNearbyParams as ElementNearbyParams,
+    type ElementQueryParams as ElementQueryParams,
+  };
+
+  export {
+    Datasets as Datasets,
+    type Dataset as Dataset,
+    type DatasetList as DatasetList,
+    type DatasetCreateParams as DatasetCreateParams,
+    type DatasetFeaturesParams as DatasetFeaturesParams,
+  };
+
+  export {
+    Geocode as Geocode,
+    type AutocompleteResult as AutocompleteResult,
+    type GeocodeResult as GeocodeResult,
+    type GeocodingFeature as GeocodingFeature,
+    type ReverseGeocodeResult as ReverseGeocodeResult,
+    type GeocodeBatchResponse as GeocodeBatchResponse,
+    type GeocodeAutocompleteParams as GeocodeAutocompleteParams,
+    type GeocodeBatchParams as GeocodeBatchParams,
+    type GeocodeForwardParams as GeocodeForwardParams,
+    type GeocodeReverseParams as GeocodeReverseParams,
+  };
+
+  export { Search as Search, type SearchQueryParams as SearchQueryParams };
+
+  export {
+    Routing as Routing,
+    type MatrixRequest as MatrixRequest,
+    type MatrixResult as MatrixResult,
+    type NearestResult as NearestResult,
+    type RouteRequest as RouteRequest,
+    type RouteResult as RouteResult,
+    type RoutingIsochroneParams as RoutingIsochroneParams,
+    type RoutingMatrixParams as RoutingMatrixParams,
+    type RoutingNearestParams as RoutingNearestParams,
+    type RoutingRouteParams as RoutingRouteParams,
+  };
+
+  export {
+    Elevation as Elevation,
+    type ElevationBatchResult as ElevationBatchResult,
+    type ElevationLookupResult as ElevationLookupResult,
+    type ElevationProfileRequest as ElevationProfileRequest,
+    type ElevationProfileResult as ElevationProfileResult,
+    type ElevationBatchParams as ElevationBatchParams,
+    type ElevationLookupParams as ElevationLookupParams,
+    type ElevationProfileParams as ElevationProfileParams,
+  };
+
+  export {
+    MapMatch as MapMatch,
+    type MapMatchRequest as MapMatchRequest,
+    type MapMatchResult as MapMatchResult,
+    type MapMatchMatchParams as MapMatchMatchParams,
+  };
+
+  export {
+    Optimize as Optimize,
+    type OptimizeCompletedResult as OptimizeCompletedResult,
+    type OptimizeJobStatus as OptimizeJobStatus,
+    type OptimizeProcessingResult as OptimizeProcessingResult,
+    type OptimizeRequest as OptimizeRequest,
+    type OptimizeResult as OptimizeResult,
+    type OptimizeCreateParams as OptimizeCreateParams,
+  };
+
+  export {
+    Query as Query,
+    type OverpassQuery as OverpassQuery,
+    type SparqlQuery as SparqlQuery,
+    type SparqlResult as SparqlResult,
+    type QueryOverpassParams as QueryOverpassParams,
+    type QuerySparqlParams as QuerySparqlParams,
+  };
+
+  export { Tiles as Tiles, type TileGetParams as TileGetParams };
 }

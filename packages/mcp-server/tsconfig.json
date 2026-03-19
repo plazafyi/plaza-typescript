@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "plaza-mcp/*": ["./src/*"],
-      "plaza-mcp": ["./src/index.ts"]
+      "@plazafyi/mcp/*": ["./src/*"],
+      "@plazafyi/mcp": ["./src/index.ts"]
     },
     "noEmit": true,
 
