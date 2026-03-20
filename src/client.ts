@@ -28,7 +28,9 @@ import {
   BatchRequest,
   ElementBatchParams,
   ElementNearbyParams,
+  ElementNearbyPostParams,
   ElementQueryParams,
+  ElementQueryPostParams,
   ElementRetrieveParams,
   Elements,
 } from './resources/elements';
@@ -37,6 +39,7 @@ import {
   ElevationBatchParams,
   ElevationBatchResult,
   ElevationLookupParams,
+  ElevationLookupPostParams,
   ElevationLookupResult,
   ElevationProfileParams,
   ElevationProfileRequest,
@@ -46,11 +49,14 @@ import {
   AutocompleteResult,
   Geocode,
   GeocodeAutocompleteParams,
+  GeocodeAutocompletePostParams,
   GeocodeBatchParams,
   GeocodeBatchResponse,
   GeocodeForwardParams,
+  GeocodeForwardPostParams,
   GeocodeResult,
   GeocodeReverseParams,
+  GeocodeReversePostParams,
   GeocodingFeature,
   ReverseGeocodeResult,
 } from './resources/geocode';
@@ -67,6 +73,8 @@ import {
 import {
   OverpassQuery,
   Query,
+  QueryExecuteParams,
+  QueryExecuteResponse,
   QueryOverpassParams,
   QuerySparqlParams,
   SparqlQuery,
@@ -80,11 +88,15 @@ import {
   RouteResult,
   Routing,
   RoutingIsochroneParams,
+  RoutingIsochronePostParams,
+  RoutingIsochronePostResponse,
+  RoutingIsochroneResponse,
   RoutingMatrixParams,
   RoutingNearestParams,
+  RoutingNearestPostParams,
   RoutingRouteParams,
 } from './resources/routing';
-import { Search, SearchQueryParams } from './resources/search';
+import { Search, SearchQueryParams, SearchQueryPostParams } from './resources/search';
 import { TileGetParams, Tiles } from './resources/tiles';
 import { Error, FeatureCollection, GeoJsonFeature, GeoJsonGeometry } from './resources/top-level';
 import { type Fetch } from './internal/builtin-types';
@@ -850,7 +862,9 @@ export declare namespace Plaza {
     type ElementRetrieveParams as ElementRetrieveParams,
     type ElementBatchParams as ElementBatchParams,
     type ElementNearbyParams as ElementNearbyParams,
+    type ElementNearbyPostParams as ElementNearbyPostParams,
     type ElementQueryParams as ElementQueryParams,
+    type ElementQueryPostParams as ElementQueryPostParams,
   };
 
   export {
@@ -869,12 +883,19 @@ export declare namespace Plaza {
     type ReverseGeocodeResult as ReverseGeocodeResult,
     type GeocodeBatchResponse as GeocodeBatchResponse,
     type GeocodeAutocompleteParams as GeocodeAutocompleteParams,
+    type GeocodeAutocompletePostParams as GeocodeAutocompletePostParams,
     type GeocodeBatchParams as GeocodeBatchParams,
     type GeocodeForwardParams as GeocodeForwardParams,
+    type GeocodeForwardPostParams as GeocodeForwardPostParams,
     type GeocodeReverseParams as GeocodeReverseParams,
+    type GeocodeReversePostParams as GeocodeReversePostParams,
   };
 
-  export { Search as Search, type SearchQueryParams as SearchQueryParams };
+  export {
+    Search as Search,
+    type SearchQueryParams as SearchQueryParams,
+    type SearchQueryPostParams as SearchQueryPostParams,
+  };
 
   export {
     Routing as Routing,
@@ -883,9 +904,13 @@ export declare namespace Plaza {
     type NearestResult as NearestResult,
     type RouteRequest as RouteRequest,
     type RouteResult as RouteResult,
+    type RoutingIsochroneResponse as RoutingIsochroneResponse,
+    type RoutingIsochronePostResponse as RoutingIsochronePostResponse,
     type RoutingIsochroneParams as RoutingIsochroneParams,
+    type RoutingIsochronePostParams as RoutingIsochronePostParams,
     type RoutingMatrixParams as RoutingMatrixParams,
     type RoutingNearestParams as RoutingNearestParams,
+    type RoutingNearestPostParams as RoutingNearestPostParams,
     type RoutingRouteParams as RoutingRouteParams,
   };
 
@@ -897,6 +922,7 @@ export declare namespace Plaza {
     type ElevationProfileResult as ElevationProfileResult,
     type ElevationBatchParams as ElevationBatchParams,
     type ElevationLookupParams as ElevationLookupParams,
+    type ElevationLookupPostParams as ElevationLookupPostParams,
     type ElevationProfileParams as ElevationProfileParams,
   };
 
@@ -922,6 +948,8 @@ export declare namespace Plaza {
     type OverpassQuery as OverpassQuery,
     type SparqlQuery as SparqlQuery,
     type SparqlResult as SparqlResult,
+    type QueryExecuteResponse as QueryExecuteResponse,
+    type QueryExecuteParams as QueryExecuteParams,
     type QueryOverpassParams as QueryOverpassParams,
     type QuerySparqlParams as QuerySparqlParams,
   };

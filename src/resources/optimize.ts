@@ -3,24 +3,37 @@
 import { APIResource } from '../core/resource';
 import * as TopLevelAPI from './top-level';
 import { APIPromise } from '../core/api-promise';
-import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
 export class Optimize extends APIResource {
   /**
    * Optimize route through waypoints
+   *
+   * @example
+   * ```ts
+   * const optimizeResult = await client.optimize.create({
+   *   waypoints: [
+   *     { lat: 48.8566, lng: 2.3522 },
+   *     { lat: 48.8606, lng: 2.3376 },
+   *     { lat: 48.8584, lng: 2.2945 },
+   *   ],
+   * });
+   * ```
    */
   create(body: OptimizeCreateParams, options?: RequestOptions): APIPromise<OptimizeResult> {
-    return this._client.post('/api/v1/optimize', {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/geo+json' }, options?.headers]),
-    });
+    return this._client.post('/api/v1/optimize', { body, ...options });
   }
 
   /**
    * Get async optimization result
+   *
+   * @example
+   * ```ts
+   * const optimizeJobStatus = await client.optimize.retrieve(
+   *   'job_id',
+   * );
+   * ```
    */
   retrieve(jobID: string, options?: RequestOptions): APIPromise<OptimizeJobStatus> {
     return this._client.get(path`/api/v1/optimize/${jobID}`, options);
@@ -28,116 +41,182 @@ export class Optimize extends APIResource {
 }
 
 /**
- * Completed optimization — GeoJSON Feature with optimized route
+ * Completed optimization result as a GeoJSON FeatureCollection. Each Feature is a
+ * waypoint in optimized visit order. Top-level fields provide summary statistics.
  */
 export interface OptimizeCompletedResult {
-  geometry: TopLevelAPI.GeoJsonGeometry;
-
-  properties: OptimizeCompletedResult.Properties;
+  /**
+   * Waypoints in optimized visit order
+   */
+  features: Array<OptimizeCompletedResult.Feature>;
 
   /**
-   * Job status
+   * Optimization method used (e.g. `nearest_neighbor`, `2opt`)
    */
-  status: 'completed';
+  optimization: string;
 
-  type: 'Feature';
+  /**
+   * Whether the route returns to the starting waypoint
+   */
+  roundtrip: boolean;
+
+  /**
+   * Total travel time for the optimized route in seconds
+   */
+  total_cost_s: number;
+
+  type: 'FeatureCollection';
 }
 
 export namespace OptimizeCompletedResult {
-  export interface Properties {
+  /**
+   * GeoJSON Point Feature representing an optimized waypoint with cost data.
+   */
+  export interface Feature {
     /**
-     * Total distance in meters
+     * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
+     * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
      */
-    distance?: number;
+    geometry: TopLevelAPI.GeoJsonGeometry;
 
-    /**
-     * Estimated duration in seconds
-     */
-    duration?: number;
+    properties: Feature.Properties;
 
-    /**
-     * Optimized waypoint ordering
-     */
-    waypoint_order?: Array<number>;
+    type: 'Feature';
+  }
+
+  export namespace Feature {
+    export interface Properties {
+      /**
+       * Travel time in seconds from the previous waypoint to this one (0 for the first
+       * waypoint)
+       */
+      cost_s: number;
+
+      /**
+       * Cumulative travel time in seconds from the start to this waypoint
+       */
+      cumulative_cost_s: number;
+
+      /**
+       * Position of this waypoint in the optimized visit order (0-based)
+       */
+      waypoint_index: number;
+    }
   }
 }
 
 /**
- * Status of an async optimization job
+ * Status of an async optimization job. When `completed`, the `result` field
+ * contains the full OptimizeCompletedResult. When `processing`, the job is still
+ * running — poll again. Failed jobs return a standard Error response (HTTP 422),
+ * not this schema.
  */
 export interface OptimizeJobStatus {
   /**
-   * Job status
+   * Current job state
    */
-  status: 'completed' | 'processing' | 'failed';
+  status: 'completed' | 'processing';
 
   /**
-   * Error message when failed
+   * Completed optimization result as a GeoJSON FeatureCollection. Each Feature is a
+   * waypoint in optimized visit order. Top-level fields provide summary statistics.
    */
-  error?: string | null;
-
-  /**
-   * Optimization result when completed
-   */
-  result?: unknown | null;
+  result?: OptimizeCompletedResult | null;
 }
 
 /**
- * Async optimization in progress — poll with the job_id
+ * Async optimization in progress. Poll `GET /api/v1/optimize/{job_id}` until the
+ * status changes to `completed` or `failed`.
  */
 export interface OptimizeProcessingResult {
   /**
-   * Job ID for polling
+   * Job ID for polling the result
    */
   job_id: string;
 
   /**
-   * Job status
+   * Always `processing`
    */
   status: 'processing';
 }
 
 /**
- * Route optimization request through waypoints
+ * Route optimization (Travelling Salesman) request. Finds the most efficient order
+ * to visit a set of waypoints. Minimum 2 waypoints, maximum 50. For large inputs,
+ * the request may be processed asynchronously.
  */
 export interface OptimizeRequest {
   /**
-   * Waypoints to visit (GeoJSON MultiPoint geometry, minimum 2 points)
+   * Waypoints to visit in optimized order (2-50 points)
    */
-  waypoints: TopLevelAPI.GeoJsonGeometry;
+  waypoints: Array<OptimizeRequest.Waypoint>;
 
   /**
-   * Travel mode (default: auto)
+   * Travel mode (default: `auto`)
    */
   mode?: 'auto' | 'foot' | 'bicycle';
 
   /**
-   * Whether route returns to start (default: true)
+   * Whether the route should return to the starting waypoint (default: true)
    */
   roundtrip?: boolean;
 }
 
+export namespace OptimizeRequest {
+  /**
+   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
+   */
+  export interface Waypoint {
+    /**
+     * Latitude in decimal degrees (-90 to 90)
+     */
+    lat: number;
+
+    /**
+     * Longitude in decimal degrees (-180 to 180)
+     */
+    lng: number;
+  }
+}
+
 /**
- * Optimization response — either a completed GeoJSON Feature route or an async job
- * reference
+ * Optimization response — either a completed FeatureCollection with the optimized
+ * route, or an async job reference to poll.
  */
 export type OptimizeResult = OptimizeCompletedResult | OptimizeProcessingResult;
 
 export interface OptimizeCreateParams {
   /**
-   * Waypoints to visit (GeoJSON MultiPoint geometry, minimum 2 points)
+   * Waypoints to visit in optimized order (2-50 points)
    */
-  waypoints: TopLevelAPI.GeoJsonGeometry;
+  waypoints: Array<OptimizeCreateParams.Waypoint>;
 
   /**
-   * Travel mode (default: auto)
+   * Travel mode (default: `auto`)
    */
   mode?: 'auto' | 'foot' | 'bicycle';
 
   /**
-   * Whether route returns to start (default: true)
+   * Whether the route should return to the starting waypoint (default: true)
    */
   roundtrip?: boolean;
+}
+
+export namespace OptimizeCreateParams {
+  /**
+   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
+   */
+  export interface Waypoint {
+    /**
+     * Latitude in decimal degrees (-90 to 90)
+     */
+    lat: number;
+
+    /**
+     * Longitude in decimal degrees (-180 to 180)
+     */
+    lng: number;
+  }
 }
 
 export declare namespace Optimize {

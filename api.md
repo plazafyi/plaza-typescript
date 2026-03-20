@@ -17,8 +17,11 @@ Methods:
 
 - <code title="get /api/v1/features/{type}/{id}">client.elements.<a href="./src/resources/elements.ts">retrieve</a>(id, { ...params }) -> GeoJsonFeature</code>
 - <code title="post /api/v1/features/batch">client.elements.<a href="./src/resources/elements.ts">batch</a>({ ...params }) -> FeatureCollection</code>
+- <code title="post /api/v1/features/lookup">client.elements.<a href="./src/resources/elements.ts">lookup</a>() -> GeoJsonFeature</code>
 - <code title="get /api/v1/features/nearby">client.elements.<a href="./src/resources/elements.ts">nearby</a>({ ...params }) -> FeatureCollection</code>
+- <code title="post /api/v1/features/nearby">client.elements.<a href="./src/resources/elements.ts">nearbyPost</a>({ ...params }) -> FeatureCollection</code>
 - <code title="get /api/v1/features">client.elements.<a href="./src/resources/elements.ts">query</a>({ ...params }) -> FeatureCollection</code>
+- <code title="post /api/v1/features">client.elements.<a href="./src/resources/elements.ts">queryPost</a>({ ...params }) -> FeatureCollection</code>
 
 # Datasets
 
@@ -48,15 +51,19 @@ Types:
 Methods:
 
 - <code title="get /api/v1/geocode/autocomplete">client.geocode.<a href="./src/resources/geocode.ts">autocomplete</a>({ ...params }) -> AutocompleteResult</code>
-- <code title="post /api/v1/geocode/batch">client.geocode.<a href="./src/resources/geocode.ts">batch</a>({ ...params }) -> unknown</code>
+- <code title="post /api/v1/geocode/autocomplete">client.geocode.<a href="./src/resources/geocode.ts">autocompletePost</a>({ ...params }) -> AutocompleteResult</code>
+- <code title="post /api/v1/geocode/batch">client.geocode.<a href="./src/resources/geocode.ts">batch</a>({ ...params }) -> GeocodeBatchResponse</code>
 - <code title="get /api/v1/geocode">client.geocode.<a href="./src/resources/geocode.ts">forward</a>({ ...params }) -> GeocodeResult</code>
+- <code title="post /api/v1/geocode">client.geocode.<a href="./src/resources/geocode.ts">forwardPost</a>({ ...params }) -> GeocodeResult</code>
 - <code title="get /api/v1/geocode/reverse">client.geocode.<a href="./src/resources/geocode.ts">reverse</a>({ ...params }) -> ReverseGeocodeResult</code>
+- <code title="post /api/v1/geocode/reverse">client.geocode.<a href="./src/resources/geocode.ts">reversePost</a>({ ...params }) -> ReverseGeocodeResult</code>
 
 # Search
 
 Methods:
 
 - <code title="get /api/v1/search">client.search.<a href="./src/resources/search.ts">query</a>({ ...params }) -> FeatureCollection</code>
+- <code title="post /api/v1/search">client.search.<a href="./src/resources/search.ts">queryPost</a>({ ...params }) -> FeatureCollection</code>
 
 # Routing
 
@@ -67,12 +74,16 @@ Types:
 - <code><a href="./src/resources/routing.ts">NearestResult</a></code>
 - <code><a href="./src/resources/routing.ts">RouteRequest</a></code>
 - <code><a href="./src/resources/routing.ts">RouteResult</a></code>
+- <code><a href="./src/resources/routing.ts">RoutingIsochroneResponse</a></code>
+- <code><a href="./src/resources/routing.ts">RoutingIsochronePostResponse</a></code>
 
 Methods:
 
-- <code title="get /api/v1/isochrone">client.routing.<a href="./src/resources/routing.ts">isochrone</a>({ ...params }) -> GeoJsonFeature</code>
+- <code title="get /api/v1/isochrone">client.routing.<a href="./src/resources/routing.ts">isochrone</a>({ ...params }) -> RoutingIsochroneResponse</code>
+- <code title="post /api/v1/isochrone">client.routing.<a href="./src/resources/routing.ts">isochronePost</a>({ ...params }) -> RoutingIsochronePostResponse</code>
 - <code title="post /api/v1/matrix">client.routing.<a href="./src/resources/routing.ts">matrix</a>({ ...params }) -> MatrixResult</code>
 - <code title="get /api/v1/nearest">client.routing.<a href="./src/resources/routing.ts">nearest</a>({ ...params }) -> NearestResult</code>
+- <code title="post /api/v1/nearest">client.routing.<a href="./src/resources/routing.ts">nearestPost</a>({ ...params }) -> NearestResult</code>
 - <code title="post /api/v1/route">client.routing.<a href="./src/resources/routing.ts">route</a>({ ...params }) -> RouteResult</code>
 
 # Elevation
@@ -88,6 +99,7 @@ Methods:
 
 - <code title="post /api/v1/elevation/batch">client.elevation.<a href="./src/resources/elevation.ts">batch</a>({ ...params }) -> ElevationBatchResult</code>
 - <code title="get /api/v1/elevation">client.elevation.<a href="./src/resources/elevation.ts">lookup</a>({ ...params }) -> ElevationLookupResult</code>
+- <code title="post /api/v1/elevation">client.elevation.<a href="./src/resources/elevation.ts">lookupPost</a>({ ...params }) -> ElevationLookupResult</code>
 - <code title="post /api/v1/elevation/profile">client.elevation.<a href="./src/resources/elevation.ts">profile</a>({ ...params }) -> ElevationProfileResult</code>
 
 # MapMatch
@@ -123,9 +135,11 @@ Types:
 - <code><a href="./src/resources/query.ts">OverpassQuery</a></code>
 - <code><a href="./src/resources/query.ts">SparqlQuery</a></code>
 - <code><a href="./src/resources/query.ts">SparqlResult</a></code>
+- <code><a href="./src/resources/query.ts">QueryExecuteResponse</a></code>
 
 Methods:
 
+- <code title="post /api/v1/query">client.query.<a href="./src/resources/query.ts">execute</a>({ ...params }) -> QueryExecuteResponse</code>
 - <code title="post /api/v1/overpass">client.query.<a href="./src/resources/query.ts">overpass</a>({ ...params }) -> FeatureCollection</code>
 - <code title="post /api/v1/sparql">client.query.<a href="./src/resources/query.ts">sparql</a>({ ...params }) -> SparqlResult</code>
 
