@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.2.0 (2026-03-20)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/plazafyi/plaza-typescript/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** api update ([c266a83](https://github.com/plazafyi/plaza-typescript/commit/c266a838c41d5011713aa781f31afe159dcd0031))
+
+
+### Chores
+
+* **internal:** configure MCP Server hosting ([3ef82d7](https://github.com/plazafyi/plaza-typescript/commit/3ef82d7e02a8083c2112889aee4cfd865e1aa846))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([6573d6e](https://github.com/plazafyi/plaza-typescript/commit/6573d6e49d3801b66da66a4ef4c286d41113f2dd))
+
 ## 0.1.0 (2026-03-19)
 
 Full Changelog: [v0.0.2...v0.1.0](https://github.com/plazafyi/plaza-typescript/compare/v0.0.2...v0.1.0)
