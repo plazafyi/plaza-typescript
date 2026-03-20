@@ -32,6 +32,7 @@ describe('resource optimize', () => {
         { lat: 48.8606, lng: 2.3376 },
         { lat: 48.8584, lng: 2.2945 },
       ],
+      format: 'format',
       mode: 'auto',
       roundtrip: false,
     });

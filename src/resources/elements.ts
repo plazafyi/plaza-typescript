@@ -150,6 +150,7 @@ export class Elements extends APIResource {
       contains,
       crosses,
       cursor,
+      format,
       h3,
       intersects,
       limit,
@@ -173,6 +174,7 @@ export class Elements extends APIResource {
         contains,
         crosses,
         cursor,
+        format,
         h3,
         intersects,
         limit,
@@ -413,6 +415,12 @@ export interface ElementQueryParams {
   cursor?: string;
 
   /**
+   * Response format. json (default) returns paginated GeoJSON. geojson/csv/ndjson
+   * stream via chunked transfer encoding.
+   */
+  format?: string;
+
+  /**
    * Legacy shorthand. H3 cell index. Use spatial predicates instead.
    */
   h3?: string;
@@ -514,6 +522,12 @@ export interface ElementQueryPostParams {
    * Cursor for pagination
    */
   cursor?: string;
+
+  /**
+   * Response format. json (default) returns paginated GeoJSON. geojson/csv/ndjson
+   * stream via chunked transfer encoding.
+   */
+  format?: string;
 
   /**
    * Legacy shorthand. H3 cell index. Use spatial predicates instead.

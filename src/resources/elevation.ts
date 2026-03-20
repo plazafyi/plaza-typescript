@@ -19,8 +19,9 @@ export class Elevation extends APIResource {
    * });
    * ```
    */
-  batch(body: ElevationBatchParams, options?: RequestOptions): APIPromise<ElevationBatchResult> {
-    return this._client.post('/api/v1/elevation/batch', { body, ...options });
+  batch(params: ElevationBatchParams, options?: RequestOptions): APIPromise<ElevationBatchResult> {
+    const { format, ...body } = params;
+    return this._client.post('/api/v1/elevation/batch', { query: { format }, body, ...options });
   }
 
   /**
@@ -53,6 +54,7 @@ export class Elevation extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ElevationLookupResult> {
     const {
+      format,
       lat,
       lng,
       locations,
@@ -62,6 +64,7 @@ export class Elevation extends APIResource {
     } = params ?? {};
     return this._client.post('/api/v1/elevation', {
       query: {
+        format,
         lat,
         lng,
         locations,
@@ -214,9 +217,14 @@ export namespace ElevationProfileResult {
 
 export interface ElevationBatchParams {
   /**
-   * Coordinates to look up elevations for (max 50)
+   * Body param: Coordinates to look up elevations for (max 50)
    */
   coordinates: Array<ElevationBatchParams.Coordinate>;
+
+  /**
+   * Query param: Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
 }
 
 export namespace ElevationBatchParams {
@@ -237,6 +245,11 @@ export namespace ElevationBatchParams {
 }
 
 export interface ElevationLookupParams {
+  /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
+
   /**
    * Latitude (single point)
    */
@@ -269,6 +282,11 @@ export interface ElevationLookupParams {
 }
 
 export interface ElevationLookupPostParams {
+  /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
+
   /**
    * Latitude (single point)
    */

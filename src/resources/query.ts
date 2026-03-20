@@ -30,8 +30,9 @@ export class Query extends APIResource {
    * });
    * ```
    */
-  overpass(body: QueryOverpassParams, options?: RequestOptions): APIPromise<TopLevelAPI.FeatureCollection> {
-    return this._client.post('/api/v1/overpass', { body, ...options });
+  overpass(params: QueryOverpassParams, options?: RequestOptions): APIPromise<TopLevelAPI.FeatureCollection> {
+    const { format, ...body } = params;
+    return this._client.post('/api/v1/overpass', { query: { format }, body, ...options });
   }
 
   /**
@@ -150,9 +151,14 @@ export namespace QueryExecuteParams {
 
 export interface QueryOverpassParams {
   /**
-   * Overpass QL query string
+   * Body param: Overpass QL query string
    */
   data: string;
+
+  /**
+   * Query param: Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
 }
 
 export interface QuerySparqlParams {

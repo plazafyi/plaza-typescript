@@ -23,6 +23,7 @@ describe('resource search', () => {
     const response = await client.search.query({
       q: 'q',
       cursor: 'cursor',
+      format: 'format',
       limit: 0,
       'output[fields]': 'output[fields]',
       'output[include]': 'output[include]',
@@ -46,6 +47,7 @@ describe('resource search', () => {
     const response = await client.search.queryPost({
       q: 'q',
       cursor: 'cursor',
+      format: 'format',
       limit: 0,
       'output[fields]': 'output[fields]',
       'output[include]': 'output[include]',

@@ -181,6 +181,11 @@ export interface DatasetFeaturesParams {
   cursor?: string;
 
   /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
+
+  /**
    * Maximum results
    */
   limit?: number;

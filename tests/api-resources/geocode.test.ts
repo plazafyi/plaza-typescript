@@ -23,6 +23,7 @@ describe('resource geocode', () => {
     const response = await client.geocode.autocomplete({
       q: 'q',
       country_code: 'country_code',
+      format: 'format',
       lang: 'lang',
       lat: 0,
       layer: 'layer',
@@ -46,6 +47,7 @@ describe('resource geocode', () => {
     const response = await client.geocode.autocompletePost({
       q: 'q',
       country_code: 'country_code',
+      format: 'format',
       lang: 'lang',
       lat: 0,
       layer: 'layer',
@@ -85,6 +87,7 @@ describe('resource geocode', () => {
       q: 'q',
       bbox: 'bbox',
       country_code: 'country_code',
+      format: 'format',
       lang: 'lang',
       lat: 0,
       layer: 'layer',
@@ -109,6 +112,7 @@ describe('resource geocode', () => {
       q: 'q',
       bbox: 'bbox',
       country_code: 'country_code',
+      format: 'format',
       lang: 'lang',
       lat: 0,
       layer: 'layer',
@@ -133,6 +137,7 @@ describe('resource geocode', () => {
     await expect(
       client.geocode.reverse(
         {
+          format: 'format',
           lang: 'lang',
           lat: 0,
           layer: 'layer',
@@ -162,6 +167,7 @@ describe('resource geocode', () => {
     await expect(
       client.geocode.reversePost(
         {
+          format: 'format',
           lang: 'lang',
           lat: 0,
           layer: 'layer',

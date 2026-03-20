@@ -23,6 +23,7 @@ export class Search extends APIResource {
     const {
       q,
       cursor,
+      format,
       limit,
       'output[fields]': outputFields,
       'output[include]': outputInclude,
@@ -33,6 +34,7 @@ export class Search extends APIResource {
       query: {
         q,
         cursor,
+        format,
         limit,
         'output[fields]': outputFields,
         'output[include]': outputInclude,
@@ -54,6 +56,11 @@ export interface SearchQueryParams {
    * Cursor for pagination
    */
   cursor?: string;
+
+  /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
 
   /**
    * Maximum results (default 25, max 100)
@@ -91,6 +98,11 @@ export interface SearchQueryPostParams {
    * Cursor for pagination
    */
   cursor?: string;
+
+  /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
 
   /**
    * Maximum results (default 25, max 100)

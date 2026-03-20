@@ -28,6 +28,7 @@ describe('resource routing', () => {
       lat: 0,
       lng: 0,
       time: 0,
+      format: 'format',
       mode: 'mode',
       'output[fields]': 'output[fields]',
       'output[geometry]': true,
@@ -57,6 +58,7 @@ describe('resource routing', () => {
       lat: 0,
       lng: 0,
       time: 0,
+      format: 'format',
       mode: 'mode',
       'output[fields]': 'output[fields]',
       'output[geometry]': true,
@@ -158,6 +160,7 @@ describe('resource routing', () => {
     const response = await client.routing.route({
       destination: { lat: 48.8584, lng: 2.2945 },
       origin: { lat: 48.8566, lng: 2.3522 },
+      format: 'format',
       alternatives: 0,
       annotations: true,
       depart_at: '2019-12-27T18:11:19.117Z',
