@@ -13,7 +13,9 @@ export {
   type ElementRetrieveParams,
   type ElementBatchParams,
   type ElementNearbyParams,
+  type ElementNearbyPostParams,
   type ElementQueryParams,
+  type ElementQueryPostParams,
 } from './elements';
 export {
   Elevation,
@@ -23,6 +25,7 @@ export {
   type ElevationProfileResult,
   type ElevationBatchParams,
   type ElevationLookupParams,
+  type ElevationLookupPostParams,
   type ElevationProfileParams,
 } from './elevation';
 export {
@@ -33,9 +36,12 @@ export {
   type ReverseGeocodeResult,
   type GeocodeBatchResponse,
   type GeocodeAutocompleteParams,
+  type GeocodeAutocompletePostParams,
   type GeocodeBatchParams,
   type GeocodeForwardParams,
+  type GeocodeForwardPostParams,
   type GeocodeReverseParams,
+  type GeocodeReversePostParams,
 } from './geocode';
 export { MapMatch, type MapMatchRequest, type MapMatchResult, type MapMatchMatchParams } from './map-match';
 export {
@@ -52,6 +58,8 @@ export {
   type OverpassQuery,
   type SparqlQuery,
   type SparqlResult,
+  type QueryExecuteResponse,
+  type QueryExecuteParams,
   type QueryOverpassParams,
   type QuerySparqlParams,
 } from './query';
@@ -62,11 +70,15 @@ export {
   type NearestResult,
   type RouteRequest,
   type RouteResult,
+  type RoutingIsochroneResponse,
+  type RoutingIsochronePostResponse,
   type RoutingIsochroneParams,
+  type RoutingIsochronePostParams,
   type RoutingMatrixParams,
   type RoutingNearestParams,
+  type RoutingNearestPostParams,
   type RoutingRouteParams,
 } from './routing';
-export { Search, type SearchQueryParams } from './search';
+export { Search, type SearchQueryParams, type SearchQueryPostParams } from './search';
 export { Tiles, type TileGetParams } from './tiles';
 export { type Error, type FeatureCollection, type GeoJsonFeature, type GeoJsonGeometry } from './top-level';

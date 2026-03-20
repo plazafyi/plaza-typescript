@@ -8,8 +8,7 @@ const client = new Plaza({
 });
 
 describe('resource search', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('query: only required params', async () => {
+  test('query: only required params', async () => {
     const responsePromise = client.search.query({ q: 'q' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,12 +19,38 @@ describe('resource search', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('query: required and optional params', async () => {
+  test('query: required and optional params', async () => {
     const response = await client.search.query({
       q: 'q',
       cursor: 'cursor',
       limit: 0,
+      'output[fields]': 'output[fields]',
+      'output[include]': 'output[include]',
+      'output[precision]': 0,
+      'output[sort]': 'output[sort]',
+    });
+  });
+
+  test('queryPost: only required params', async () => {
+    const responsePromise = client.search.queryPost({ q: 'q' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('queryPost: required and optional params', async () => {
+    const response = await client.search.queryPost({
+      q: 'q',
+      cursor: 'cursor',
+      limit: 0,
+      'output[fields]': 'output[fields]',
+      'output[include]': 'output[include]',
+      'output[precision]': 0,
+      'output[sort]': 'output[sort]',
     });
   });
 });

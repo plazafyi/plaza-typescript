@@ -8,8 +8,7 @@ const client = new Plaza({
 });
 
 describe('resource tiles', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('get: required and optional params', async () => {
+  test('get: required and optional params', async () => {
     const response = await client.tiles.get(0, { z: 0, x: 0 });
   });
 });
