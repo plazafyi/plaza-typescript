@@ -9,7 +9,7 @@ const client = new Plaza({
 
 describe('resource datasets', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.datasets.create({ name: 'name', slug: 'slug' });
+    const responsePromise = client.datasets.create({ name: 'NYC Bike Lanes', slug: 'nyc-bike-lanes' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,12 +21,12 @@ describe('resource datasets', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.datasets.create({
-      name: 'name',
-      slug: 'slug',
+      name: 'NYC Bike Lanes',
+      slug: 'nyc-bike-lanes',
       attribution: 'attribution',
       description: 'description',
       license: 'license',
-      source_url: 'source_url',
+      source_url: 'https://example.com',
     });
   });
 
@@ -77,7 +77,22 @@ describe('resource datasets', () => {
   test('features: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.datasets.features('id', { cursor: 'cursor', limit: 0 }, { path: '/_stainless_unknown_path' }),
+      client.datasets.features(
+        'id',
+        {
+          cursor: 'cursor',
+          limit: 0,
+          'output[buffer]': 0,
+          'output[centroid]': true,
+          'output[fields]': 'output[fields]',
+          'output[geometry]': true,
+          'output[include]': 'output[include]',
+          'output[precision]': 0,
+          'output[simplify]': 0,
+          'output[sort]': 'output[sort]',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Plaza.NotFoundError);
   });
 });

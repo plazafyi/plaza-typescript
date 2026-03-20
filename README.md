@@ -36,11 +36,7 @@ const client = new Plaza({
   environment: 'local', // defaults to 'production'
 });
 
-const featureCollection = await client.elements.nearby({
-  lat: 48.8584,
-  lng: 0,
-  radius: 500,
-});
+const featureCollection = await client.elements.query({ near: '48.8584,2.2945', radius: 500 });
 
 console.log(featureCollection.features);
 ```
@@ -58,12 +54,8 @@ const client = new Plaza({
   environment: 'local', // defaults to 'production'
 });
 
-const params: Plaza.ElementNearbyParams = {
-  lat: 48.8584,
-  lng: 0,
-  radius: 500,
-};
-const featureCollection: Plaza.FeatureCollection = await client.elements.nearby(params);
+const params: Plaza.ElementQueryParams = { near: '48.8584,2.2945', radius: 500 };
+const featureCollection: Plaza.FeatureCollection = await client.elements.query(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -77,11 +69,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 const featureCollection = await client.elements
-  .nearby({
-    lat: 48.8584,
-    lng: 0,
-    radius: 500,
-  })
+  .query({ near: '48.8584,2.2945', radius: 500 })
   .catch(async (err) => {
     if (err instanceof Plaza.APIError) {
       console.log(err.status); // 400
@@ -122,11 +110,7 @@ const client = new Plaza({
 });
 
 // Or, configure per-request:
-await client.elements.nearby({
-  lat: 48.8584,
-  lng: 0,
-  radius: 500,
-}, {
+await client.elements.query({ near: '48.8584,2.2945', radius: 500 }, {
   maxRetries: 5,
 });
 ```
@@ -143,11 +127,7 @@ const client = new Plaza({
 });
 
 // Override per-request:
-await client.elements.nearby({
-  lat: 48.8584,
-  lng: 0,
-  radius: 500,
-}, {
+await client.elements.query({ near: '48.8584,2.2945', radius: 500 }, {
   timeout: 5 * 1000,
 });
 ```
@@ -170,22 +150,12 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Plaza();
 
-const response = await client.elements
-  .nearby({
-    lat: 48.8584,
-    lng: 0,
-    radius: 500,
-  })
-  .asResponse();
+const response = await client.elements.query({ near: '48.8584,2.2945', radius: 500 }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: featureCollection, response: raw } = await client.elements
-  .nearby({
-    lat: 48.8584,
-    lng: 0,
-    radius: 500,
-  })
+  .query({ near: '48.8584,2.2945', radius: 500 })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(featureCollection.features);
@@ -268,7 +238,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.elements.nearby({
+client.elements.query({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
