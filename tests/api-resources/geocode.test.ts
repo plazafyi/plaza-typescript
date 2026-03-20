@@ -8,8 +8,7 @@ const client = new Plaza({
 });
 
 describe('resource geocode', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('autocomplete: only required params', async () => {
+  test('autocomplete: only required params', async () => {
     const responsePromise = client.geocode.autocomplete({ q: 'q' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource geocode', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('autocomplete: required and optional params', async () => {
+  test('autocomplete: required and optional params', async () => {
     const response = await client.geocode.autocomplete({
       q: 'q',
       country_code: 'country_code',
@@ -33,8 +31,7 @@ describe('resource geocode', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('batch: only required params', async () => {
+  test('batch: only required params', async () => {
     const responsePromise = client.geocode.batch({ addresses: ['string'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -45,13 +42,11 @@ describe('resource geocode', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('batch: required and optional params', async () => {
+  test('batch: required and optional params', async () => {
     const response = await client.geocode.batch({ addresses: ['string'] });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('forward: only required params', async () => {
+  test('forward: only required params', async () => {
     const responsePromise = client.geocode.forward({ q: 'q' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -62,8 +57,7 @@ describe('resource geocode', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('forward: required and optional params', async () => {
+  test('forward: required and optional params', async () => {
     const response = await client.geocode.forward({
       q: 'q',
       bbox: 'bbox',
@@ -76,8 +70,7 @@ describe('resource geocode', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('reverse: only required params', async () => {
+  test('reverse: only required params', async () => {
     const responsePromise = client.geocode.reverse({ lat: 0, lng: 0 });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -88,8 +81,7 @@ describe('resource geocode', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('reverse: required and optional params', async () => {
+  test('reverse: required and optional params', async () => {
     const response = await client.geocode.reverse({
       lat: 0,
       lng: 0,

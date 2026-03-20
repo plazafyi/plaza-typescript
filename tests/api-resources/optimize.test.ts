@@ -8,8 +8,7 @@ const client = new Plaza({
 });
 
 describe('resource optimize', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.optimize.create({ waypoints: { coordinates: [0], type: 'Point' } });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource optimize', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.optimize.create({
       waypoints: { coordinates: [0], type: 'Point' },
       mode: 'auto',
@@ -29,8 +27,7 @@ describe('resource optimize', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.optimize.retrieve('job_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
