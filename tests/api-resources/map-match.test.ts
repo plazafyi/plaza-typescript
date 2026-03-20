@@ -8,8 +8,7 @@ const client = new Plaza({
 });
 
 describe('resource mapMatch', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('match: only required params', async () => {
+  test('match: only required params', async () => {
     const responsePromise = client.mapMatch.match({ trace: { coordinates: [0], type: 'Point' } });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource mapMatch', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('match: required and optional params', async () => {
+  test('match: required and optional params', async () => {
     const response = await client.mapMatch.match({
       trace: { coordinates: [0], type: 'Point' },
       radiuses: [0],

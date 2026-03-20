@@ -8,8 +8,7 @@ const client = new Plaza({
 });
 
 describe('resource query', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('overpass: only required params', async () => {
+  test('overpass: only required params', async () => {
     const responsePromise = client.query.overpass({ data: 'data' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,13 +19,11 @@ describe('resource query', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('overpass: required and optional params', async () => {
+  test('overpass: required and optional params', async () => {
     const response = await client.query.overpass({ data: 'data' });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('sparql: only required params', async () => {
+  test('sparql: only required params', async () => {
     const responsePromise = client.query.sparql({ query: 'query' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -37,8 +34,7 @@ describe('resource query', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('sparql: required and optional params', async () => {
+  test('sparql: required and optional params', async () => {
     const response = await client.query.sparql({ query: 'query' });
   });
 });

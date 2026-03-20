@@ -8,8 +8,7 @@ const client = new Plaza({
 });
 
 describe('resource elevation', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('batch: only required params', async () => {
+  test('batch: only required params', async () => {
     const responsePromise = client.elevation.batch({ geometry: { coordinates: [0], type: 'Point' } });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,13 +19,11 @@ describe('resource elevation', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('batch: required and optional params', async () => {
+  test('batch: required and optional params', async () => {
     const response = await client.elevation.batch({ geometry: { coordinates: [0], type: 'Point' } });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('lookup', async () => {
+  test('lookup', async () => {
     const responsePromise = client.elevation.lookup();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -37,8 +34,7 @@ describe('resource elevation', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('lookup: request options and params are passed correctly', async () => {
+  test('lookup: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.elevation.lookup(
@@ -52,8 +48,7 @@ describe('resource elevation', () => {
     ).rejects.toThrow(Plaza.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('profile: only required params', async () => {
+  test('profile: only required params', async () => {
     const responsePromise = client.elevation.profile({ geometry: { coordinates: [0], type: 'Point' } });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -64,8 +59,7 @@ describe('resource elevation', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('profile: required and optional params', async () => {
+  test('profile: required and optional params', async () => {
     const response = await client.elevation.profile({ geometry: { coordinates: [0], type: 'Point' } });
   });
 });

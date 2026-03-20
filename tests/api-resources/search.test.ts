@@ -8,8 +8,7 @@ const client = new Plaza({
 });
 
 describe('resource search', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('query: only required params', async () => {
+  test('query: only required params', async () => {
     const responsePromise = client.search.query({ q: 'q' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource search', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('query: required and optional params', async () => {
+  test('query: required and optional params', async () => {
     const response = await client.search.query({
       q: 'q',
       cursor: 'cursor',

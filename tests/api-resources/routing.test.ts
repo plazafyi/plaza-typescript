@@ -8,8 +8,7 @@ const client = new Plaza({
 });
 
 describe('resource routing', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('isochrone: only required params', async () => {
+  test('isochrone: only required params', async () => {
     const responsePromise = client.routing.isochrone({
       lat: 0,
       lng: 0,
@@ -24,8 +23,7 @@ describe('resource routing', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('isochrone: required and optional params', async () => {
+  test('isochrone: required and optional params', async () => {
     const response = await client.routing.isochrone({
       lat: 0,
       lng: 0,
@@ -34,8 +32,7 @@ describe('resource routing', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('matrix: only required params', async () => {
+  test('matrix: only required params', async () => {
     const responsePromise = client.routing.matrix({
       destinations: { coordinates: [0], type: 'Point' },
       origins: { coordinates: [0], type: 'Point' },
@@ -49,8 +46,7 @@ describe('resource routing', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('matrix: required and optional params', async () => {
+  test('matrix: required and optional params', async () => {
     const response = await client.routing.matrix({
       destinations: { coordinates: [0], type: 'Point' },
       origins: { coordinates: [0], type: 'Point' },
@@ -58,8 +54,7 @@ describe('resource routing', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('nearest: only required params', async () => {
+  test('nearest: only required params', async () => {
     const responsePromise = client.routing.nearest({ lat: 0, lng: 0 });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -70,8 +65,7 @@ describe('resource routing', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('nearest: required and optional params', async () => {
+  test('nearest: required and optional params', async () => {
     const response = await client.routing.nearest({
       lat: 0,
       lng: 0,
@@ -79,8 +73,7 @@ describe('resource routing', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('route: only required params', async () => {
+  test('route: only required params', async () => {
     const responsePromise = client.routing.route({
       destination: { coordinates: [0], type: 'Point' },
       origin: { coordinates: [0], type: 'Point' },
@@ -94,8 +87,7 @@ describe('resource routing', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('route: required and optional params', async () => {
+  test('route: required and optional params', async () => {
     const response = await client.routing.route({
       destination: { coordinates: [0], type: 'Point' },
       origin: { coordinates: [0], type: 'Point' },

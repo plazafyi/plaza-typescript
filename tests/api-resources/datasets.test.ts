@@ -8,8 +8,7 @@ const client = new Plaza({
 });
 
 describe('resource datasets', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.datasets.create({ name: 'name', slug: 'slug' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource datasets', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.datasets.create({
       name: 'name',
       slug: 'slug',
@@ -32,8 +30,7 @@ describe('resource datasets', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.datasets.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -44,8 +41,7 @@ describe('resource datasets', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.datasets.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -56,8 +52,7 @@ describe('resource datasets', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.datasets.delete('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -68,8 +63,7 @@ describe('resource datasets', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('features', async () => {
+  test('features', async () => {
     const responsePromise = client.datasets.features('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -80,8 +74,7 @@ describe('resource datasets', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('features: request options and params are passed correctly', async () => {
+  test('features: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.datasets.features('id', { cursor: 'cursor', limit: 0 }, { path: '/_stainless_unknown_path' }),
