@@ -30,6 +30,7 @@ describe('resource elevation', () => {
         { lat: 48.8566, lng: 2.3522 },
         { lat: 45.764, lng: 4.8357 },
       ],
+      format: 'format',
     });
   });
 
@@ -49,6 +50,7 @@ describe('resource elevation', () => {
     await expect(
       client.elevation.lookup(
         {
+          format: 'format',
           lat: 0,
           lng: 0,
           locations: 'locations',
@@ -77,6 +79,7 @@ describe('resource elevation', () => {
     await expect(
       client.elevation.lookupPost(
         {
+          format: 'format',
           lat: 0,
           lng: 0,
           locations: 'locations',

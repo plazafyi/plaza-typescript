@@ -20,9 +20,9 @@ export class Geocode extends APIResource {
     params: GeocodeAutocompletePostParams,
     options?: RequestOptions,
   ): APIPromise<AutocompleteResult> {
-    const { q, country_code, lang, lat, layer, limit, lng } = params;
+    const { q, country_code, format, lang, lat, layer, limit, lng } = params;
     return this._client.post('/api/v1/geocode/autocomplete', {
-      query: { q, country_code, lang, lat, layer, limit, lng },
+      query: { q, country_code, format, lang, lat, layer, limit, lng },
       ...options,
     });
   }
@@ -45,9 +45,9 @@ export class Geocode extends APIResource {
    * Forward geocode an address
    */
   forwardPost(params: GeocodeForwardPostParams, options?: RequestOptions): APIPromise<GeocodeResult> {
-    const { q, bbox, country_code, lang, lat, layer, limit, lng } = params;
+    const { q, bbox, country_code, format, lang, lat, layer, limit, lng } = params;
     return this._client.post('/api/v1/geocode', {
-      query: { q, bbox, country_code, lang, lat, layer, limit, lng },
+      query: { q, bbox, country_code, format, lang, lat, layer, limit, lng },
       ...options,
     });
   }
@@ -69,9 +69,9 @@ export class Geocode extends APIResource {
     params: GeocodeReversePostParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<ReverseGeocodeResult> {
-    const { lang, lat, layer, limit, lng, near, radius } = params ?? {};
+    const { format, lang, lat, layer, limit, lng, near, radius } = params ?? {};
     return this._client.post('/api/v1/geocode/reverse', {
-      query: { lang, lat, layer, limit, lng, near, radius },
+      query: { format, lang, lat, layer, limit, lng, near, radius },
       ...options,
     });
   }
@@ -283,6 +283,11 @@ export interface GeocodeAutocompleteParams {
   country_code?: string;
 
   /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
+
+  /**
    * Language code for localized names (e.g. en, de, fr)
    */
   lang?: string;
@@ -318,6 +323,11 @@ export interface GeocodeAutocompletePostParams {
    * ISO 3166-1 alpha-2 country code filter
    */
   country_code?: string;
+
+  /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
 
   /**
    * Language code for localized names (e.g. en, de, fr)
@@ -366,6 +376,11 @@ export interface GeocodeForwardParams {
   country_code?: string;
 
   /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
+
+  /**
    * Language code for localized names (e.g. en, de, fr)
    */
   lang?: string;
@@ -408,6 +423,11 @@ export interface GeocodeForwardPostParams {
   country_code?: string;
 
   /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
+
+  /**
    * Language code for localized names (e.g. en, de, fr)
    */
   lang?: string;
@@ -434,6 +454,11 @@ export interface GeocodeForwardPostParams {
 }
 
 export interface GeocodeReverseParams {
+  /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
+
   /**
    * Language code for localized names (e.g. en, de, fr)
    */
@@ -472,6 +497,11 @@ export interface GeocodeReverseParams {
 }
 
 export interface GeocodeReversePostParams {
+  /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
+
   /**
    * Language code for localized names (e.g. en, de, fr)
    */

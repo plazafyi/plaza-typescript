@@ -42,6 +42,7 @@ export class Routing extends APIResource {
       lat,
       lng,
       time,
+      format,
       mode,
       'output[fields]': outputFields,
       'output[geometry]': outputGeometry,
@@ -54,6 +55,7 @@ export class Routing extends APIResource {
         lat,
         lng,
         time,
+        format,
         mode,
         'output[fields]': outputFields,
         'output[geometry]': outputGeometry,
@@ -142,8 +144,9 @@ export class Routing extends APIResource {
    * });
    * ```
    */
-  route(body: RoutingRouteParams, options?: RequestOptions): APIPromise<RouteResult> {
-    return this._client.post('/api/v1/route', { body, ...options });
+  route(params: RoutingRouteParams, options?: RequestOptions): APIPromise<RouteResult> {
+    const { format, ...body } = params;
+    return this._client.post('/api/v1/route', { query: { format }, body, ...options });
   }
 }
 
@@ -631,6 +634,11 @@ export interface RoutingIsochroneParams {
   time: number;
 
   /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
+
+  /**
    * Travel mode (auto, foot, bicycle)
    */
   mode?: string;
@@ -676,6 +684,11 @@ export interface RoutingIsochronePostParams {
    * Travel time in seconds (1-7200)
    */
   time: number;
+
+  /**
+   * Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
 
   /**
    * Travel mode (auto, foot, bicycle)
@@ -835,69 +848,76 @@ export interface RoutingNearestPostParams {
 
 export interface RoutingRouteParams {
   /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
+   * Body param: Geographic coordinate as a JSON object with `lat` and `lng` fields.
    */
   destination: RoutingRouteParams.Destination;
 
   /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
+   * Body param: Geographic coordinate as a JSON object with `lat` and `lng` fields.
    */
   origin: RoutingRouteParams.Origin;
 
   /**
-   * Number of alternative routes to return (0-3, default 0). When > 0, response is a
-   * FeatureCollection of route Features.
+   * Query param: Response format for alternatives: json (default), geojson, csv,
+   * ndjson
+   */
+  format?: string;
+
+  /**
+   * Body param: Number of alternative routes to return (0-3, default 0). When > 0,
+   * response is a FeatureCollection of route Features.
    */
   alternatives?: number;
 
   /**
-   * Include per-edge annotations (speed, duration) on the route (default: false)
+   * Body param: Include per-edge annotations (speed, duration) on the route
+   * (default: false)
    */
   annotations?: boolean;
 
   /**
-   * Departure time for traffic-aware routing (ISO 8601)
+   * Body param: Departure time for traffic-aware routing (ISO 8601)
    */
   depart_at?: string | null;
 
   /**
-   * Electric vehicle parameters for EV-aware routing
+   * Body param: Electric vehicle parameters for EV-aware routing
    */
   ev?: RoutingRouteParams.Ev | null;
 
   /**
-   * Comma-separated road types to exclude (e.g. `toll,motorway,ferry`)
+   * Body param: Comma-separated road types to exclude (e.g. `toll,motorway,ferry`)
    */
   exclude?: string | null;
 
   /**
-   * Geometry encoding format. Default: `geojson`.
+   * Body param: Geometry encoding format. Default: `geojson`.
    */
   geometries?: 'geojson' | 'polyline' | 'polyline6';
 
   /**
-   * Travel mode (default: `auto`)
+   * Body param: Travel mode (default: `auto`)
    */
   mode?: 'auto' | 'foot' | 'bicycle';
 
   /**
-   * Level of geometry detail: `full` (all points), `simplified` (Douglas-Peucker),
-   * `false` (no geometry). Default: `full`.
+   * Body param: Level of geometry detail: `full` (all points), `simplified`
+   * (Douglas-Peucker), `false` (no geometry). Default: `full`.
    */
   overview?: 'full' | 'simplified' | 'false';
 
   /**
-   * Include turn-by-turn navigation steps (default: false)
+   * Body param: Include turn-by-turn navigation steps (default: false)
    */
   steps?: boolean;
 
   /**
-   * Traffic prediction model (only used when `depart_at` is set)
+   * Body param: Traffic prediction model (only used when `depart_at` is set)
    */
   traffic_model?: 'best_guess' | 'optimistic' | 'pessimistic' | null;
 
   /**
-   * Intermediate waypoints to visit in order (maximum 25)
+   * Body param: Intermediate waypoints to visit in order (maximum 25)
    */
   waypoints?: Array<RoutingRouteParams.Waypoint> | null;
 }

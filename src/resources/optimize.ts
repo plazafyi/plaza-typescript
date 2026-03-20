@@ -21,8 +21,9 @@ export class Optimize extends APIResource {
    * });
    * ```
    */
-  create(body: OptimizeCreateParams, options?: RequestOptions): APIPromise<OptimizeResult> {
-    return this._client.post('/api/v1/optimize', { body, ...options });
+  create(params: OptimizeCreateParams, options?: RequestOptions): APIPromise<OptimizeResult> {
+    const { format, ...body } = params;
+    return this._client.post('/api/v1/optimize', { query: { format }, body, ...options });
   }
 
   /**
@@ -187,17 +188,23 @@ export type OptimizeResult = OptimizeCompletedResult | OptimizeProcessingResult;
 
 export interface OptimizeCreateParams {
   /**
-   * Waypoints to visit in optimized order (2-50 points)
+   * Body param: Waypoints to visit in optimized order (2-50 points)
    */
   waypoints: Array<OptimizeCreateParams.Waypoint>;
 
   /**
-   * Travel mode (default: `auto`)
+   * Query param: Response format: json (default), geojson, csv, ndjson
+   */
+  format?: string;
+
+  /**
+   * Body param: Travel mode (default: `auto`)
    */
   mode?: 'auto' | 'foot' | 'bicycle';
 
   /**
-   * Whether the route should return to the starting waypoint (default: true)
+   * Body param: Whether the route should return to the starting waypoint (default:
+   * true)
    */
   roundtrip?: boolean;
 }

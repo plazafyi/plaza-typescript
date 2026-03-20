@@ -81,6 +81,7 @@ describe('resource datasets', () => {
         'id',
         {
           cursor: 'cursor',
+          format: 'format',
           limit: 0,
           'output[buffer]': 0,
           'output[centroid]': true,
