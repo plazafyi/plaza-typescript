@@ -76,9 +76,6 @@ import {
   QueryExecuteParams,
   QueryExecuteResponse,
   QueryOverpassParams,
-  QuerySparqlParams,
-  SparqlQuery,
-  SparqlResult,
 } from './resources/query';
 import {
   MatrixRequest,
@@ -946,12 +943,9 @@ export declare namespace Plaza {
   export {
     Query as Query,
     type OverpassQuery as OverpassQuery,
-    type SparqlQuery as SparqlQuery,
-    type SparqlResult as SparqlResult,
     type QueryExecuteResponse as QueryExecuteResponse,
     type QueryExecuteParams as QueryExecuteParams,
     type QueryOverpassParams as QueryOverpassParams,
-    type QuerySparqlParams as QuerySparqlParams,
   };
 
   export { Tiles as Tiles, type TileGetParams as TileGetParams };

@@ -140,7 +140,6 @@ const fuse = new Fuse(
     'client.optimize.retrieve',
     'client.query.execute',
     'client.query.overpass',
-    'client.query.sparql',
     'client.tiles.get',
   ],
   { threshold: 1, shouldSort: true },

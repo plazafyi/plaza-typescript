@@ -42,23 +42,4 @@ describe('resource query', () => {
       format: 'format',
     });
   });
-
-  test('sparql: only required params', async () => {
-    const responsePromise = client.query.sparql({
-      query: 'SELECT ?s ?name WHERE { ?s osm:name ?name . ?s osm:amenity "cafe" } LIMIT 10',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('sparql: required and optional params', async () => {
-    const response = await client.query.sparql({
-      query: 'SELECT ?s ?name WHERE { ?s osm:name ?name . ?s osm:amenity "cafe" } LIMIT 10',
-    });
-  });
 });
