@@ -56,12 +56,9 @@ export {
 export {
   Query,
   type OverpassQuery,
-  type SparqlQuery,
-  type SparqlResult,
   type QueryExecuteResponse,
   type QueryExecuteParams,
   type QueryOverpassParams,
-  type QuerySparqlParams,
 } from './query';
 export {
   Routing,

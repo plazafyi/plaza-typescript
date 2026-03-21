@@ -227,12 +227,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/api/v1/overpass',
   },
   {
-    clientCallName: 'client.query.sparql',
-    fullyQualifiedName: 'query.sparql',
-    httpMethod: 'post',
-    httpPath: '/api/v1/sparql',
-  },
-  {
     clientCallName: 'client.tiles.get',
     fullyQualifiedName: 'tiles.get',
     httpMethod: 'get',

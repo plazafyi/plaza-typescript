@@ -34,21 +34,6 @@ export class Query extends APIResource {
     const { format, ...body } = params;
     return this._client.post('/api/v1/overpass', { query: { format }, body, ...options });
   }
-
-  /**
-   * Execute a SPARQL query
-   *
-   * @example
-   * ```ts
-   * const sparqlResult = await client.query.sparql({
-   *   query:
-   *     'SELECT ?s ?name WHERE { ?s osm:name ?name . ?s osm:amenity "cafe" } LIMIT 10',
-   * });
-   * ```
-   */
-  sparql(body: QuerySparqlParams, options?: RequestOptions): APIPromise<SparqlResult> {
-    return this._client.post('/api/v1/sparql', { body, ...options });
-  }
 }
 
 /**
@@ -60,59 +45,6 @@ export interface OverpassQuery {
    * Overpass QL query string
    */
   data: string;
-}
-
-/**
- * SPARQL query request. Queries OSM data using SPARQL syntax. Results are returned
- * as a JSON object with a `results` array.
- */
-export interface SparqlQuery {
-  /**
-   * SPARQL query string
-   */
-  query: string;
-}
-
-/**
- * SPARQL query result. Contains a `results` array of GeoJSON Feature objects.
- * Unlike REST feature endpoints, SPARQL results may omit `@type`, `@id`, and
- * compound `id` fields depending on the query shape.
- */
-export interface SparqlResult {
-  /**
-   * Array of GeoJSON Features matching the SPARQL query. Features include `@type`
-   * and `@id` metadata when the source element type is known, but may contain only
-   * tags as properties for untyped results.
-   */
-  results: Array<SparqlResult.Result>;
-}
-
-export namespace SparqlResult {
-  /**
-   * GeoJSON Feature (may lack @type/@id metadata for untyped results)
-   */
-  export interface Result {
-    /**
-     * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
-     * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
-     */
-    geometry: TopLevelAPI.GeoJsonGeometry;
-
-    /**
-     * OSM tags as key-value pairs, optionally with `@type` and `@id` metadata
-     */
-    properties: { [key: string]: unknown };
-
-    /**
-     * Always `Feature`
-     */
-    type: 'Feature';
-
-    /**
-     * Compound identifier in `type/osm_id` format (present when element type is known)
-     */
-    id?: string | null;
-  }
 }
 
 /**
@@ -138,12 +70,12 @@ export namespace QueryExecuteParams {
    */
   export interface Step {
     /**
-     * Step type: `overpass`, `sparql`, `filter`, or `transform`
+     * Step type: `overpass`, `filter`, or `transform`
      */
-    type: 'overpass' | 'sparql' | 'filter' | 'transform';
+    type: 'overpass' | 'filter' | 'transform';
 
     /**
-     * Query string for this step (required for overpass/sparql steps)
+     * Query string for this step (required for overpass steps)
      */
     query?: string;
   }
@@ -161,21 +93,11 @@ export interface QueryOverpassParams {
   format?: string;
 }
 
-export interface QuerySparqlParams {
-  /**
-   * SPARQL query string
-   */
-  query: string;
-}
-
 export declare namespace Query {
   export {
     type OverpassQuery as OverpassQuery,
-    type SparqlQuery as SparqlQuery,
-    type SparqlResult as SparqlResult,
     type QueryExecuteResponse as QueryExecuteResponse,
     type QueryExecuteParams as QueryExecuteParams,
     type QueryOverpassParams as QueryOverpassParams,
-    type QuerySparqlParams as QuerySparqlParams,
   };
 }
