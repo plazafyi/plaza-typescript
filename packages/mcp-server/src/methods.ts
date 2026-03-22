@@ -221,12 +221,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/api/v1/query',
   },
   {
-    clientCallName: 'client.query.overpass',
-    fullyQualifiedName: 'query.overpass',
-    httpMethod: 'post',
-    httpPath: '/api/v1/overpass',
-  },
-  {
     clientCallName: 'client.tiles.get',
     fullyQualifiedName: 'tiles.get',
     httpMethod: 'get',
