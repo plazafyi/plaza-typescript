@@ -132,13 +132,11 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/query.ts">OverpassQuery</a></code>
-- <code><a href="./src/resources/query.ts">QueryExecuteResponse</a></code>
+- <code><a href="./src/resources/query.ts">PlazaqlQuery</a></code>
 
 Methods:
 
-- <code title="post /api/v1/query">client.query.<a href="./src/resources/query.ts">execute</a>({ ...params }) -> QueryExecuteResponse</code>
-- <code title="post /api/v1/overpass">client.query.<a href="./src/resources/query.ts">overpass</a>({ ...params }) -> FeatureCollection</code>
+- <code title="post /api/v1/query">client.query.<a href="./src/resources/query.ts">execute</a>({ ...params }) -> FeatureCollection</code>
 
 # Tiles
 

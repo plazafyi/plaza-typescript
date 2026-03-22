@@ -70,13 +70,7 @@ import {
   OptimizeRequest,
   OptimizeResult,
 } from './resources/optimize';
-import {
-  OverpassQuery,
-  Query,
-  QueryExecuteParams,
-  QueryExecuteResponse,
-  QueryOverpassParams,
-} from './resources/query';
+import { PlazaqlQuery, Query, QueryExecuteParams } from './resources/query';
 import {
   MatrixRequest,
   MatrixResult,
@@ -940,13 +934,7 @@ export declare namespace Plaza {
     type OptimizeCreateParams as OptimizeCreateParams,
   };
 
-  export {
-    Query as Query,
-    type OverpassQuery as OverpassQuery,
-    type QueryExecuteResponse as QueryExecuteResponse,
-    type QueryExecuteParams as QueryExecuteParams,
-    type QueryOverpassParams as QueryOverpassParams,
-  };
+  export { Query as Query, type PlazaqlQuery as PlazaqlQuery, type QueryExecuteParams as QueryExecuteParams };
 
   export { Tiles as Tiles, type TileGetParams as TileGetParams };
 }

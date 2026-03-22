@@ -139,7 +139,6 @@ const fuse = new Fuse(
     'client.optimize.create',
     'client.optimize.retrieve',
     'client.query.execute',
-    'client.query.overpass',
     'client.tiles.get',
   ],
   { threshold: 1, shouldSort: true },

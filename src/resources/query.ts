@@ -7,83 +7,35 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Query extends APIResource {
   /**
-   * Execute a multi-step query pipeline
+   * Execute a PlazaQL query
    *
    * @example
    * ```ts
-   * const response = await client.query.execute({
-   *   steps: [{ type: 'overpass' }],
+   * const featureCollection = await client.query.execute({
+   *   data: '$$ = search(node, amenity: "cafe").around(distance: 500, geometry: point(48.8566, 2.3522));',
    * });
    * ```
    */
-  execute(body: QueryExecuteParams, options?: RequestOptions): APIPromise<QueryExecuteResponse> {
-    return this._client.post('/api/v1/query', { body, ...options });
-  }
-
-  /**
-   * Execute an Overpass QL query
-   *
-   * @example
-   * ```ts
-   * const featureCollection = await client.query.overpass({
-   *   data: '[out:json];node[amenity=cafe](around:500,48.8566,2.3522);out body;',
-   * });
-   * ```
-   */
-  overpass(params: QueryOverpassParams, options?: RequestOptions): APIPromise<TopLevelAPI.FeatureCollection> {
+  execute(params: QueryExecuteParams, options?: RequestOptions): APIPromise<TopLevelAPI.FeatureCollection> {
     const { format, ...body } = params;
-    return this._client.post('/api/v1/overpass', { query: { format }, body, ...options });
+    return this._client.post('/api/v1/query', { query: { format }, body, ...options });
   }
 }
 
 /**
- * Overpass QL query request. The query is executed against Plaza's OSM database
- * and results are returned as GeoJSON.
+ * PlazaQL query request. The query is executed against Plaza's OSM database and
+ * results are returned as GeoJSON.
  */
-export interface OverpassQuery {
+export interface PlazaqlQuery {
   /**
-   * Overpass QL query string
+   * PlazaQL query string
    */
   data: string;
 }
 
-/**
- * Pipeline execution result containing the output of each step.
- */
-export interface QueryExecuteResponse {
-  /**
-   * Results from each pipeline step in execution order
-   */
-  steps: Array<{ [key: string]: unknown }>;
-}
-
 export interface QueryExecuteParams {
   /**
-   * Ordered list of query steps to execute
-   */
-  steps: Array<QueryExecuteParams.Step>;
-}
-
-export namespace QueryExecuteParams {
-  /**
-   * A single pipeline step
-   */
-  export interface Step {
-    /**
-     * Step type: `overpass`, `filter`, or `transform`
-     */
-    type: 'overpass' | 'filter' | 'transform';
-
-    /**
-     * Query string for this step (required for overpass steps)
-     */
-    query?: string;
-  }
-}
-
-export interface QueryOverpassParams {
-  /**
-   * Body param: Overpass QL query string
+   * Body param: PlazaQL query string
    */
   data: string;
 
@@ -94,10 +46,5 @@ export interface QueryOverpassParams {
 }
 
 export declare namespace Query {
-  export {
-    type OverpassQuery as OverpassQuery,
-    type QueryExecuteResponse as QueryExecuteResponse,
-    type QueryExecuteParams as QueryExecuteParams,
-    type QueryOverpassParams as QueryOverpassParams,
-  };
+  export { type PlazaqlQuery as PlazaqlQuery, type QueryExecuteParams as QueryExecuteParams };
 }

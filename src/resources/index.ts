@@ -53,13 +53,7 @@ export {
   type OptimizeResult,
   type OptimizeCreateParams,
 } from './optimize';
-export {
-  Query,
-  type OverpassQuery,
-  type QueryExecuteResponse,
-  type QueryExecuteParams,
-  type QueryOverpassParams,
-} from './query';
+export { Query, type PlazaqlQuery, type QueryExecuteParams } from './query';
 export {
   Routing,
   type MatrixRequest,
