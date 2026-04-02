@@ -90,6 +90,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements query',
         example: "plaza elements query \\\n  --api-key 'My API Key'",
       },
+      csharp: {
+        method: 'Elements.Query',
+        example:
+          'ElementQueryParams parameters = new();\n\nvar featureCollection = await client.Elements.Query(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
       go: {
         method: 'client.Elements.Query',
         example:
@@ -107,6 +112,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements().query',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.elements.ElementQueryParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val featureCollection: FeatureCollection = client.elements().query()\n}',
+      },
+      php: {
+        method: 'elements->query',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->elements->query(\n  bbox: 'bbox',\n  contains: 'contains',\n  crosses: 'crosses',\n  cursor: 'cursor',\n  format: 'format',\n  h3: 'h3',\n  intersects: 'intersects',\n  limit: 0,\n  near: 'near',\n  outputBuffer: 0,\n  outputCentroid: true,\n  outputFields: 'output[fields]',\n  outputGeometry: true,\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSimplify: 0,\n  outputSort: 'output[sort]',\n  radius: 0,\n  touches: 'touches',\n  type: 'type',\n  within: 'within',\n);\n\nvar_dump($featureCollection);",
       },
       python: {
         method: 'elements.query',
@@ -165,6 +175,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements query_post',
         example: "plaza elements query-post \\\n  --api-key 'My API Key'",
       },
+      csharp: {
+        method: 'Elements.QueryPost',
+        example:
+          'ElementQueryPostParams parameters = new();\n\nvar featureCollection = await client.Elements.QueryPost(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
       go: {
         method: 'client.Elements.QueryPost',
         example:
@@ -183,6 +198,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements().queryPost',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.elements.ElementQueryPostParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val featureCollection: FeatureCollection = client.elements().queryPost()\n}',
+      },
+      php: {
+        method: 'elements->queryPost',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->elements->queryPost(\n  bbox: 'bbox',\n  contains: 'contains',\n  crosses: 'crosses',\n  cursor: 'cursor',\n  format: 'format',\n  h3: 'h3',\n  intersects: 'intersects',\n  limit: 0,\n  near: 'near',\n  outputBuffer: 0,\n  outputCentroid: true,\n  outputFields: 'output[fields]',\n  outputGeometry: true,\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSimplify: 0,\n  outputSort: 'output[sort]',\n  radius: 0,\n  touches: 'touches',\n  type: 'type',\n  within: 'within',\n);\n\nvar_dump($featureCollection);",
       },
       python: {
         method: 'elements.query_post',
@@ -219,6 +239,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements retrieve',
         example: "plaza elements retrieve \\\n  --api-key 'My API Key' \\\n  --type type \\\n  --id 0",
       },
+      csharp: {
+        method: 'Elements.Retrieve',
+        example:
+          'ElementRetrieveParams parameters = new()\n{\n    Type = "type",\n    ID = 0,\n};\n\nvar geoJsonFeature = await client.Elements.Retrieve(parameters);\n\nConsole.WriteLine(geoJsonFeature);',
+      },
       go: {
         method: 'client.Elements.Get',
         example:
@@ -237,6 +262,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements().retrieve',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.GeoJsonFeature\nimport com.plazafyi.models.elements.ElementRetrieveParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: ElementRetrieveParams = ElementRetrieveParams.builder()\n        .type("type")\n        .id(0L)\n        .build()\n    val geoJsonFeature: GeoJsonFeature = client.elements().retrieve(params)\n}',
+      },
+      php: {
+        method: 'elements->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$geoJsonFeature = $client->elements->retrieve(0, type: 'type');\n\nvar_dump($geoJsonFeature);",
       },
       python: {
         method: 'elements.retrieve',
@@ -272,6 +302,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements lookup',
         example: "plaza elements lookup \\\n  --api-key 'My API Key'",
       },
+      csharp: {
+        method: 'Elements.Lookup',
+        example:
+          'ElementLookupParams parameters = new();\n\nvar geoJsonFeature = await client.Elements.Lookup(parameters);\n\nConsole.WriteLine(geoJsonFeature);',
+      },
       go: {
         method: 'client.Elements.Lookup',
         example:
@@ -290,6 +325,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements().lookup',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.GeoJsonFeature\nimport com.plazafyi.models.elements.ElementLookupParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val geoJsonFeature: GeoJsonFeature = client.elements().lookup()\n}',
+      },
+      php: {
+        method: 'elements->lookup',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$geoJsonFeature = $client->elements->lookup();\n\nvar_dump($geoJsonFeature);",
       },
       python: {
         method: 'elements.lookup',
@@ -327,6 +367,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza elements batch \\\n  --api-key 'My API Key' \\\n  --element '{id: 21154906, type: node}' \\\n  --element '{id: 4589123, type: way}'",
       },
+      csharp: {
+        method: 'Elements.Batch',
+        example:
+          'ElementBatchParams parameters = new()\n{\n    Elements =\n    [\n        new()\n        {\n            ID = 21154906,\n            Type = Type.Node,\n        },\n        new()\n        {\n            ID = 4589123,\n            Type = Type.Way,\n        },\n    ],\n};\n\nvar featureCollection = await client.Elements.Batch(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
       go: {
         method: 'client.Elements.Batch',
         example:
@@ -345,6 +390,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements().batch',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.elements.BatchRequest\nimport com.plazafyi.models.elements.ElementBatchParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: BatchRequest = BatchRequest.builder()\n        .addElement(BatchRequest.Element.builder()\n            .id(21154906L)\n            .type(BatchRequest.Element.Type.NODE)\n            .build())\n        .addElement(BatchRequest.Element.builder()\n            .id(4589123L)\n            .type(BatchRequest.Element.Type.WAY)\n            .build())\n        .build()\n    val featureCollection: FeatureCollection = client.elements().batch(params)\n}',
+      },
+      php: {
+        method: 'elements->batch',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->elements->batch(\n  elements: [\n    ['id' => 21154906, 'type' => 'node'], ['id' => 4589123, 'type' => 'way']\n  ],\n);\n\nvar_dump($featureCollection);",
       },
       python: {
         method: 'elements.batch',
@@ -395,6 +445,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements nearby',
         example: "plaza elements nearby \\\n  --api-key 'My API Key'",
       },
+      csharp: {
+        method: 'Elements.Nearby',
+        example:
+          'ElementNearbyParams parameters = new();\n\nvar featureCollection = await client.Elements.Nearby(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
       go: {
         method: 'client.Elements.Nearby',
         example:
@@ -413,6 +468,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements().nearby',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.elements.ElementNearbyParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val featureCollection: FeatureCollection = client.elements().nearby()\n}',
+      },
+      php: {
+        method: 'elements->nearby',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->elements->nearby(\n  lat: 0,\n  limit: 0,\n  lng: 0,\n  near: 'near',\n  outputBuffer: 0,\n  outputCentroid: true,\n  outputFields: 'output[fields]',\n  outputGeometry: true,\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSimplify: 0,\n  outputSort: 'output[sort]',\n  radius: 0,\n);\n\nvar_dump($featureCollection);",
       },
       python: {
         method: 'elements.nearby',
@@ -463,6 +523,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements nearby_post',
         example: "plaza elements nearby-post \\\n  --api-key 'My API Key'",
       },
+      csharp: {
+        method: 'Elements.NearbyPost',
+        example:
+          'ElementNearbyPostParams parameters = new();\n\nvar featureCollection = await client.Elements.NearbyPost(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
       go: {
         method: 'client.Elements.NearbyPost',
         example:
@@ -481,6 +546,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elements().nearbyPost',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.elements.ElementNearbyPostParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val featureCollection: FeatureCollection = client.elements().nearbyPost()\n}',
+      },
+      php: {
+        method: 'elements->nearbyPost',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->elements->nearbyPost(\n  lat: 0,\n  limit: 0,\n  lng: 0,\n  near: 'near',\n  outputBuffer: 0,\n  outputCentroid: true,\n  outputFields: 'output[fields]',\n  outputGeometry: true,\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSimplify: 0,\n  outputSort: 'output[sort]',\n  radius: 0,\n);\n\nvar_dump($featureCollection);",
       },
       python: {
         method: 'elements.nearby_post',
@@ -516,6 +586,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'datasets list',
         example: "plaza datasets list \\\n  --api-key 'My API Key'",
       },
+      csharp: {
+        method: 'Datasets.List',
+        example:
+          'DatasetListParams parameters = new();\n\nvar datasetList = await client.Datasets.List(parameters);\n\nConsole.WriteLine(datasetList);',
+      },
       go: {
         method: 'client.Datasets.List',
         example:
@@ -533,6 +608,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'datasets().list',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.datasets.DatasetList\nimport com.plazafyi.models.datasets.DatasetListParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val datasetList: DatasetList = client.datasets().list()\n}',
+      },
+      php: {
+        method: 'datasets->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$datasetList = $client->datasets->list();\n\nvar_dump($datasetList);",
       },
       python: {
         method: 'datasets.list',
@@ -577,6 +657,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza datasets create \\\n  --api-key 'My API Key' \\\n  --name 'NYC Bike Lanes' \\\n  --slug nyc-bike-lanes",
       },
+      csharp: {
+        method: 'Datasets.Create',
+        example:
+          'DatasetCreateParams parameters = new()\n{\n    Name = "NYC Bike Lanes",\n    Slug = "nyc-bike-lanes",\n};\n\nvar dataset = await client.Datasets.Create(parameters);\n\nConsole.WriteLine(dataset);',
+      },
       go: {
         method: 'client.Datasets.New',
         example:
@@ -595,6 +680,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'datasets().create',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.datasets.Dataset\nimport com.plazafyi.models.datasets.DatasetCreateParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: DatasetCreateParams = DatasetCreateParams.builder()\n        .name("NYC Bike Lanes")\n        .slug("nyc-bike-lanes")\n        .build()\n    val dataset: Dataset = client.datasets().create(params)\n}',
+      },
+      php: {
+        method: 'datasets->create',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$dataset = $client->datasets->create(\n  name: 'NYC Bike Lanes',\n  slug: 'nyc-bike-lanes',\n  attribution: 'attribution',\n  description: 'description',\n  license: 'license',\n  sourceURL: 'https://example.com',\n);\n\nvar_dump($dataset);",
       },
       python: {
         method: 'datasets.create',
@@ -631,6 +721,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'datasets retrieve',
         example: "plaza datasets retrieve \\\n  --api-key 'My API Key' \\\n  --id id",
       },
+      csharp: {
+        method: 'Datasets.Retrieve',
+        example:
+          'DatasetRetrieveParams parameters = new() { ID = "id" };\n\nvar dataset = await client.Datasets.Retrieve(parameters);\n\nConsole.WriteLine(dataset);',
+      },
       go: {
         method: 'client.Datasets.Get',
         example:
@@ -649,6 +744,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'datasets().retrieve',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.datasets.Dataset\nimport com.plazafyi.models.datasets.DatasetRetrieveParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val dataset: Dataset = client.datasets().retrieve("id")\n}',
+      },
+      php: {
+        method: 'datasets->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$dataset = $client->datasets->retrieve('id');\n\nvar_dump($dataset);",
       },
       python: {
         method: 'datasets.retrieve',
@@ -683,6 +783,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'datasets delete',
         example: "plaza datasets delete \\\n  --api-key 'My API Key' \\\n  --id id",
       },
+      csharp: {
+        method: 'Datasets.Delete',
+        example:
+          'DatasetDeleteParams parameters = new() { ID = "id" };\n\nawait client.Datasets.Delete(parameters);',
+      },
       go: {
         method: 'client.Datasets.Delete',
         example:
@@ -701,6 +806,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'datasets().delete',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.datasets.DatasetDeleteParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    client.datasets().delete("id")\n}',
+      },
+      php: {
+        method: 'datasets->delete',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$result = $client->datasets->delete('id');\n\nvar_dump($result);",
       },
       python: {
         method: 'datasets.delete',
@@ -750,6 +860,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'datasets features',
         example: "plaza datasets features \\\n  --api-key 'My API Key' \\\n  --id id",
       },
+      csharp: {
+        method: 'Datasets.Features',
+        example:
+          'DatasetFeaturesParams parameters = new() { ID = "id" };\n\nvar featureCollection = await client.Datasets.Features(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
       go: {
         method: 'client.Datasets.Features',
         example:
@@ -768,6 +883,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'datasets().features',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.datasets.DatasetFeaturesParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val featureCollection: FeatureCollection = client.datasets().features("id")\n}',
+      },
+      php: {
+        method: 'datasets->features',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->datasets->features(\n  'id',\n  cursor: 'cursor',\n  format: 'format',\n  limit: 0,\n  outputBuffer: 0,\n  outputCentroid: true,\n  outputFields: 'output[fields]',\n  outputGeometry: true,\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSimplify: 0,\n  outputSort: 'output[sort]',\n);\n\nvar_dump($featureCollection);",
       },
       python: {
         method: 'datasets.features',
@@ -814,6 +934,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode forward',
         example: "plaza geocode forward \\\n  --api-key 'My API Key' \\\n  --q q",
       },
+      csharp: {
+        method: 'Geocode.Forward',
+        example:
+          'GeocodeForwardParams parameters = new() { Q = "q" };\n\nvar geocodeResult = await client.Geocode.Forward(parameters);\n\nConsole.WriteLine(geocodeResult);',
+      },
       go: {
         method: 'client.Geocode.Forward',
         example:
@@ -831,6 +956,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode().forward',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.geocode.GeocodeForwardParams\nimport com.plazafyi.models.geocode.GeocodeResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: GeocodeForwardParams = GeocodeForwardParams.builder()\n        .q("q")\n        .build()\n    val geocodeResult: GeocodeResult = client.geocode().forward(params)\n}',
+      },
+      php: {
+        method: 'geocode->forward',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$geocodeResult = $client->geocode->forward(\n  q: 'q',\n  bbox: 'bbox',\n  countryCode: 'country_code',\n  format: 'format',\n  lang: 'lang',\n  lat: 0,\n  layer: 'layer',\n  limit: 0,\n  lng: 0,\n);\n\nvar_dump($geocodeResult);",
       },
       python: {
         method: 'geocode.forward',
@@ -877,6 +1007,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode forward_post',
         example: "plaza geocode forward-post \\\n  --api-key 'My API Key' \\\n  --q q",
       },
+      csharp: {
+        method: 'Geocode.ForwardPost',
+        example:
+          'GeocodeForwardPostParams parameters = new() { Q = "q" };\n\nvar geocodeResult = await client.Geocode.ForwardPost(parameters);\n\nConsole.WriteLine(geocodeResult);',
+      },
       go: {
         method: 'client.Geocode.ForwardPost',
         example:
@@ -895,6 +1030,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode().forwardPost',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.geocode.GeocodeForwardPostParams\nimport com.plazafyi.models.geocode.GeocodeResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: GeocodeForwardPostParams = GeocodeForwardPostParams.builder()\n        .q("q")\n        .build()\n    val geocodeResult: GeocodeResult = client.geocode().forwardPost(params)\n}',
+      },
+      php: {
+        method: 'geocode->forwardPost',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$geocodeResult = $client->geocode->forwardPost(\n  q: 'q',\n  bbox: 'bbox',\n  countryCode: 'country_code',\n  format: 'format',\n  lang: 'lang',\n  lat: 0,\n  layer: 'layer',\n  limit: 0,\n  lng: 0,\n);\n\nvar_dump($geocodeResult);",
       },
       python: {
         method: 'geocode.forward_post',
@@ -940,6 +1080,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode reverse',
         example: "plaza geocode reverse \\\n  --api-key 'My API Key'",
       },
+      csharp: {
+        method: 'Geocode.Reverse',
+        example:
+          'GeocodeReverseParams parameters = new();\n\nvar reverseGeocodeResult = await client.Geocode.Reverse(parameters);\n\nConsole.WriteLine(reverseGeocodeResult);',
+      },
       go: {
         method: 'client.Geocode.Reverse',
         example:
@@ -958,6 +1103,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode().reverse',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.geocode.GeocodeReverseParams\nimport com.plazafyi.models.geocode.ReverseGeocodeResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val reverseGeocodeResult: ReverseGeocodeResult = client.geocode().reverse()\n}',
+      },
+      php: {
+        method: 'geocode->reverse',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$reverseGeocodeResult = $client->geocode->reverse(\n  format: 'format',\n  lang: 'lang',\n  lat: 0,\n  layer: 'layer',\n  limit: 0,\n  lng: 0,\n  near: 'near',\n  radius: 0,\n);\n\nvar_dump($reverseGeocodeResult);",
       },
       python: {
         method: 'geocode.reverse',
@@ -1003,6 +1153,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode reverse_post',
         example: "plaza geocode reverse-post \\\n  --api-key 'My API Key'",
       },
+      csharp: {
+        method: 'Geocode.ReversePost',
+        example:
+          'GeocodeReversePostParams parameters = new();\n\nvar reverseGeocodeResult = await client.Geocode.ReversePost(parameters);\n\nConsole.WriteLine(reverseGeocodeResult);',
+      },
       go: {
         method: 'client.Geocode.ReversePost',
         example:
@@ -1021,6 +1176,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode().reversePost',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.geocode.GeocodeReversePostParams\nimport com.plazafyi.models.geocode.ReverseGeocodeResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val reverseGeocodeResult: ReverseGeocodeResult = client.geocode().reversePost()\n}',
+      },
+      php: {
+        method: 'geocode->reversePost',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$reverseGeocodeResult = $client->geocode->reversePost(\n  format: 'format',\n  lang: 'lang',\n  lat: 0,\n  layer: 'layer',\n  limit: 0,\n  lng: 0,\n  near: 'near',\n  radius: 0,\n);\n\nvar_dump($reverseGeocodeResult);",
       },
       python: {
         method: 'geocode.reverse_post',
@@ -1066,6 +1226,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode autocomplete',
         example: "plaza geocode autocomplete \\\n  --api-key 'My API Key' \\\n  --q q",
       },
+      csharp: {
+        method: 'Geocode.Autocomplete',
+        example:
+          'GeocodeAutocompleteParams parameters = new() { Q = "q" };\n\nvar autocompleteResult = await client.Geocode.Autocomplete(parameters);\n\nConsole.WriteLine(autocompleteResult);',
+      },
       go: {
         method: 'client.Geocode.Autocomplete',
         example:
@@ -1084,6 +1249,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode().autocomplete',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.geocode.AutocompleteResult\nimport com.plazafyi.models.geocode.GeocodeAutocompleteParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: GeocodeAutocompleteParams = GeocodeAutocompleteParams.builder()\n        .q("q")\n        .build()\n    val autocompleteResult: AutocompleteResult = client.geocode().autocomplete(params)\n}',
+      },
+      php: {
+        method: 'geocode->autocomplete',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$autocompleteResult = $client->geocode->autocomplete(\n  q: 'q',\n  countryCode: 'country_code',\n  format: 'format',\n  lang: 'lang',\n  lat: 0,\n  layer: 'layer',\n  limit: 0,\n  lng: 0,\n);\n\nvar_dump($autocompleteResult);",
       },
       python: {
         method: 'geocode.autocomplete',
@@ -1129,6 +1299,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode autocomplete_post',
         example: "plaza geocode autocomplete-post \\\n  --api-key 'My API Key' \\\n  --q q",
       },
+      csharp: {
+        method: 'Geocode.AutocompletePost',
+        example:
+          'GeocodeAutocompletePostParams parameters = new() { Q = "q" };\n\nvar autocompleteResult = await client.Geocode.AutocompletePost(parameters);\n\nConsole.WriteLine(autocompleteResult);',
+      },
       go: {
         method: 'client.Geocode.AutocompletePost',
         example:
@@ -1147,6 +1322,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode().autocompletePost',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.geocode.AutocompleteResult\nimport com.plazafyi.models.geocode.GeocodeAutocompletePostParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: GeocodeAutocompletePostParams = GeocodeAutocompletePostParams.builder()\n        .q("q")\n        .build()\n    val autocompleteResult: AutocompleteResult = client.geocode().autocompletePost(params)\n}',
+      },
+      php: {
+        method: 'geocode->autocompletePost',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$autocompleteResult = $client->geocode->autocompletePost(\n  q: 'q',\n  countryCode: 'country_code',\n  format: 'format',\n  lang: 'lang',\n  lat: 0,\n  layer: 'layer',\n  limit: 0,\n  lng: 0,\n);\n\nvar_dump($autocompleteResult);",
       },
       python: {
         method: 'geocode.autocomplete_post',
@@ -1182,6 +1362,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode batch',
         example: "plaza geocode batch \\\n  --api-key 'My API Key' \\\n  --address string",
       },
+      csharp: {
+        method: 'Geocode.Batch',
+        example:
+          'GeocodeBatchParams parameters = new()\n{\n    Addresses =\n    [\n        "string"\n    ],\n};\n\nvar response = await client.Geocode.Batch(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Geocode.Batch',
         example:
@@ -1200,6 +1385,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'geocode().batch',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.geocode.GeocodeBatchParams\nimport com.plazafyi.models.geocode.GeocodeBatchResponse\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: GeocodeBatchParams = GeocodeBatchParams.builder()\n        .addAddress("string")\n        .build()\n    val response: GeocodeBatchResponse = client.geocode().batch(params)\n}',
+      },
+      php: {
+        method: 'geocode->batch',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$response = $client->geocode->batch(addresses: ['string']);\n\nvar_dump($response);",
       },
       python: {
         method: 'geocode.batch',
@@ -1245,6 +1435,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'search query',
         example: "plaza search query \\\n  --api-key 'My API Key' \\\n  --q q",
       },
+      csharp: {
+        method: 'Search.Query',
+        example:
+          'SearchQueryParams parameters = new() { Q = "q" };\n\nvar featureCollection = await client.Search.Query(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
       go: {
         method: 'client.Search.Query',
         example:
@@ -1262,6 +1457,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'search().query',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.search.SearchQueryParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: SearchQueryParams = SearchQueryParams.builder()\n        .q("q")\n        .build()\n    val featureCollection: FeatureCollection = client.search().query(params)\n}',
+      },
+      php: {
+        method: 'search->query',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->search->query(\n  q: 'q',\n  cursor: 'cursor',\n  format: 'format',\n  limit: 0,\n  outputFields: 'output[fields]',\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSort: 'output[sort]',\n);\n\nvar_dump($featureCollection);",
       },
       python: {
         method: 'search.query',
@@ -1307,6 +1507,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'search query_post',
         example: "plaza search query-post \\\n  --api-key 'My API Key' \\\n  --q q",
       },
+      csharp: {
+        method: 'Search.QueryPost',
+        example:
+          'SearchQueryPostParams parameters = new() { Q = "q" };\n\nvar featureCollection = await client.Search.QueryPost(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
       go: {
         method: 'client.Search.QueryPost',
         example:
@@ -1325,6 +1530,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'search().queryPost',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.search.SearchQueryPostParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: SearchQueryPostParams = SearchQueryPostParams.builder()\n        .q("q")\n        .build()\n    val featureCollection: FeatureCollection = client.search().queryPost(params)\n}',
+      },
+      php: {
+        method: 'search->queryPost',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->search->queryPost(\n  q: 'q',\n  cursor: 'cursor',\n  format: 'format',\n  limit: 0,\n  outputFields: 'output[fields]',\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSort: 'output[sort]',\n);\n\nvar_dump($featureCollection);",
       },
       python: {
         method: 'search.query_post',
@@ -1377,6 +1587,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza routing route \\\n  --api-key 'My API Key' \\\n  --destination '{lat: 48.8584, lng: 2.2945}' \\\n  --origin '{lat: 48.8566, lng: 2.3522}'",
       },
+      csharp: {
+        method: 'Routing.Route',
+        example:
+          'RoutingRouteParams parameters = new()\n{\n    Destination = new()\n    {\n        Lat = 48.8584,\n        Lng = 2.2945,\n    },\n    Origin = new()\n    {\n        Lat = 48.8566,\n        Lng = 2.3522,\n    },\n};\n\nvar routeResult = await client.Routing.Route(parameters);\n\nConsole.WriteLine(routeResult);',
+      },
       go: {
         method: 'client.Routing.Route',
         example:
@@ -1395,6 +1610,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'routing().route',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.routing.RouteRequest\nimport com.plazafyi.models.routing.RouteResult\nimport com.plazafyi.models.routing.RoutingRouteParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: RouteRequest = RouteRequest.builder()\n        .destination(RouteRequest.Destination.builder()\n            .lat(48.8584)\n            .lng(2.2945)\n            .build())\n        .origin(RouteRequest.Origin.builder()\n            .lat(48.8566)\n            .lng(2.3522)\n            .build())\n        .build()\n    val routeResult: RouteResult = client.routing().route(params)\n}',
+      },
+      php: {
+        method: 'routing->route',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$routeResult = $client->routing->route(\n  destination: ['lat' => 48.8584, 'lng' => 2.2945],\n  origin: ['lat' => 48.8566, 'lng' => 2.3522],\n  format: 'format',\n  alternatives: 0,\n  annotations: true,\n  departAt: new \\DateTimeImmutable('2019-12-27T18:11:19.117Z'),\n  ev: [\n    'batteryCapacityWh' => 75000,\n    'connectorTypes' => ['string'],\n    'initialChargePct' => 0,\n    'minChargePct' => 0,\n    'minPowerKw' => 0,\n  ],\n  exclude: 'exclude',\n  geometries: 'geojson',\n  mode: 'auto',\n  overview: 'full',\n  steps: true,\n  trafficModel: 'best_guess',\n  waypoints: [['lat' => 48.8566, 'lng' => 2.3522]],\n);\n\nvar_dump($routeResult);",
       },
       python: {
         method: 'routing.route',
@@ -1438,6 +1658,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'routing nearest',
         example: "plaza routing nearest \\\n  --api-key 'My API Key' \\\n  --lat 0 \\\n  --lng 0",
       },
+      csharp: {
+        method: 'Routing.Nearest',
+        example:
+          'RoutingNearestParams parameters = new()\n{\n    Lat = 0,\n    Lng = 0,\n};\n\nvar nearestResult = await client.Routing.Nearest(parameters);\n\nConsole.WriteLine(nearestResult);',
+      },
       go: {
         method: 'client.Routing.Nearest',
         example:
@@ -1455,6 +1680,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'routing().nearest',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.routing.NearestResult\nimport com.plazafyi.models.routing.RoutingNearestParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: RoutingNearestParams = RoutingNearestParams.builder()\n        .lat(0.0)\n        .lng(0.0)\n        .build()\n    val nearestResult: NearestResult = client.routing().nearest(params)\n}',
+      },
+      php: {
+        method: 'routing->nearest',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$nearestResult = $client->routing->nearest(\n  lat: 0,\n  lng: 0,\n  outputFields: 'output[fields]',\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  radius: 0,\n);\n\nvar_dump($nearestResult);",
       },
       python: {
         method: 'routing.nearest',
@@ -1498,6 +1728,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'routing nearest_post',
         example: "plaza routing nearest-post \\\n  --api-key 'My API Key' \\\n  --lat 0 \\\n  --lng 0",
       },
+      csharp: {
+        method: 'Routing.NearestPost',
+        example:
+          'RoutingNearestPostParams parameters = new()\n{\n    Lat = 0,\n    Lng = 0,\n};\n\nvar nearestResult = await client.Routing.NearestPost(parameters);\n\nConsole.WriteLine(nearestResult);',
+      },
       go: {
         method: 'client.Routing.NearestPost',
         example:
@@ -1516,6 +1751,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'routing().nearestPost',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.routing.NearestResult\nimport com.plazafyi.models.routing.RoutingNearestPostParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: RoutingNearestPostParams = RoutingNearestPostParams.builder()\n        .lat(0.0)\n        .lng(0.0)\n        .build()\n    val nearestResult: NearestResult = client.routing().nearestPost(params)\n}',
+      },
+      php: {
+        method: 'routing->nearestPost',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$nearestResult = $client->routing->nearestPost(\n  lat: 0,\n  lng: 0,\n  outputFields: 'output[fields]',\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  radius: 0,\n);\n\nvar_dump($nearestResult);",
       },
       python: {
         method: 'routing.nearest_post',
@@ -1564,6 +1804,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza routing isochrone \\\n  --api-key 'My API Key' \\\n  --lat 0 \\\n  --lng 0 \\\n  --time 0",
       },
+      csharp: {
+        method: 'Routing.Isochrone',
+        example:
+          'RoutingIsochroneParams parameters = new()\n{\n    Lat = 0,\n    Lng = 0,\n    Time = 0,\n};\n\nvar response = await client.Routing.Isochrone(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Routing.Isochrone',
         example:
@@ -1581,6 +1826,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'routing().isochrone',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.routing.RoutingIsochroneParams\nimport com.plazafyi.models.routing.RoutingIsochroneResponse\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: RoutingIsochroneParams = RoutingIsochroneParams.builder()\n        .lat(0.0)\n        .lng(0.0)\n        .time(0.0)\n        .build()\n    val response: RoutingIsochroneResponse = client.routing().isochrone(params)\n}',
+      },
+      php: {
+        method: 'routing->isochrone',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$response = $client->routing->isochrone(\n  lat: 0,\n  lng: 0,\n  time: 0,\n  format: 'format',\n  mode: 'mode',\n  outputFields: 'output[fields]',\n  outputGeometry: true,\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSimplify: 0,\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'routing.isochrone',
@@ -1629,6 +1879,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza routing isochrone-post \\\n  --api-key 'My API Key' \\\n  --lat 0 \\\n  --lng 0 \\\n  --time 0",
       },
+      csharp: {
+        method: 'Routing.IsochronePost',
+        example:
+          'RoutingIsochronePostParams parameters = new()\n{\n    Lat = 0,\n    Lng = 0,\n    Time = 0,\n};\n\nvar response = await client.Routing.IsochronePost(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Routing.IsochronePost',
         example:
@@ -1647,6 +1902,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'routing().isochronePost',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.routing.RoutingIsochronePostParams\nimport com.plazafyi.models.routing.RoutingIsochronePostResponse\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: RoutingIsochronePostParams = RoutingIsochronePostParams.builder()\n        .lat(0.0)\n        .lng(0.0)\n        .time(0.0)\n        .build()\n    val response: RoutingIsochronePostResponse = client.routing().isochronePost(params)\n}',
+      },
+      php: {
+        method: 'routing->isochronePost',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$response = $client->routing->isochronePost(\n  lat: 0,\n  lng: 0,\n  time: 0,\n  format: 'format',\n  mode: 'mode',\n  outputFields: 'output[fields]',\n  outputGeometry: true,\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSimplify: 0,\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'routing.isochrone_post',
@@ -1689,6 +1949,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza routing matrix \\\n  --api-key 'My API Key' \\\n  --destination '{lat: 48.8584, lng: 2.2945}' \\\n  --origin '{lat: 48.8566, lng: 2.3522}' \\\n  --origin '{lat: 48.8606, lng: 2.3376}'",
       },
+      csharp: {
+        method: 'Routing.Matrix',
+        example:
+          'RoutingMatrixParams parameters = new()\n{\n    Destinations =\n    [\n        new()\n        {\n            Lat = 48.8584,\n            Lng = 2.2945,\n        },\n    ],\n    Origins =\n    [\n        new()\n        {\n            Lat = 48.8566,\n            Lng = 2.3522,\n        },\n        new()\n        {\n            Lat = 48.8606,\n            Lng = 2.3376,\n        },\n    ],\n};\n\nvar matrixResult = await client.Routing.Matrix(parameters);\n\nConsole.WriteLine(matrixResult);',
+      },
       go: {
         method: 'client.Routing.Matrix',
         example:
@@ -1707,6 +1972,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'routing().matrix',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.routing.MatrixRequest\nimport com.plazafyi.models.routing.MatrixResult\nimport com.plazafyi.models.routing.RoutingMatrixParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: MatrixRequest = MatrixRequest.builder()\n        .addDestination(MatrixRequest.Destination.builder()\n            .lat(48.8584)\n            .lng(2.2945)\n            .build())\n        .addOrigin(MatrixRequest.Origin.builder()\n            .lat(48.8566)\n            .lng(2.3522)\n            .build())\n        .addOrigin(MatrixRequest.Origin.builder()\n            .lat(48.8606)\n            .lng(2.3376)\n            .build())\n        .build()\n    val matrixResult: MatrixResult = client.routing().matrix(params)\n}',
+      },
+      php: {
+        method: 'routing->matrix',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$matrixResult = $client->routing->matrix(\n  destinations: [['lat' => 48.8584, 'lng' => 2.2945]],\n  origins: [\n    ['lat' => 48.8566, 'lng' => 2.3522], ['lat' => 48.8606, 'lng' => 2.3376]\n  ],\n  annotations: 'annotations',\n  fallbackSpeed: 1,\n  mode: 'auto',\n);\n\nvar_dump($matrixResult);",
       },
       python: {
         method: 'routing.matrix',
@@ -1751,6 +2021,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elevation lookup',
         example: "plaza elevation lookup \\\n  --api-key 'My API Key'",
       },
+      csharp: {
+        method: 'Elevation.Lookup',
+        example:
+          'ElevationLookupParams parameters = new();\n\nvar elevationLookupResult = await client.Elevation.Lookup(parameters);\n\nConsole.WriteLine(elevationLookupResult);',
+      },
       go: {
         method: 'client.Elevation.Lookup',
         example:
@@ -1768,6 +2043,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elevation().lookup',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.elevation.ElevationLookupParams\nimport com.plazafyi.models.elevation.ElevationLookupResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val elevationLookupResult: ElevationLookupResult = client.elevation().lookup()\n}',
+      },
+      php: {
+        method: 'elevation->lookup',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$elevationLookupResult = $client->elevation->lookup(\n  format: 'format',\n  lat: 0,\n  lng: 0,\n  locations: 'locations',\n  outputFields: 'output[fields]',\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n);\n\nvar_dump($elevationLookupResult);",
       },
       python: {
         method: 'elevation.lookup',
@@ -1812,6 +2092,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elevation lookup_post',
         example: "plaza elevation lookup-post \\\n  --api-key 'My API Key'",
       },
+      csharp: {
+        method: 'Elevation.LookupPost',
+        example:
+          'ElevationLookupPostParams parameters = new();\n\nvar elevationLookupResult = await client.Elevation.LookupPost(parameters);\n\nConsole.WriteLine(elevationLookupResult);',
+      },
       go: {
         method: 'client.Elevation.LookupPost',
         example:
@@ -1830,6 +2115,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elevation().lookupPost',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.elevation.ElevationLookupPostParams\nimport com.plazafyi.models.elevation.ElevationLookupResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val elevationLookupResult: ElevationLookupResult = client.elevation().lookupPost()\n}',
+      },
+      php: {
+        method: 'elevation->lookupPost',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$elevationLookupResult = $client->elevation->lookupPost(\n  format: 'format',\n  lat: 0,\n  lng: 0,\n  locations: 'locations',\n  outputFields: 'output[fields]',\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n);\n\nvar_dump($elevationLookupResult);",
       },
       python: {
         method: 'elevation.lookup_post',
@@ -1867,6 +2157,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza elevation batch \\\n  --api-key 'My API Key' \\\n  --coordinate '{lat: 48.8566, lng: 2.3522}' \\\n  --coordinate '{lat: 45.764, lng: 4.8357}'",
       },
+      csharp: {
+        method: 'Elevation.Batch',
+        example:
+          'ElevationBatchParams parameters = new()\n{\n    Coordinates =\n    [\n        new()\n        {\n            Lat = 48.8566,\n            Lng = 2.3522,\n        },\n        new()\n        {\n            Lat = 45.764,\n            Lng = 4.8357,\n        },\n    ],\n};\n\nvar elevationBatchResult = await client.Elevation.Batch(parameters);\n\nConsole.WriteLine(elevationBatchResult);',
+      },
       go: {
         method: 'client.Elevation.Batch',
         example:
@@ -1885,6 +2180,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elevation().batch',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.elevation.ElevationBatchParams\nimport com.plazafyi.models.elevation.ElevationBatchResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: ElevationBatchParams = ElevationBatchParams.builder()\n        .addCoordinate(ElevationBatchParams.Coordinate.builder()\n            .lat(48.8566)\n            .lng(2.3522)\n            .build())\n        .addCoordinate(ElevationBatchParams.Coordinate.builder()\n            .lat(45.764)\n            .lng(4.8357)\n            .build())\n        .build()\n    val elevationBatchResult: ElevationBatchResult = client.elevation().batch(params)\n}',
+      },
+      php: {
+        method: 'elevation->batch',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$elevationBatchResult = $client->elevation->batch(\n  coordinates: [\n    ['lat' => 48.8566, 'lng' => 2.3522], ['lat' => 45.764, 'lng' => 4.8357]\n  ],\n  format: 'format',\n);\n\nvar_dump($elevationBatchResult);",
       },
       python: {
         method: 'elevation.batch',
@@ -1922,6 +2222,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza elevation profile \\\n  --api-key 'My API Key' \\\n  --coordinate '{lat: 48.8566, lng: 2.3522}' \\\n  --coordinate '{lat: 48.858, lng: 2.34}' \\\n  --coordinate '{lat: 48.8584, lng: 2.2945}'",
       },
+      csharp: {
+        method: 'Elevation.Profile',
+        example:
+          'ElevationProfileParams parameters = new()\n{\n    Coordinates =\n    [\n        new()\n        {\n            Lat = 48.8566,\n            Lng = 2.3522,\n        },\n        new()\n        {\n            Lat = 48.858,\n            Lng = 2.34,\n        },\n        new()\n        {\n            Lat = 48.8584,\n            Lng = 2.2945,\n        },\n    ],\n};\n\nvar elevationProfileResult = await client.Elevation.Profile(parameters);\n\nConsole.WriteLine(elevationProfileResult);',
+      },
       go: {
         method: 'client.Elevation.Profile',
         example:
@@ -1940,6 +2245,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'elevation().profile',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.elevation.ElevationProfileParams\nimport com.plazafyi.models.elevation.ElevationProfileRequest\nimport com.plazafyi.models.elevation.ElevationProfileResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: ElevationProfileRequest = ElevationProfileRequest.builder()\n        .coordinates(listOf(\n          ElevationProfileRequest.Coordinate.builder()\n              .lat(48.8566)\n              .lng(2.3522)\n              .build(),\n          ElevationProfileRequest.Coordinate.builder()\n              .lat(48.858)\n              .lng(2.34)\n              .build(),\n          ElevationProfileRequest.Coordinate.builder()\n              .lat(48.8584)\n              .lng(2.2945)\n              .build(),\n        ))\n        .build()\n    val elevationProfileResult: ElevationProfileResult = client.elevation().profile(params)\n}',
+      },
+      php: {
+        method: 'elevation->profile',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$elevationProfileResult = $client->elevation->profile(\n  coordinates: [\n    ['lat' => 48.8566, 'lng' => 2.3522],\n    ['lat' => 48.858, 'lng' => 2.34],\n    ['lat' => 48.8584, 'lng' => 2.2945],\n  ],\n);\n\nvar_dump($elevationProfileResult);",
       },
       python: {
         method: 'elevation.profile',
@@ -1977,6 +2287,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza map-match match \\\n  --api-key 'My API Key' \\\n  --coordinate '{lat: 48.8566, lng: 2.3522}' \\\n  --coordinate '{lat: 48.857, lng: 2.353}' \\\n  --coordinate '{lat: 48.8575, lng: 2.354}'",
       },
+      csharp: {
+        method: 'MapMatch.Match',
+        example:
+          'MapMatchMatchParams parameters = new()\n{\n    Coordinates =\n    [\n        new()\n        {\n            Lat = 48.8566,\n            Lng = 2.3522,\n        },\n        new()\n        {\n            Lat = 48.857,\n            Lng = 2.353,\n        },\n        new()\n        {\n            Lat = 48.8575,\n            Lng = 2.354,\n        },\n    ],\n};\n\nvar mapMatchResult = await client.MapMatch.Match(parameters);\n\nConsole.WriteLine(mapMatchResult);',
+      },
       go: {
         method: 'client.MapMatch.Match',
         example:
@@ -1995,6 +2310,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'mapMatch().match',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.mapmatch.MapMatchMatchParams\nimport com.plazafyi.models.mapmatch.MapMatchRequest\nimport com.plazafyi.models.mapmatch.MapMatchResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: MapMatchRequest = MapMatchRequest.builder()\n        .coordinates(listOf(\n          MapMatchRequest.Coordinate.builder()\n              .lat(48.8566)\n              .lng(2.3522)\n              .build(),\n          MapMatchRequest.Coordinate.builder()\n              .lat(48.857)\n              .lng(2.353)\n              .build(),\n          MapMatchRequest.Coordinate.builder()\n              .lat(48.8575)\n              .lng(2.354)\n              .build(),\n        ))\n        .build()\n    val mapMatchResult: MapMatchResult = client.mapMatch().match(params)\n}',
+      },
+      php: {
+        method: 'mapMatch->match',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$mapMatchResult = $client->mapMatch->match(\n  coordinates: [\n    ['lat' => 48.8566, 'lng' => 2.3522],\n    ['lat' => 48.857, 'lng' => 2.353],\n    ['lat' => 48.8575, 'lng' => 2.354],\n  ],\n  radiuses: [0],\n);\n\nvar_dump($mapMatchResult);",
       },
       python: {
         method: 'map_match.match',
@@ -2037,6 +2357,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza optimize create \\\n  --api-key 'My API Key' \\\n  --waypoint '{lat: 48.8566, lng: 2.3522}' \\\n  --waypoint '{lat: 48.8606, lng: 2.3376}' \\\n  --waypoint '{lat: 48.8584, lng: 2.2945}'",
       },
+      csharp: {
+        method: 'Optimize.Create',
+        example:
+          'OptimizeCreateParams parameters = new()\n{\n    Waypoints =\n    [\n        new()\n        {\n            Lat = 48.8566,\n            Lng = 2.3522,\n        },\n        new()\n        {\n            Lat = 48.8606,\n            Lng = 2.3376,\n        },\n        new()\n        {\n            Lat = 48.8584,\n            Lng = 2.2945,\n        },\n    ],\n};\n\nvar optimizeResult = await client.Optimize.Create(parameters);\n\nConsole.WriteLine(optimizeResult);',
+      },
       go: {
         method: 'client.Optimize.New',
         example:
@@ -2055,6 +2380,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'optimize().create',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.optimize.OptimizeCreateParams\nimport com.plazafyi.models.optimize.OptimizeRequest\nimport com.plazafyi.models.optimize.OptimizeResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: OptimizeRequest = OptimizeRequest.builder()\n        .waypoints(listOf(\n          OptimizeRequest.Waypoint.builder()\n              .lat(48.8566)\n              .lng(2.3522)\n              .build(),\n          OptimizeRequest.Waypoint.builder()\n              .lat(48.8606)\n              .lng(2.3376)\n              .build(),\n          OptimizeRequest.Waypoint.builder()\n              .lat(48.8584)\n              .lng(2.2945)\n              .build(),\n        ))\n        .build()\n    val optimizeResult: OptimizeResult = client.optimize().create(params)\n}',
+      },
+      php: {
+        method: 'optimize->create',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$optimizeResult = $client->optimize->create(\n  waypoints: [\n    ['lat' => 48.8566, 'lng' => 2.3522],\n    ['lat' => 48.8606, 'lng' => 2.3376],\n    ['lat' => 48.8584, 'lng' => 2.2945],\n  ],\n  format: 'format',\n  mode: 'auto',\n  roundtrip: false,\n);\n\nvar_dump($optimizeResult);",
       },
       python: {
         method: 'optimize.create',
@@ -2091,6 +2421,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'optimize retrieve',
         example: "plaza optimize retrieve \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
       },
+      csharp: {
+        method: 'Optimize.Retrieve',
+        example:
+          'OptimizeRetrieveParams parameters = new() { JobID = "job_id" };\n\nvar optimizeJobStatus = await client.Optimize.Retrieve(parameters);\n\nConsole.WriteLine(optimizeJobStatus);',
+      },
       go: {
         method: 'client.Optimize.Get',
         example:
@@ -2109,6 +2444,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'optimize().retrieve',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.optimize.OptimizeJobStatus\nimport com.plazafyi.models.optimize.OptimizeRetrieveParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val optimizeJobStatus: OptimizeJobStatus = client.optimize().retrieve("job_id")\n}',
+      },
+      php: {
+        method: 'optimize->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$optimizeJobStatus = $client->optimize->retrieve('job_id');\n\nvar_dump($optimizeJobStatus);",
       },
       python: {
         method: 'optimize.retrieve',
@@ -2146,6 +2486,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "plaza query execute \\\n  --api-key 'My API Key' \\\n  --data '$$ = search(node, amenity: \"cafe\").around(distance: 500, geometry: point(48.8566, 2.3522));'",
       },
+      csharp: {
+        method: 'Query.Execute',
+        example:
+          'QueryExecuteParams parameters = new()\n{\n    Data = "$$ = search(node, amenity: \\"cafe\\").around(distance: 500, geometry: point(48.8566, 2.3522));",\n};\n\nvar featureCollection = await client.Query.Execute(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
       go: {
         method: 'client.Query.Execute',
         example:
@@ -2164,6 +2509,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'query().execute',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.query.PlazaqlQuery\nimport com.plazafyi.models.query.QueryExecuteParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: PlazaqlQuery = PlazaqlQuery.builder()\n        .data("\\$\\$ = search(node, amenity: \\"cafe\\").around(distance: 500, geometry: point(48.8566, 2.3522));")\n        .build()\n    val featureCollection: FeatureCollection = client.query().execute(params)\n}',
+      },
+      php: {
+        method: 'query->execute',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->query->execute(\n  data: '$$ = search(node, amenity: \"cafe\").around(distance: 500, geometry: point(48.8566, 2.3522));',\n  format: 'format',\n);\n\nvar_dump($featureCollection);",
       },
       python: {
         method: 'query.execute',
@@ -2199,6 +2549,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'tiles get',
         example: "plaza tiles get \\\n  --api-key 'My API Key' \\\n  --z 0 \\\n  --x 0 \\\n  --y 0",
       },
+      csharp: {
+        method: 'Tiles.Get',
+        example:
+          'TileGetParams parameters = new()\n{\n    Z = 0,\n    X = 0,\n    Y = 0,\n};\n\nvar tile = await client.Tiles.Get(parameters);\n\nConsole.WriteLine(tile);',
+      },
       go: {
         method: 'client.Tiles.Get',
         example:
@@ -2217,6 +2572,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'tiles().get',
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.core.http.HttpResponse\nimport com.plazafyi.models.tiles.TileGetParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: TileGetParams = TileGetParams.builder()\n        .z(0L)\n        .x(0L)\n        .y(0L)\n        .build()\n    val tile: HttpResponse = client.tiles().get(params)\n}',
+      },
+      php: {
+        method: 'tiles->get',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$tile = $client->tiles->get(0, z: 0, x: 0);\n\nvar_dump($tile);",
       },
       python: {
         method: 'tiles.get',
@@ -2269,9 +2629,19 @@ const EMBEDDED_READMES: { language: string; content: string }[] = [
       '# Plaza Kotlin API Library\n\n<!-- x-release-please-start-version -->\n[![Maven Central](https://img.shields.io/maven-central/v/com.plazafyi/plaza-kotlin)](https://central.sonatype.com/artifact/com.plazafyi/plaza-kotlin/0.0.1)\n[![javadoc](https://javadoc.io/badge2/com.plazafyi/plaza-kotlin/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.plazafyi/plaza-kotlin/0.0.1)\n<!-- x-release-please-end -->\n\nThe Plaza Kotlin SDK provides convenient access to the [Plaza REST API](https://docs.plaza.fyi)   from applications written in Kotlin.\n\nThe Plaza Kotlin SDK is similar to the Plaza Java SDK but with minor differences that       make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`,       `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.\n\nIt is generated with [Stainless](https://www.stainless.com/).\n\n## MCP Server\n\nUse the Plaza MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=%40plazafyi%2Fmcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBwbGF6YWZ5aS9tY3AiXSwiZW52Ijp7IlBMQVpBX0FQSV9LRVkiOiJNeSBBUEkgS2V5In19)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22%40plazafyi%2Fmcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40plazafyi%2Fmcp%22%5D%2C%22env%22%3A%7B%22PLAZA_API_KEY%22%3A%22My%20API%20Key%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n<!-- x-release-please-start-version -->\n\nThe REST API documentation can be found on [docs.plaza.fyi](https://docs.plaza.fyi). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.plazafyi/plaza-kotlin/0.0.1).\n\n<!-- x-release-please-end -->\n\n## Installation\n\n<!-- x-release-please-start-version -->\n\n### Gradle\n\n~~~kotlin\nimplementation("com.plazafyi:plaza-kotlin:0.0.1")\n~~~\n\n### Maven\n\n~~~xml\n<dependency>\n  <groupId>com.plazafyi</groupId>\n  <artifactId>plaza-kotlin</artifactId>\n  <version>0.0.1</version>\n</dependency>\n~~~\n\n<!-- x-release-please-end -->\n\n## Requirements\n\nThis library requires Java 8 or later.\n\n## Usage\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.elements.ElementQueryParams\n\n// Configures using the `plaza.apiKey` and `plaza.baseUrl` system properties\n// Or configures using the `PLAZA_API_KEY` and `PLAZA_BASE_URL` environment variables\nval client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\nval params: ElementQueryParams = ElementQueryParams.builder()\n    .near("48.8584,2.2945")\n    .radius(500.0)\n    .build()\nval featureCollection: FeatureCollection = client.elements().query(params)\n```\n\n## Client configuration\n\nConfigure the client using system properties or environment variables:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\n\n// Configures using the `plaza.apiKey` and `plaza.baseUrl` system properties\n// Or configures using the `PLAZA_API_KEY` and `PLAZA_BASE_URL` environment variables\nval client: PlazaClient = PlazaOkHttpClient.fromEnv()\n```\n\nOr manually:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\n\nval client: PlazaClient = PlazaOkHttpClient.builder()\n    .apiKey("My API Key")\n    .build()\n```\n\nOr using a combination of the two approaches:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\n\nval client: PlazaClient = PlazaOkHttpClient.builder()\n    // Configures using the `plaza.apiKey` and `plaza.baseUrl` system properties\n    // Or configures using the `PLAZA_API_KEY` and `PLAZA_BASE_URL` environment variables\n    .fromEnv()\n    .apiKey("My API Key")\n    .build()\n```\n\nSee this table for the available options:\n\n| Setter    | System property | Environment variable | Required | Default value         |\n| --------- | --------------- | -------------------- | -------- | --------------------- |\n| `apiKey`  | `plaza.apiKey`  | `PLAZA_API_KEY`      | true     | -                     |\n| `baseUrl` | `plaza.baseUrl` | `PLAZA_BASE_URL`     | true     | `"https://plaza.fyi"` |\n\nSystem properties take precedence over environment variables.\n\n> [!TIP]\n> Don\'t create more than one client in the same application. Each client has a connection pool and\n> thread pools, which are more efficient to share between requests.\n\n### Modifying configuration\n\nTo temporarily use a modified client configuration, while reusing the same connection and thread       pools, call `withOptions()` on any client or service:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\n\nval clientWithOptions: PlazaClient = client.withOptions {\n    it.baseUrl("https://example.com")\n    it.maxRetries(42)\n}\n```\n\nThe `withOptions()` method does not affect the original client or service.\n\n## Requests and responses\n\nTo send a request to the Plaza API, build an instance of some `Params` class and pass it to the     corresponding client method. When the response is received, it will be deserialized into an instance of     a Kotlin class.\n\nFor example, `client.elements().query(...)` should be called with an instance of `ElementQueryParams`, and it     will return an instance of `FeatureCollection`.\n\n## Immutability\n\nEach class in the SDK has an associated   [builder](https://blogs.oracle.com/javamagazine/post/exploring-joshua-blochs-builder-design-pattern-in-java)   or factory method for constructing it.\n\nEach class is [immutable](https://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html)   once constructed. If the class has an associated builder, then it has a `toBuilder()` method, which can   be used to convert it back to a builder for making a modified copy.\n\nBecause each class is immutable, builder modification will _never_ affect already built class instances.\n\n## Asynchronous execution\n\nThe default client is synchronous. To switch to asynchronous execution, call the `async()` method:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.elements.ElementQueryParams\n\n// Configures using the `plaza.apiKey` and `plaza.baseUrl` system properties\n// Or configures using the `PLAZA_API_KEY` and `PLAZA_BASE_URL` environment variables\nval client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\nval params: ElementQueryParams = ElementQueryParams.builder()\n    .near("48.8584,2.2945")\n    .radius(500.0)\n    .build()\nval featureCollection: FeatureCollection = client.async().elements().query(params)\n```\n\nOr create an asynchronous client from the beginning:\n\n```kotlin\nimport com.plazafyi.client.PlazaClientAsync\nimport com.plazafyi.client.okhttp.PlazaOkHttpClientAsync\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.elements.ElementQueryParams\n\n// Configures using the `plaza.apiKey` and `plaza.baseUrl` system properties\n// Or configures using the `PLAZA_API_KEY` and `PLAZA_BASE_URL` environment variables\nval client: PlazaClientAsync = PlazaOkHttpClientAsync.fromEnv()\n\nval params: ElementQueryParams = ElementQueryParams.builder()\n    .near("48.8584,2.2945")\n    .radius(500.0)\n    .build()\nval featureCollection: FeatureCollection = client.elements().query(params)\n```\n\nThe asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).\n\n\n\n\n\n## Binary responses\n\nThe SDK defines methods that return binary responses, which are used for API responses that shouldn\'t     necessarily be parsed, like non-JSON data.\n\nThese methods return [`HttpResponse`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/core/http/HttpResponse.kt):\n\n```kotlin\nimport com.plazafyi.core.http.HttpResponse\nimport com.plazafyi.models.tiles.TileGetParams\n\nval params: TileGetParams = TileGetParams.builder()\n    .z(0L)\n    .x(0L)\n    .y(0L)\n    .build()\nval tile: HttpResponse = client.tiles().get(params)\n```\n\nTo save the response content to a file, use the     [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-)     method:\n\n```kotlin\nimport java.nio.file.Files\nimport java.nio.file.Paths\nimport java.nio.file.StandardCopyOption\n\nclient.tiles().get(params).use {\n    Files.copy(\n        it.body(),\n        Paths.get(path),\n        StandardCopyOption.REPLACE_EXISTING\n    )\n}\n```\n\nOr transfer the response content to any     [`OutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html):\n\n```kotlin\nimport java.nio.file.Files\nimport java.nio.file.Paths\n\nclient.tiles().get(params).use {\n    it.body().transferTo(Files.newOutputStream(Paths.get(path)))\n}\n```\n\n## Raw responses\n\nThe SDK defines methods that deserialize responses into instances of Kotlin classes.       However, these methods don\'t provide access to the response headers, status code, or the raw response       body.\n\nTo access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:\n\n```kotlin\nimport com.plazafyi.core.http.Headers\nimport com.plazafyi.core.http.HttpResponseFor\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.elements.ElementQueryParams\n\nval params: ElementQueryParams = ElementQueryParams.builder()\n    .near("48.8584,2.2945")\n    .radius(500.0)\n    .build()\nval featureCollection: HttpResponseFor<FeatureCollection> = client.elements().withRawResponse().query(params)\n\nval statusCode: Int = featureCollection.statusCode()\nval headers: Headers = featureCollection.headers()\n```\n\nYou can still deserialize the response into an instance of a Kotlin class if needed:\n\n```kotlin\nimport com.plazafyi.models.FeatureCollection\n\nval parsedFeatureCollection: FeatureCollection = featureCollection.parse()\n```\n\n## Error handling\n\nThe SDK throws custom unchecked exception types:\n\n- [`PlazaServiceException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/PlazaServiceException.kt): Base class for HTTP errors. See this table for which exception       subclass is thrown for each HTTP status code:\n\n  | Status | Exception                                          |\n  | ------ | -------------------------------------------------- |\n  | 400    | [`BadRequestException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/BadRequestException.kt)           |\n  | 401    | [`UnauthorizedException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/UnauthorizedException.kt)         |\n  | 403    | [`PermissionDeniedException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/PermissionDeniedException.kt)     |\n  | 404    | [`NotFoundException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/NotFoundException.kt)             |\n  | 422    | [`UnprocessableEntityException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/UnprocessableEntityException.kt)  |\n  | 429    | [`RateLimitException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/RateLimitException.kt)            |\n  | 5xx    | [`InternalServerException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/InternalServerException.kt)       |\n  | others | [`UnexpectedStatusCodeException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/UnexpectedStatusCodeException.kt) |\n\n- [`PlazaIoException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/PlazaIoException.kt): I/O networking errors.\n\n- [`PlazaRetryableException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/PlazaRetryableException.kt): Generic error indicating a failure that could be retried by the client.\n\n- [`PlazaInvalidDataException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/PlazaInvalidDataException.kt): Failure to interpret successfully parsed data. For example,       when accessing a property that\'s supposed to be required, but the API unexpectedly omitted it from the       response.\n\n- [`PlazaException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/PlazaException.kt): Base class for all exceptions. Most errors will result in one of the       previously mentioned ones, but completely generic errors may be thrown using the base class.\n\n\n\n## Logging\n\nThe SDK uses the standard   [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).\n\nEnable logging by setting the `PLAZA_LOG` environment variable to   `info`:\n\n```sh\nexport PLAZA_LOG=info\n```\n\nOr to `debug` for more verbose logging:\n\n```sh\nexport PLAZA_LOG=debug\n```\n\n## ProGuard and R8\n\nAlthough the SDK uses reflection, it is still usable with     [ProGuard](https://github.com/Guardsquare/proguard) and     [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because     `plaza-kotlin-core` is published with a     [configuration file](plaza-kotlin-core/src/main/resources/META-INF/proguard/plaza-kotlin-core.pro) containing     [keep rules](https://www.guardsquare.com/manual/configuration/usage).\n\nProGuard and R8 should automatically detect and use the published rules, but you can also manually copy     the keep rules if necessary.\n\n\n\n\n\n## Jackson\n\nThe SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON     serialization/deserialization. It is compatible with version 2.13.4 or higher,     but depends on version 2.18.2 by default.\n\nThe SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the     default version was overridden in your Maven or Gradle config).\n\nIf the SDK threw an exception, but you\'re _certain_ the version is compatible, then disable the version     check using the `checkJacksonVersionCompatibility` on [`PlazaOkHttpClient`](plaza-kotlin-client-okhttp/src/main/kotlin/com/plazafyi/client/okhttp/PlazaOkHttpClient.kt) or     [`PlazaOkHttpClientAsync`](plaza-kotlin-client-okhttp/src/main/kotlin/com/plazafyi/client/okhttp/PlazaOkHttpClientAsync.kt).\n\n> [!CAUTION]\n> We make no guarantee that the SDK works correctly when the Jackson version check is disabled.\n\nAlso note that there are bugs in older Jackson versions that can affect the SDK. We don\'t work around all     Jackson bugs ([example](https://github.com/FasterXML/jackson-databind/issues/3240)) and expect users to     upgrade Jackson for those instead.\n\n## Network options\n\n### Retries\n\nThe SDK automatically retries 2 times by default, with a short exponential backoff between requests.\n\nOnly the following error types are retried:\n- Connection errors (for example, due to a network connectivity problem)\n- 408 Request Timeout\n- 409 Conflict\n- 429 Rate Limit\n- 5xx Internal\n\nThe API may also explicitly instruct the SDK to retry or not retry a request.\n\nTo set a custom number of retries, configure the client using the `maxRetries` method:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\n\nval client: PlazaClient = PlazaOkHttpClient.builder()\n    .fromEnv()\n    .maxRetries(4)\n    .build()\n```\n\n### Timeouts\n\nRequests time out after 1 minute by default.\n\nTo set a custom timeout, configure the method call using the `timeout` method:\n\n```kotlin\nimport com.plazafyi.models.FeatureCollection\n\nval featureCollection: FeatureCollection = client.elements().query(RequestOptions.builder().timeout(Duration.ofSeconds(30)).build())\n```\n\nOr configure the default for all method calls at the client level:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport java.time.Duration\n\nval client: PlazaClient = PlazaOkHttpClient.builder()\n    .fromEnv()\n    .timeout(Duration.ofSeconds(30))\n    .build()\n```\n\n### Proxies\n\nTo route requests through a proxy, configure the client using the `proxy` method:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport java.net.InetSocketAddress\nimport java.net.Proxy\n\nval client: PlazaClient = PlazaOkHttpClient.builder()\n    .fromEnv()\n    .proxy(Proxy(\n      Proxy.Type.HTTP, InetSocketAddress(\n        "https://example.com", 8080\n      )\n    ))\n    .build()\n```\n\n### Connection pooling\n\nTo customize the underlying OkHttp connection pool, configure the client using the   `maxIdleConnections` and `keepAliveDuration` methods:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport java.time.Duration\n\nval client: PlazaClient = PlazaOkHttpClient.builder()\n    .fromEnv()\n    // If `maxIdleConnections` is set, then `keepAliveDuration` must be set, and vice versa.\n    .maxIdleConnections(10)\n    .keepAliveDuration(Duration.ofMinutes(2))\n    .build()\n```\n\nIf both options are unset, OkHttp\'s default connection pool settings are used.\n\n### HTTPS\n\n> [!NOTE]\n> Most applications should not call these methods, and instead use the system defaults. The defaults include\n> special optimizations that can be lost if the implementations are modified.\n\nTo configure how HTTPS connections are secured, configure the client using the `sslSocketFactory`,   `trustManager`, and `hostnameVerifier` methods:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\n\nval client: PlazaClient = PlazaOkHttpClient.builder()\n    .fromEnv()\n    // If `sslSocketFactory` is set, then `trustManager` must be set, and vice versa.\n    .sslSocketFactory(yourSSLSocketFactory)\n    .trustManager(yourTrustManager)\n    .hostnameVerifier(yourHostnameVerifier)\n    .build()\n```\n\n### Environments\n\nThe SDK sends requests to the production by default. To send requests to a different     environment, configure the client like so:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\n\nval client: PlazaClient = PlazaOkHttpClient.builder()\n    .fromEnv()\n    .local()\n    .build()\n```\n\n### Custom HTTP client\n\nThe SDK consists of three artifacts:\n- `plaza-kotlin-core`\n  - Contains core SDK logic\n  - Does not depend on [OkHttp](https://square.github.io/okhttp)\n  - Exposes [`PlazaClient`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/client/PlazaClient.kt), [`PlazaClientAsync`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/client/PlazaClientAsync.kt),             [`PlazaClientImpl`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/client/PlazaClientImpl.kt), and [`PlazaClientAsyncImpl`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/client/PlazaClientAsyncImpl.kt), all of which can             work with any HTTP client\n- `plaza-kotlin-client-okhttp`\n  - Depends on [OkHttp](https://square.github.io/okhttp)\n  - Exposes [`PlazaOkHttpClient`](plaza-kotlin-client-okhttp/src/main/kotlin/com/plazafyi/client/okhttp/PlazaOkHttpClient.kt) and [`PlazaOkHttpClientAsync`](plaza-kotlin-client-okhttp/src/main/kotlin/com/plazafyi/client/okhttp/PlazaOkHttpClientAsync.kt), which             provide a way to construct [`PlazaClientImpl`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/client/PlazaClientImpl.kt) and             [`PlazaClientAsyncImpl`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/client/PlazaClientAsyncImpl.kt), respectively, using OkHttp\n- `plaza-kotlin`\n  - Depends on and exposes the APIs of both `plaza-kotlin-core` and `plaza-kotlin-client-okhttp`\n  - Does not have its own logic\n\nThis structure allows replacing the SDK\'s default HTTP client without pulling in unnecessary dependencies.\n\n#### Customized [`OkHttpClient`](https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.html)\n\n> [!TIP]\n> Try the available [network options](#network-options) before replacing the default client.\n\nTo use a customized `OkHttpClient`:\n\n1. Replace your [`plaza-kotlin` dependency](#installation) with `plaza-kotlin-core`\n2. Copy `plaza-kotlin-client-okhttp`\'s [`OkHttpClient`](plaza-kotlin-client-okhttp/src/main/kotlin/com/plazafyi/client/okhttp/OkHttpClient.kt) class into your code and        customize it\n3. Construct [`PlazaClientImpl`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/client/PlazaClientImpl.kt) or [`PlazaClientAsyncImpl`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/client/PlazaClientAsyncImpl.kt), similarly to        [`PlazaOkHttpClient`](plaza-kotlin-client-okhttp/src/main/kotlin/com/plazafyi/client/okhttp/PlazaOkHttpClient.kt) or [`PlazaOkHttpClientAsync`](plaza-kotlin-client-okhttp/src/main/kotlin/com/plazafyi/client/okhttp/PlazaOkHttpClientAsync.kt), using your        customized client\n\n### Completely custom HTTP client\n\nTo use a completely custom HTTP client:\n\n1. Replace your [`plaza-kotlin` dependency](#installation) with `plaza-kotlin-core`\n2. Write a class that implements the [`HttpClient`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/core/http/HttpClient.kt) interface\n3. Construct [`PlazaClientImpl`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/client/PlazaClientImpl.kt) or [`PlazaClientAsyncImpl`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/client/PlazaClientAsyncImpl.kt), similarly to        [`PlazaOkHttpClient`](plaza-kotlin-client-okhttp/src/main/kotlin/com/plazafyi/client/okhttp/PlazaOkHttpClient.kt) or [`PlazaOkHttpClientAsync`](plaza-kotlin-client-okhttp/src/main/kotlin/com/plazafyi/client/okhttp/PlazaOkHttpClientAsync.kt), using your new        client class\n\n## Undocumented API functionality\n\nThe SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.\n\n### Parameters\n\nTo set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQueryParam`, or       `putAdditionalBodyProperty` methods on any `Params` class:\n\n```kotlin\nimport com.plazafyi.core.JsonValue\nimport com.plazafyi.models.elements.ElementQueryParams\n\nval params: ElementQueryParams = ElementQueryParams.builder()\n    .putAdditionalHeader("Secret-Header", "42")\n    .putAdditionalQueryParam("secret_query_param", "42")\n    .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))\n    .build()\n```\n\nThese can be accessed on the built object later using the `_additionalHeaders()`,       `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.\n\nTo set a documented parameter or property to an undocumented or not yet supported _value_, pass a       [`JsonValue`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/core/Values.kt) object to its setter:\n\n```kotlin\nimport com.plazafyi.models.elements.ElementQueryParams\n\nval params: ElementQueryParams = ElementQueryParams.builder()\n    .near("48.8584,2.2945")\n    .radius(500.0)\n    .build()\n```\n\nThe most straightforward way to create a [`JsonValue`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/core/Values.kt) is using its       `from(...)` method:\n\n```kotlin\nimport com.plazafyi.core.JsonValue\n\n// Create primitive JSON values\nval nullValue: JsonValue = JsonValue.from(null)\nval booleanValue: JsonValue = JsonValue.from(true)\nval numberValue: JsonValue = JsonValue.from(42)\nval stringValue: JsonValue = JsonValue.from("Hello World!")\n\n// Create a JSON array value equivalent to `["Hello", "World"]`\nval arrayValue: JsonValue = JsonValue.from(listOf(\n  "Hello", "World"\n))\n\n// Create a JSON object value equivalent to `{ "a": 1, "b": 2 }`\nval objectValue: JsonValue = JsonValue.from(mapOf(\n  "a" to 1, "b" to 2\n))\n\n// Create an arbitrarily nested JSON equivalent to:\n// {\n//   "a": [1, 2],\n//   "b": [3, 4]\n// }\nval complexValue: JsonValue = JsonValue.from(mapOf(\n  "a" to listOf(\n    1, 2\n  ), "b" to listOf(\n    3, 4\n  )\n))\n```\n\nNormally a `Builder` class\'s `build` method will throw         [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html)         if any required parameter or property is unset.\n\nTo forcibly omit a required parameter or property, pass [`JsonMissing`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/core/Values.kt):\n\n```kotlin\nimport com.plazafyi.core.JsonMissing\nimport com.plazafyi.models.elements.ElementQueryParams\nimport com.plazafyi.models.elements.ElementRetrieveParams\n\nval params: ElementQueryParams = ElementRetrieveParams.builder()\n    .type(JsonMissing.of())\n    .build()\n```\n\n### Response properties\n\nTo access undocumented response properties, call the `_additionalProperties()` method:\n\n```kotlin\nimport com.plazafyi.core.JsonBoolean\nimport com.plazafyi.core.JsonNull\nimport com.plazafyi.core.JsonNumber\nimport com.plazafyi.core.JsonValue\n\nval additionalProperties: Map<String, JsonValue> = client.elements().query(params)._additionalProperties()\nval secretPropertyValue: JsonValue = additionalProperties.get("secretProperty")\n\nval result = when (secretPropertyValue) {\n    is JsonNull -> "It\'s null!"\n    is JsonBoolean -> "It\'s a boolean!"\n    is JsonNumber -> "It\'s a number!"\n    // Other types include `JsonMissing`, `JsonString`, `JsonArray`, and `JsonObject`\n    else -> "It\'s something else!"\n}\n```\n\nTo access a property\'s raw JSON value, which may be undocumented, call its `_` prefixed method:\n\n```kotlin\nimport com.plazafyi.core.JsonField\n\nval field: JsonField<Any> = client.elements().query(params)._field()\n\nif (field.isMissing()) {\n  // The property is absent from the JSON response\n} else if (field.isNull()) {\n  // The property was set to literal null\n} else {\n  // Check if value was provided as a string\n  // Other methods include `asNumber()`, `asBoolean()`, etc.\n  val jsonString: String? = field.asString();\n\n  // Try to deserialize into a custom type\n  val myObject: MyClass = field.asUnknown()!!.convert(MyClass::class.java)\n}\n```\n\n### Response validation\n\nIn rare cases, the API may return a response that doesn\'t match the expected type. For example, the SDK     may expect a property to contain a `String`, but the API could return something else.\n\nBy default, the SDK will not throw an exception in this case. It will throw     [`PlazaInvalidDataException`](plaza-kotlin-core/src/main/kotlin/com/plazafyi/errors/PlazaInvalidDataException.kt) only if you directly access the property.\n\nIf you would prefer to check that the response is completely well-typed upfront, then either call     `validate()`:\n\n```kotlin\nimport com.plazafyi.models.FeatureCollection\n\nval featureCollection: FeatureCollection = client.elements().query(params).validate()\n```\n\nOr configure the method call to validate the response using the `responseValidation` method:\n\n```kotlin\nimport com.plazafyi.models.FeatureCollection\n\nval featureCollection: FeatureCollection = client.elements().query(RequestOptions.builder().responseValidation(true).build())\n```\n\nOr configure the default for all method calls at the client level:\n\n```kotlin\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\n\nval client: PlazaClient = PlazaOkHttpClient.builder()\n    .fromEnv()\n    .responseValidation(true)\n    .build()\n```\n\n## FAQ\n\n### Why don\'t you use plain `enum` classes?\n\nKotlin `enum` classes are not trivially   [forwards compatible](https://www.stainless.com/blog/making-java-enums-forwards-compatible). Using them in   the SDK could cause runtime exceptions if the API is updated to respond with a new enum value.\n\n### Why do you represent fields using `JsonField<T>` instead of just plain `T`?\n\nUsing `JsonField<T>` enables a few features:\n\n- Allowing usage of [undocumented API functionality](#undocumented-api-functionality)\n- Lazily [validating the API response against the expected shape](#response-validation)\n- Representing absent vs explicitly null values\n\n### Why don\'t you use [`data` classes](https://kotlinlang.org/docs/data-classes.html)?\n\nIt is not [backwards compatible to add new fields to a data class](https://kotlinlang.org/docs/api-guidelines-backward-compatibility.html#avoid-using-data-classes-in-your-api)   and we don\'t want to introduce a breaking change every time we add a field to a class.\n\n### Why don\'t you use checked exceptions?\n\nChecked exceptions are widely considered a mistake in the Java programming language. In fact, they were   omitted from Kotlin for this reason.\n\nChecked exceptions:\n\n- Are verbose to handle\n- Encourage error handling at the wrong level of abstraction, where nothing can be done about the error\n- Are tedious to propagate due to the [function coloring problem](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function)\n- Don\'t play well with lambdas (also due to the function coloring problem)\n\n## Semantic versioning\n\nThis package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:\n\n1. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_\n2. Changes that we do not expect to impact the vast majority of users in practice.\n\nWe take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.\n\nWe are keen for your feedback; please open an [issue](https://www.github.com/plazafyi/plaza-kotlin/issues) with questions, bugs, or suggestions.\n',
   },
   {
+    language: 'csharp',
+    content:
+      '# Plaza C# API Library\n\nThe Plaza C# SDK provides convenient access to the [Plaza REST API](https://docs.plaza.fyi) from applications written in   C#.\n\n## Installation\n\nInstall the package from [NuGet](https://www.nuget.org/packages/Plaza):\n\n```bash\ndotnet add package Plaza\n```\n\n## Requirements\n\nThis library requires .NET Standard 2.0 or later.\n\n## Usage\n\nSee the [`examples`](examples) directory for complete and runnable examples.\n\n```csharp\nPlazaClient client = new();\n\nElementQueryParams parameters = new()\n{\n    Near = "48.8584,2.2945",\n    Radius = 500,\n};\n\nvar featureCollection = await client.Elements.Query(parameters);\n\nConsole.WriteLine(featureCollection);\n```',
+  },
+  {
     language: 'cli',
     content:
       "# Plaza CLI\n\nThe official CLI for the [Plaza REST API](https://docs.plaza.fyi).\n\nIt is generated with [Stainless](https://www.stainless.com/).\n\n<!-- x-release-please-start-version -->\n\n## Installation\n\n### Installing with Homebrew\n\n~~~sh\nbrew install plazafyi/tap/plaza\n~~~\n\n### Installing with Go\n\nTo test or install the CLI locally, you need [Go](https://go.dev/doc/install) version 1.22 or later installed.\n\n~~~sh\ngo install 'github.com/plazafyi/plaza-cli/cmd/plaza@latest'\n~~~\n\nOnce you have run `go install`, the binary is placed in your Go bin directory:\n\n- **Default location**: `$HOME/go/bin` (or `$GOPATH/bin` if GOPATH is set)\n- **Check your path**: Run `go env GOPATH` to see the base directory\n\nIf commands aren't found after installation, add the Go bin directory to your PATH:\n\n~~~sh\n# Add to your shell profile (.zshrc, .bashrc, etc.)\nexport PATH=\"$PATH:$(go env GOPATH)/bin\"\n~~~\n\n<!-- x-release-please-end -->\n\n### Running Locally\n\nAfter cloning the git repository for this project, you can use the\n`scripts/run` script to run the tool locally:\n\n~~~sh\n./scripts/run args...\n~~~\n\n## Usage\n\nThe CLI follows a resource-based command structure:\n\n~~~sh\nplaza [resource] <command> [flags...]\n~~~\n\n~~~sh\nplaza elements query \\\n  --api-key 'My API Key' \\\n  --near 48.8584,2.2945 \\\n  --radius 500\n~~~\n\nFor details about specific commands, use the `--help` flag.\n\n### Environment variables\n\n| Environment variable | Description   | Required |\n| -------------------- | ------------- | -------- |\n| `PLAZA_API_KEY`      | Plaza API key | yes      |\n\n### Global flags\n\n- `--api-key` - Plaza API key (can also be set with `PLAZA_API_KEY` env var)\n- `--help` - Show command line usage\n- `--debug` - Enable debug logging (includes HTTP request/response details)\n- `--version`, `-v` - Show the CLI version\n- `--base-url` - Use a custom API backend URL\n- `--format` - Change the output format (`auto`, `explore`, `json`, `jsonl`, `pretty`, `raw`, `yaml`)\n- `--format-error` - Change the output format for errors (`auto`, `explore`, `json`, `jsonl`, `pretty`, `raw`, `yaml`)\n- `--transform` - Transform the data output using [GJSON syntax](https://github.com/tidwall/gjson/blob/master/SYNTAX.md)\n- `--transform-error` - Transform the error output using [GJSON syntax](https://github.com/tidwall/gjson/blob/master/SYNTAX.md)\n\n### Passing files as arguments\n\nTo pass files to your API, you can use the `@myfile.ext` syntax:\n\n~~~bash\nplaza <command> --arg @abe.jpg\n~~~\n\nFiles can also be passed inside JSON or YAML blobs:\n\n~~~bash\nplaza <command> --arg '{image: \"@abe.jpg\"}'\n# Equivalent:\nplaza <command> <<YAML\narg:\n  image: \"@abe.jpg\"\nYAML\n~~~\n\nIf you need to pass a string literal that begins with an `@` sign, you can\nescape the `@` sign to avoid accidentally passing a file.\n\n~~~bash\nplaza <command> --username '\\@abe'\n~~~\n\n#### Explicit encoding\n\nFor JSON endpoints, the CLI tool does filetype sniffing to determine whether the\nfile contents should be sent as a string literal (for plain text files) or as a\nbase64-encoded string literal (for binary files). If you need to explicitly send\nthe file as either plain text or base64-encoded data, you can use\n`@file://myfile.txt` (for string encoding) or `@data://myfile.dat` (for\nbase64-encoding). Note that absolute paths will begin with `@file://` or\n`@data://`, followed by a third `/` (for example, `@file:///tmp/file.txt`).\n\n~~~bash\nplaza <command> --arg @data://file.txt\n~~~\n",
+  },
+  {
+    language: 'php',
+    content:
+      "# Plaza PHP API Library\n\nThe Plaza PHP library provides convenient access to the Plaza REST API from any PHP 8.1.0+ application.\n\n## Installation\n\n<!-- x-release-please-start-version -->\n```\ncomposer require \"plazafyi/plaza-php 0.0.1\"\n```\n<!-- x-release-please-end -->\n\n## Usage\n\n```php\n<?php\n\n$client = new Client(\n  apiKey: getenv('PLAZA_API_KEY') ?: 'My API Key', environment: 'local'\n);\n\n$featureCollection = $client->elements->query(\n  near: '48.8584,2.2945', radius: 500\n);\n\nvar_dump($featureCollection->features);\n```",
   },
 ];
 
