@@ -10,9 +10,8 @@ const client = new Plaza({
 describe('resource routing', () => {
   test('isochrone: only required params', async () => {
     const responsePromise = client.routing.isochrone({
-      lat: 0,
-      lng: 0,
-      time: 0,
+      geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },
+      time: [1],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -25,55 +24,19 @@ describe('resource routing', () => {
 
   test('isochrone: required and optional params', async () => {
     const response = await client.routing.isochrone({
-      lat: 0,
-      lng: 0,
-      time: 0,
+      geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },
+      time: [1],
       format: 'format',
-      mode: 'mode',
-      'output[fields]': 'output[fields]',
-      'output[geometry]': true,
-      'output[include]': 'output[include]',
-      'output[precision]': 0,
-      'output[simplify]': 0,
-    });
-  });
-
-  test('isochronePost: only required params', async () => {
-    const responsePromise = client.routing.isochronePost({
-      lat: 0,
-      lng: 0,
-      time: 0,
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('isochronePost: required and optional params', async () => {
-    const response = await client.routing.isochronePost({
-      lat: 0,
-      lng: 0,
-      time: 0,
-      format: 'format',
-      mode: 'mode',
-      'output[fields]': 'output[fields]',
-      'output[geometry]': true,
-      'output[include]': 'output[include]',
-      'output[precision]': 0,
-      'output[simplify]': 0,
+      mode: 'auto',
     });
   });
 
   test('matrix: only required params', async () => {
     const responsePromise = client.routing.matrix({
-      destinations: [{ lat: 48.8584, lng: 2.2945 }],
+      destinations: [{ coordinates: [2.2945, 48.8584], type: 'Point' }],
       origins: [
-        { lat: 48.8566, lng: 2.3522 },
-        { lat: 48.8606, lng: 2.3376 },
+        { coordinates: [2.3522, 48.8566], type: 'Point' },
+        { coordinates: [2.3376, 48.8606], type: 'Point' },
       ],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -87,10 +50,10 @@ describe('resource routing', () => {
 
   test('matrix: required and optional params', async () => {
     const response = await client.routing.matrix({
-      destinations: [{ lat: 48.8584, lng: 2.2945 }],
+      destinations: [{ coordinates: [2.2945, 48.8584], type: 'Point' }],
       origins: [
-        { lat: 48.8566, lng: 2.3522 },
-        { lat: 48.8606, lng: 2.3376 },
+        { coordinates: [2.3522, 48.8566], type: 'Point' },
+        { coordinates: [2.3376, 48.8606], type: 'Point' },
       ],
       annotations: 'annotations',
       fallback_speed: 1,
@@ -99,7 +62,9 @@ describe('resource routing', () => {
   });
 
   test('nearest: only required params', async () => {
-    const responsePromise = client.routing.nearest({ lat: 0, lng: 0 });
+    const responsePromise = client.routing.nearest({
+      geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -111,41 +76,15 @@ describe('resource routing', () => {
 
   test('nearest: required and optional params', async () => {
     const response = await client.routing.nearest({
-      lat: 0,
-      lng: 0,
-      'output[fields]': 'output[fields]',
-      'output[include]': 'output[include]',
-      'output[precision]': 0,
-      radius: 0,
-    });
-  });
-
-  test('nearestPost: only required params', async () => {
-    const responsePromise = client.routing.nearestPost({ lat: 0, lng: 0 });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('nearestPost: required and optional params', async () => {
-    const response = await client.routing.nearestPost({
-      lat: 0,
-      lng: 0,
-      'output[fields]': 'output[fields]',
-      'output[include]': 'output[include]',
-      'output[precision]': 0,
-      radius: 0,
+      geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },
+      radius: 1,
     });
   });
 
   test('route: only required params', async () => {
     const responsePromise = client.routing.route({
-      destination: { lat: 48.8584, lng: 2.2945 },
-      origin: { lat: 48.8566, lng: 2.3522 },
+      destination: { coordinates: [2.2945, 48.8584], type: 'Point' },
+      origin: { coordinates: [2.3522, 48.8566], type: 'Point' },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -158,8 +97,8 @@ describe('resource routing', () => {
 
   test('route: required and optional params', async () => {
     const response = await client.routing.route({
-      destination: { lat: 48.8584, lng: 2.2945 },
-      origin: { lat: 48.8566, lng: 2.3522 },
+      destination: { coordinates: [2.2945, 48.8584], type: 'Point' },
+      origin: { coordinates: [2.3522, 48.8566], type: 'Point' },
       format: 'format',
       alternatives: 0,
       annotations: true,
@@ -177,7 +116,7 @@ describe('resource routing', () => {
       overview: 'full',
       steps: true,
       traffic_model: 'best_guess',
-      waypoints: [{ lat: 48.8566, lng: 2.3522 }],
+      waypoints: [{ coordinates: [2.3522, 48.8566], type: 'Point' }],
     });
   });
 });

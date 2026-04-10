@@ -12,59 +12,17 @@ export class Routing extends APIResource {
    * @example
    * ```ts
    * const response = await client.routing.isochrone({
-   *   lat: 0,
-   *   lng: 0,
-   *   time: 0,
+   *   geometry: {
+   *     coordinates: [2.3522, 48.8566],
+   *     type: 'Point',
+   *   },
+   *   time: [1],
    * });
    * ```
    */
-  isochrone(query: RoutingIsochroneParams, options?: RequestOptions): APIPromise<RoutingIsochroneResponse> {
-    return this._client.get('/api/v1/isochrone', { query, ...options });
-  }
-
-  /**
-   * Calculate an isochrone from a point
-   *
-   * @example
-   * ```ts
-   * const response = await client.routing.isochronePost({
-   *   lat: 0,
-   *   lng: 0,
-   *   time: 0,
-   * });
-   * ```
-   */
-  isochronePost(
-    params: RoutingIsochronePostParams,
-    options?: RequestOptions,
-  ): APIPromise<RoutingIsochronePostResponse> {
-    const {
-      lat,
-      lng,
-      time,
-      format,
-      mode,
-      'output[fields]': outputFields,
-      'output[geometry]': outputGeometry,
-      'output[include]': outputInclude,
-      'output[precision]': outputPrecision,
-      'output[simplify]': outputSimplify,
-    } = params;
-    return this._client.post('/api/v1/isochrone', {
-      query: {
-        lat,
-        lng,
-        time,
-        format,
-        mode,
-        'output[fields]': outputFields,
-        'output[geometry]': outputGeometry,
-        'output[include]': outputInclude,
-        'output[precision]': outputPrecision,
-        'output[simplify]': outputSimplify,
-      },
-      ...options,
-    });
+  isochrone(params: RoutingIsochroneParams, options?: RequestOptions): APIPromise<RoutingIsochroneResponse> {
+    const { format, ...body } = params;
+    return this._client.post('/api/v1/isochrone', { query: { format }, body, ...options });
   }
 
   /**
@@ -73,10 +31,12 @@ export class Routing extends APIResource {
    * @example
    * ```ts
    * const matrixResult = await client.routing.matrix({
-   *   destinations: [{ lat: 48.8584, lng: 2.2945 }],
+   *   destinations: [
+   *     { coordinates: [2.2945, 48.8584], type: 'Point' },
+   *   ],
    *   origins: [
-   *     { lat: 48.8566, lng: 2.3522 },
-   *     { lat: 48.8606, lng: 2.3376 },
+   *     { coordinates: [2.3522, 48.8566], type: 'Point' },
+   *     { coordinates: [2.3376, 48.8606], type: 'Point' },
    *   ],
    * });
    * ```
@@ -91,46 +51,15 @@ export class Routing extends APIResource {
    * @example
    * ```ts
    * const nearestResult = await client.routing.nearest({
-   *   lat: 0,
-   *   lng: 0,
+   *   geometry: {
+   *     coordinates: [2.3522, 48.8566],
+   *     type: 'Point',
+   *   },
    * });
    * ```
    */
-  nearest(query: RoutingNearestParams, options?: RequestOptions): APIPromise<NearestResult> {
-    return this._client.get('/api/v1/nearest', { query, ...options });
-  }
-
-  /**
-   * Snap a coordinate to the nearest road
-   *
-   * @example
-   * ```ts
-   * const nearestResult = await client.routing.nearestPost({
-   *   lat: 0,
-   *   lng: 0,
-   * });
-   * ```
-   */
-  nearestPost(params: RoutingNearestPostParams, options?: RequestOptions): APIPromise<NearestResult> {
-    const {
-      lat,
-      lng,
-      'output[fields]': outputFields,
-      'output[include]': outputInclude,
-      'output[precision]': outputPrecision,
-      radius,
-    } = params;
-    return this._client.post('/api/v1/nearest', {
-      query: {
-        lat,
-        lng,
-        'output[fields]': outputFields,
-        'output[include]': outputInclude,
-        'output[precision]': outputPrecision,
-        radius,
-      },
-      ...options,
-    });
+  nearest(body: RoutingNearestParams, options?: RequestOptions): APIPromise<NearestResult> {
+    return this._client.post('/api/v1/nearest', { body, ...options });
   }
 
   /**
@@ -139,8 +68,11 @@ export class Routing extends APIResource {
    * @example
    * ```ts
    * const routeResult = await client.routing.route({
-   *   destination: { lat: 48.8584, lng: 2.2945 },
-   *   origin: { lat: 48.8566, lng: 2.3522 },
+   *   destination: {
+   *     coordinates: [2.2945, 48.8584],
+   *     type: 'Point',
+   *   },
+   *   origin: { coordinates: [2.3522, 48.8566], type: 'Point' },
    * });
    * ```
    */
@@ -151,20 +83,42 @@ export class Routing extends APIResource {
 }
 
 /**
+ * Request body for isochrone calculation. Computes areas reachable from a point
+ * within the given travel time(s).
+ */
+export interface IsochroneRequest {
+  /**
+   * GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude]
+   * order. Optional third element is altitude in meters.
+   */
+  geometry: TopLevelAPI.PointGeometry;
+
+  /**
+   * Travel time budgets in seconds. Each value produces one contour polygon.
+   */
+  time: Array<number>;
+
+  /**
+   * Travel mode (default: `auto`)
+   */
+  mode?: 'auto' | 'foot' | 'bicycle';
+}
+
+/**
  * Request body for distance matrix calculation. Computes travel durations (and
  * optionally distances) between every origin-destination pair. Maximum 2,500 pairs
  * (origins × destinations), each list capped at 50 coordinates.
  */
 export interface MatrixRequest {
   /**
-   * Array of destination coordinates (max 50)
+   * Array of destination coordinates as GeoJSON Points (max 50)
    */
-  destinations: Array<MatrixRequest.Destination>;
+  destinations: Array<TopLevelAPI.PointGeometry>;
 
   /**
-   * Array of origin coordinates (max 50)
+   * Array of origin coordinates as GeoJSON Points (max 50)
    */
-  origins: Array<MatrixRequest.Origin>;
+  origins: Array<TopLevelAPI.PointGeometry>;
 
   /**
    * Comma-separated list of annotations to include: `duration` (always included),
@@ -184,38 +138,6 @@ export interface MatrixRequest {
   mode?: 'auto' | 'foot' | 'bicycle';
 }
 
-export namespace MatrixRequest {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Destination {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
-
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Origin {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
-}
-
 /**
  * Distance matrix result. The exact response shape depends on the routing backend.
  * Contains duration (and optionally distance) data for all origin-destination
@@ -224,15 +146,31 @@ export namespace MatrixRequest {
 export type MatrixResult = { [key: string]: unknown };
 
 /**
+ * Request body for nearest-road-segment lookup. Snaps a point to the road network.
+ */
+export interface NearestRequest {
+  /**
+   * GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude]
+   * order. Optional third element is altitude in meters.
+   */
+  geometry: TopLevelAPI.PointGeometry;
+
+  /**
+   * Maximum search radius in meters (default: 100)
+   */
+  radius?: number | null;
+}
+
+/**
  * GeoJSON Point Feature representing the nearest point on the road network to the
  * input coordinate. Used for snapping GPS coordinates to roads.
  */
 export interface NearestResult {
   /**
-   * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
-   * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
+   * GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field
+   * determines the coordinate structure.
    */
-  geometry: TopLevelAPI.GeoJsonGeometry;
+  geometry: TopLevelAPI.Geometry;
 
   /**
    * Snap result metadata
@@ -280,20 +218,22 @@ export namespace NearestResult {
 }
 
 /**
- * Request body for route calculation. Origin and destination are lat/lng
- * coordinate objects. Supports optional waypoints, alternative routes,
- * turn-by-turn steps, and EV routing parameters.
+ * Request body for route calculation. Origin and destination are GeoJSON Point
+ * geometries. Supports optional waypoints, alternative routes, turn-by-turn steps,
+ * and EV routing parameters.
  */
 export interface RouteRequest {
   /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
+   * GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude]
+   * order. Optional third element is altitude in meters.
    */
-  destination: RouteRequest.Destination;
+  destination: TopLevelAPI.PointGeometry;
 
   /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
+   * GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude]
+   * order. Optional third element is altitude in meters.
    */
-  origin: RouteRequest.Origin;
+  origin: TopLevelAPI.PointGeometry;
 
   /**
    * Number of alternative routes to return (0-3, default 0). When > 0, response is a
@@ -350,40 +290,10 @@ export interface RouteRequest {
   /**
    * Intermediate waypoints to visit in order (maximum 25)
    */
-  waypoints?: Array<RouteRequest.Waypoint> | null;
+  waypoints?: Array<TopLevelAPI.PointGeometry> | null;
 }
 
 export namespace RouteRequest {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Destination {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
-
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Origin {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
-
   /**
    * Electric vehicle parameters for EV-aware routing
    */
@@ -413,21 +323,6 @@ export namespace RouteRequest {
      */
     min_power_kw?: number | null;
   }
-
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Waypoint {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
 }
 
 /**
@@ -437,10 +332,10 @@ export namespace RouteRequest {
  */
 export interface RouteResult {
   /**
-   * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
-   * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
+   * GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field
+   * determines the coordinate structure.
    */
-  geometry: TopLevelAPI.GeoJsonGeometry;
+  geometry: TopLevelAPI.Geometry;
 
   /**
    * Route metadata
@@ -494,243 +389,56 @@ export namespace RouteResult {
 }
 
 /**
- * GeoJSON Feature or FeatureCollection representing isochrone polygons — areas
- * reachable within the specified travel time(s). Single time value returns a
- * Feature; comma-separated times return a FeatureCollection with one polygon per
- * contour.
+ * GeoJSON FeatureCollection of isochrone polygons — areas reachable within the
+ * specified travel time(s). Each Feature is a Polygon contour with travel time and
+ * area metadata in properties.
  */
 export interface RoutingIsochroneResponse {
   /**
-   * Array of isochrone polygon Features (multi-contour only)
+   * Array of isochrone polygon Features, one per contour
    */
-  features?: Array<TopLevelAPI.GeoJsonFeature> | null;
+  features: Array<TopLevelAPI.GeoJsonFeature>;
 
   /**
-   * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
-   * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
+   * Always `FeatureCollection`
    */
-  geometry?: TopLevelAPI.GeoJsonGeometry | null;
-
-  /**
-   * Isochrone metadata
-   */
-  properties?: RoutingIsochroneResponse.Properties | null;
-
-  /**
-   * `Feature` for single contour, `FeatureCollection` for multiple contours
-   */
-  type?: 'Feature' | 'FeatureCollection';
-}
-
-export namespace RoutingIsochroneResponse {
-  /**
-   * Isochrone metadata
-   */
-  export interface Properties {
-    /**
-     * Area of the isochrone polygon in square meters (multi-contour features only)
-     */
-    area_m2?: number | null;
-
-    /**
-     * Maximum actual travel cost in seconds to the isochrone boundary (single contour
-     * only)
-     */
-    max_cost_s?: number | null;
-
-    /**
-     * Travel mode used for the isochrone calculation
-     */
-    mode?: 'auto' | 'foot' | 'bicycle';
-
-    /**
-     * Travel time budget in seconds
-     */
-    time_seconds?: number;
-
-    /**
-     * Number of road network vertices within the isochrone
-     */
-    vertices_reached?: number;
-  }
-}
-
-/**
- * GeoJSON Feature or FeatureCollection representing isochrone polygons — areas
- * reachable within the specified travel time(s). Single time value returns a
- * Feature; comma-separated times return a FeatureCollection with one polygon per
- * contour.
- */
-export interface RoutingIsochronePostResponse {
-  /**
-   * Array of isochrone polygon Features (multi-contour only)
-   */
-  features?: Array<TopLevelAPI.GeoJsonFeature> | null;
-
-  /**
-   * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
-   * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
-   */
-  geometry?: TopLevelAPI.GeoJsonGeometry | null;
-
-  /**
-   * Isochrone metadata
-   */
-  properties?: RoutingIsochronePostResponse.Properties | null;
-
-  /**
-   * `Feature` for single contour, `FeatureCollection` for multiple contours
-   */
-  type?: 'Feature' | 'FeatureCollection';
-}
-
-export namespace RoutingIsochronePostResponse {
-  /**
-   * Isochrone metadata
-   */
-  export interface Properties {
-    /**
-     * Area of the isochrone polygon in square meters (multi-contour features only)
-     */
-    area_m2?: number | null;
-
-    /**
-     * Maximum actual travel cost in seconds to the isochrone boundary (single contour
-     * only)
-     */
-    max_cost_s?: number | null;
-
-    /**
-     * Travel mode used for the isochrone calculation
-     */
-    mode?: 'auto' | 'foot' | 'bicycle';
-
-    /**
-     * Travel time budget in seconds
-     */
-    time_seconds?: number;
-
-    /**
-     * Number of road network vertices within the isochrone
-     */
-    vertices_reached?: number;
-  }
+  type: 'FeatureCollection';
 }
 
 export interface RoutingIsochroneParams {
   /**
-   * Latitude
+   * Body param: GeoJSON Point geometry per RFC 7946. Coordinates use [longitude,
+   * latitude] order. Optional third element is altitude in meters.
    */
-  lat: number;
+  geometry: TopLevelAPI.PointGeometry;
 
   /**
-   * Longitude
+   * Body param: Travel time budgets in seconds. Each value produces one contour
+   * polygon.
    */
-  lng: number;
+  time: Array<number>;
 
   /**
-   * Travel time in seconds (1-7200)
-   */
-  time: number;
-
-  /**
-   * Response format: json (default), geojson, csv, ndjson
+   * Query param: Response format: json (default), geojson, csv, ndjson
    */
   format?: string;
 
   /**
-   * Travel mode (auto, foot, bicycle)
+   * Body param: Travel mode (default: `auto`)
    */
-  mode?: string;
-
-  /**
-   * Comma-separated property fields to include
-   */
-  'output[fields]'?: string;
-
-  /**
-   * Include geometry (default true)
-   */
-  'output[geometry]'?: boolean;
-
-  /**
-   * Extra computed fields: bbox, center
-   */
-  'output[include]'?: string;
-
-  /**
-   * Coordinate decimal precision (1-15, default 7)
-   */
-  'output[precision]'?: number;
-
-  /**
-   * Simplify geometry tolerance in meters
-   */
-  'output[simplify]'?: number;
-}
-
-export interface RoutingIsochronePostParams {
-  /**
-   * Latitude
-   */
-  lat: number;
-
-  /**
-   * Longitude
-   */
-  lng: number;
-
-  /**
-   * Travel time in seconds (1-7200)
-   */
-  time: number;
-
-  /**
-   * Response format: json (default), geojson, csv, ndjson
-   */
-  format?: string;
-
-  /**
-   * Travel mode (auto, foot, bicycle)
-   */
-  mode?: string;
-
-  /**
-   * Comma-separated property fields to include
-   */
-  'output[fields]'?: string;
-
-  /**
-   * Include geometry (default true)
-   */
-  'output[geometry]'?: boolean;
-
-  /**
-   * Extra computed fields: bbox, center
-   */
-  'output[include]'?: string;
-
-  /**
-   * Coordinate decimal precision (1-15, default 7)
-   */
-  'output[precision]'?: number;
-
-  /**
-   * Simplify geometry tolerance in meters
-   */
-  'output[simplify]'?: number;
+  mode?: 'auto' | 'foot' | 'bicycle';
 }
 
 export interface RoutingMatrixParams {
   /**
-   * Array of destination coordinates (max 50)
+   * Array of destination coordinates as GeoJSON Points (max 50)
    */
-  destinations: Array<RoutingMatrixParams.Destination>;
+  destinations: Array<TopLevelAPI.PointGeometry>;
 
   /**
-   * Array of origin coordinates (max 50)
+   * Array of origin coordinates as GeoJSON Points (max 50)
    */
-  origins: Array<RoutingMatrixParams.Origin>;
+  origins: Array<TopLevelAPI.PointGeometry>;
 
   /**
    * Comma-separated list of annotations to include: `duration` (always included),
@@ -750,112 +458,31 @@ export interface RoutingMatrixParams {
   mode?: 'auto' | 'foot' | 'bicycle';
 }
 
-export namespace RoutingMatrixParams {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Destination {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
-
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Origin {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
-}
-
 export interface RoutingNearestParams {
   /**
-   * Latitude
+   * GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude]
+   * order. Optional third element is altitude in meters.
    */
-  lat: number;
+  geometry: TopLevelAPI.PointGeometry;
 
   /**
-   * Longitude
+   * Maximum search radius in meters (default: 100)
    */
-  lng: number;
-
-  /**
-   * Comma-separated property fields to include
-   */
-  'output[fields]'?: string;
-
-  /**
-   * Extra computed fields: bbox, distance, center
-   */
-  'output[include]'?: string;
-
-  /**
-   * Coordinate decimal precision (1-15, default 7)
-   */
-  'output[precision]'?: number;
-
-  /**
-   * Search radius in meters (default 500, max 5000)
-   */
-  radius?: number;
-}
-
-export interface RoutingNearestPostParams {
-  /**
-   * Latitude
-   */
-  lat: number;
-
-  /**
-   * Longitude
-   */
-  lng: number;
-
-  /**
-   * Comma-separated property fields to include
-   */
-  'output[fields]'?: string;
-
-  /**
-   * Extra computed fields: bbox, distance, center
-   */
-  'output[include]'?: string;
-
-  /**
-   * Coordinate decimal precision (1-15, default 7)
-   */
-  'output[precision]'?: number;
-
-  /**
-   * Search radius in meters (default 500, max 5000)
-   */
-  radius?: number;
+  radius?: number | null;
 }
 
 export interface RoutingRouteParams {
   /**
-   * Body param: Geographic coordinate as a JSON object with `lat` and `lng` fields.
+   * Body param: GeoJSON Point geometry per RFC 7946. Coordinates use [longitude,
+   * latitude] order. Optional third element is altitude in meters.
    */
-  destination: RoutingRouteParams.Destination;
+  destination: TopLevelAPI.PointGeometry;
 
   /**
-   * Body param: Geographic coordinate as a JSON object with `lat` and `lng` fields.
+   * Body param: GeoJSON Point geometry per RFC 7946. Coordinates use [longitude,
+   * latitude] order. Optional third element is altitude in meters.
    */
-  origin: RoutingRouteParams.Origin;
+  origin: TopLevelAPI.PointGeometry;
 
   /**
    * Query param: Response format for alternatives: json (default), geojson, csv,
@@ -919,40 +546,10 @@ export interface RoutingRouteParams {
   /**
    * Body param: Intermediate waypoints to visit in order (maximum 25)
    */
-  waypoints?: Array<RoutingRouteParams.Waypoint> | null;
+  waypoints?: Array<TopLevelAPI.PointGeometry> | null;
 }
 
 export namespace RoutingRouteParams {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Destination {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
-
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Origin {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
-
   /**
    * Electric vehicle parameters for EV-aware routing
    */
@@ -982,37 +579,21 @@ export namespace RoutingRouteParams {
      */
     min_power_kw?: number | null;
   }
-
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Waypoint {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
 }
 
 export declare namespace Routing {
   export {
+    type IsochroneRequest as IsochroneRequest,
     type MatrixRequest as MatrixRequest,
     type MatrixResult as MatrixResult,
+    type NearestRequest as NearestRequest,
     type NearestResult as NearestResult,
     type RouteRequest as RouteRequest,
     type RouteResult as RouteResult,
     type RoutingIsochroneResponse as RoutingIsochroneResponse,
-    type RoutingIsochronePostResponse as RoutingIsochronePostResponse,
     type RoutingIsochroneParams as RoutingIsochroneParams,
-    type RoutingIsochronePostParams as RoutingIsochronePostParams,
     type RoutingMatrixParams as RoutingMatrixParams,
     type RoutingNearestParams as RoutingNearestParams,
-    type RoutingNearestPostParams as RoutingNearestPostParams,
     type RoutingRouteParams as RoutingRouteParams,
   };
 }
