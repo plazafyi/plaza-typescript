@@ -5,43 +5,39 @@ export {
   type Dataset,
   type DatasetList,
   type DatasetCreateParams,
-  type DatasetFeaturesParams,
+  type DatasetListParams,
 } from './datasets';
 export {
-  Elements,
-  type BatchRequest,
-  type ElementRetrieveParams,
-  type ElementBatchParams,
-  type ElementNearbyParams,
-  type ElementNearbyPostParams,
-  type ElementQueryParams,
-  type ElementQueryPostParams,
-} from './elements';
-export {
   Elevation,
-  type ElevationBatchResult,
+  type ElevationLookupRequest,
   type ElevationLookupResult,
   type ElevationProfileRequest,
   type ElevationProfileResult,
-  type ElevationBatchParams,
   type ElevationLookupParams,
-  type ElevationLookupPostParams,
   type ElevationProfileParams,
 } from './elevation';
 export {
+  Features,
+  type BatchRequest,
+  type SpatialPredicate,
+  type FeatureRetrieveParams,
+  type FeatureBatchParams,
+  type FeatureQueryParams,
+} from './features';
+export {
   Geocode,
+  type AutocompleteRequest,
   type AutocompleteResult,
+  type GeocodeForwardRequest,
   type GeocodeResult,
+  type GeocodeReverseRequest,
   type GeocodingFeature,
   type ReverseGeocodeResult,
   type GeocodeBatchResponse,
   type GeocodeAutocompleteParams,
-  type GeocodeAutocompletePostParams,
   type GeocodeBatchParams,
   type GeocodeForwardParams,
-  type GeocodeForwardPostParams,
   type GeocodeReverseParams,
-  type GeocodeReversePostParams,
 } from './geocode';
 export { MapMatch, type MapMatchRequest, type MapMatchResult, type MapMatchMatchParams } from './map-match';
 export {
@@ -56,20 +52,31 @@ export {
 export { Query, type PlazaqlQuery, type QueryExecuteParams } from './query';
 export {
   Routing,
+  type IsochroneRequest,
   type MatrixRequest,
   type MatrixResult,
+  type NearestRequest,
   type NearestResult,
   type RouteRequest,
   type RouteResult,
   type RoutingIsochroneResponse,
-  type RoutingIsochronePostResponse,
   type RoutingIsochroneParams,
-  type RoutingIsochronePostParams,
   type RoutingMatrixParams,
   type RoutingNearestParams,
-  type RoutingNearestPostParams,
   type RoutingRouteParams,
 } from './routing';
-export { Search, type SearchQueryParams, type SearchQueryPostParams } from './search';
+export { Search, type SearchQueryParams } from './search';
 export { Tiles, type TileGetParams } from './tiles';
-export { type Error, type FeatureCollection, type GeoJsonFeature, type GeoJsonGeometry } from './top-level';
+export {
+  type Error,
+  type FeatureCollection,
+  type GeoJsonFeature,
+  type Geometry,
+  type LineStringGeometry,
+  type MultiLineStringGeometry,
+  type MultiPointGeometry,
+  type MultiPolygonGeometry,
+  type PointGeometry,
+  type PolygonGeometry,
+  type ValidationError,
+} from './top-level';

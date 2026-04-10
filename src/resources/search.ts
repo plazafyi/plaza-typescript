@@ -9,17 +9,7 @@ export class Search extends APIResource {
   /**
    * Search OSM features by name
    */
-  query(query: SearchQueryParams, options?: RequestOptions): APIPromise<TopLevelAPI.FeatureCollection> {
-    return this._client.get('/api/v1/search', { query, ...options });
-  }
-
-  /**
-   * Search OSM features by name
-   */
-  queryPost(
-    params: SearchQueryPostParams,
-    options?: RequestOptions,
-  ): APIPromise<TopLevelAPI.FeatureCollection> {
+  query(params: SearchQueryParams, options?: RequestOptions): APIPromise<TopLevelAPI.FeatureCollection> {
     const {
       q,
       cursor,
@@ -88,48 +78,6 @@ export interface SearchQueryParams {
   'output[sort]'?: string;
 }
 
-export interface SearchQueryPostParams {
-  /**
-   * Search query string
-   */
-  q: string;
-
-  /**
-   * Cursor for pagination
-   */
-  cursor?: string;
-
-  /**
-   * Response format: json (default), geojson, csv, ndjson
-   */
-  format?: string;
-
-  /**
-   * Maximum results (default 25, max 100)
-   */
-  limit?: number;
-
-  /**
-   * Comma-separated property fields to include
-   */
-  'output[fields]'?: string;
-
-  /**
-   * Extra computed fields: bbox, distance, center
-   */
-  'output[include]'?: string;
-
-  /**
-   * Coordinate decimal precision (1-15, default 7)
-   */
-  'output[precision]'?: number;
-
-  /**
-   * Sort by: distance, name, osm_id
-   */
-  'output[sort]'?: string;
-}
-
 export declare namespace Search {
-  export { type SearchQueryParams as SearchQueryParams, type SearchQueryPostParams as SearchQueryPostParams };
+  export { type SearchQueryParams as SearchQueryParams };
 }

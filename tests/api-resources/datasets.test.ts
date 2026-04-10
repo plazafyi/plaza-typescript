@@ -27,6 +27,7 @@ describe('resource datasets', () => {
       description: 'description',
       license: 'license',
       source_url: 'https://example.com',
+      strict_mode: true,
     });
   });
 
@@ -52,6 +53,13 @@ describe('resource datasets', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
+  test('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.datasets.list({ scope: 'scope' }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Plaza.NotFoundError);
+  });
+
   test('delete', async () => {
     const responsePromise = client.datasets.delete('id');
     const rawResponse = await responsePromise.asResponse();
@@ -61,39 +69,5 @@ describe('resource datasets', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('features', async () => {
-    const responsePromise = client.datasets.features('id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('features: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.datasets.features(
-        'id',
-        {
-          cursor: 'cursor',
-          format: 'format',
-          limit: 0,
-          'output[buffer]': 0,
-          'output[centroid]': true,
-          'output[fields]': 'output[fields]',
-          'output[geometry]': true,
-          'output[include]': 'output[include]',
-          'output[precision]': 0,
-          'output[simplify]': 0,
-          'output[sort]': 'output[sort]',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Plaza.NotFoundError);
   });
 });

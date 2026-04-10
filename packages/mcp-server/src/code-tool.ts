@@ -25,7 +25,10 @@ For example:
 
 \`\`\`
 async function run(client) {
-  const featureCollection = await client.elements.query({ near: '48.8584,2.2945', radius: 500 });
+  const featureCollection = await client.features.query({
+    around: { type: 'Point', coordinates: [2.2945, 48.8584] },
+    radius: 500,
+  });
 
   console.log(featureCollection.features);
 }

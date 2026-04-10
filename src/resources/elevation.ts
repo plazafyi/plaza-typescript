@@ -7,73 +7,23 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Elevation extends APIResource {
   /**
-   * Look up elevation for multiple coordinates
+   * Look up elevation at one or more points
    *
    * @example
    * ```ts
-   * const elevationBatchResult = await client.elevation.batch({
-   *   coordinates: [
-   *     { lat: 48.8566, lng: 2.3522 },
-   *     { lat: 45.764, lng: 4.8357 },
-   *   ],
-   * });
+   * const elevationLookupResult = await client.elevation.lookup(
+   *   {
+   *     geometry: {
+   *       coordinates: [2.3522, 48.8566],
+   *       type: 'Point',
+   *     },
+   *   },
+   * );
    * ```
    */
-  batch(params: ElevationBatchParams, options?: RequestOptions): APIPromise<ElevationBatchResult> {
+  lookup(params: ElevationLookupParams, options?: RequestOptions): APIPromise<ElevationLookupResult> {
     const { format, ...body } = params;
-    return this._client.post('/api/v1/elevation/batch', { query: { format }, body, ...options });
-  }
-
-  /**
-   * Look up elevation at one or more points
-   *
-   * @example
-   * ```ts
-   * const elevationLookupResult =
-   *   await client.elevation.lookup();
-   * ```
-   */
-  lookup(
-    query: ElevationLookupParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ElevationLookupResult> {
-    return this._client.get('/api/v1/elevation', { query, ...options });
-  }
-
-  /**
-   * Look up elevation at one or more points
-   *
-   * @example
-   * ```ts
-   * const elevationLookupResult =
-   *   await client.elevation.lookupPost();
-   * ```
-   */
-  lookupPost(
-    params: ElevationLookupPostParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ElevationLookupResult> {
-    const {
-      format,
-      lat,
-      lng,
-      locations,
-      'output[fields]': outputFields,
-      'output[include]': outputInclude,
-      'output[precision]': outputPrecision,
-    } = params ?? {};
-    return this._client.post('/api/v1/elevation', {
-      query: {
-        format,
-        lat,
-        lng,
-        locations,
-        'output[fields]': outputFields,
-        'output[include]': outputInclude,
-        'output[precision]': outputPrecision,
-      },
-      ...options,
-    });
+    return this._client.post('/api/v1/elevation', { query: { format }, body, ...options });
   }
 
   /**
@@ -83,11 +33,14 @@ export class Elevation extends APIResource {
    * ```ts
    * const elevationProfileResult =
    *   await client.elevation.profile({
-   *     coordinates: [
-   *       { lat: 48.8566, lng: 2.3522 },
-   *       { lat: 48.858, lng: 2.34 },
-   *       { lat: 48.8584, lng: 2.2945 },
-   *     ],
+   *     geometry: {
+   *       coordinates: [
+   *         [2.3522, 48.8566],
+   *         [2.34, 48.858],
+   *         [2.2945, 48.8584],
+   *       ],
+   *       type: 'LineString',
+   *     },
    *   });
    * ```
    */
@@ -97,16 +50,14 @@ export class Elevation extends APIResource {
 }
 
 /**
- * GeoJSON FeatureCollection of elevation Point Features with 3D coordinates. Order
- * matches the input coordinates array.
+ * Request body for elevation lookup. Accepts a single Point or a MultiPoint
+ * geometry.
  */
-export interface ElevationBatchResult {
+export interface ElevationLookupRequest {
   /**
-   * Elevation results in the same order as input coordinates
+   * Point or MultiPoint geometry to look up elevations for
    */
-  features: Array<ElevationLookupResult>;
-
-  type: 'FeatureCollection';
+  geometry: TopLevelAPI.PointGeometry | TopLevelAPI.MultiPointGeometry;
 }
 
 /**
@@ -116,10 +67,10 @@ export interface ElevationBatchResult {
  */
 export interface ElevationLookupResult {
   /**
-   * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
-   * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
+   * GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field
+   * determines the coordinate structure.
    */
-  geometry: TopLevelAPI.GeoJsonGeometry;
+  geometry: TopLevelAPI.Geometry;
 
   properties: ElevationLookupResult.Properties;
 
@@ -136,31 +87,15 @@ export namespace ElevationLookupResult {
 }
 
 /**
- * Request body for elevation profile along a path. Provide at least 2 coordinates
- * defining the path. Maximum 50 coordinates per request.
+ * Request body for elevation profile along a path. Provide a GeoJSON LineString
+ * geometry defining the path.
  */
 export interface ElevationProfileRequest {
   /**
-   * Path coordinates in order of travel (min 2, max 50)
+   * GeoJSON LineString geometry per RFC 7946. An ordered sequence of two or more
+   * positions.
    */
-  coordinates: Array<ElevationProfileRequest.Coordinate>;
-}
-
-export namespace ElevationProfileRequest {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Coordinate {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
+  geometry: TopLevelAPI.LineStringGeometry;
 }
 
 /**
@@ -170,10 +105,10 @@ export namespace ElevationProfileRequest {
  */
 export interface ElevationProfileResult {
   /**
-   * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
-   * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
+   * GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field
+   * determines the coordinate structure.
    */
-  geometry: TopLevelAPI.GeoJsonGeometry;
+  geometry: TopLevelAPI.Geometry;
 
   /**
    * Elevation profile summary statistics
@@ -215,11 +150,11 @@ export namespace ElevationProfileResult {
   }
 }
 
-export interface ElevationBatchParams {
+export interface ElevationLookupParams {
   /**
-   * Body param: Coordinates to look up elevations for (max 50)
+   * Body param: Point or MultiPoint geometry to look up elevations for
    */
-  coordinates: Array<ElevationBatchParams.Coordinate>;
+  geometry: TopLevelAPI.PointGeometry | TopLevelAPI.MultiPointGeometry;
 
   /**
    * Query param: Response format: json (default), geojson, csv, ndjson
@@ -227,130 +162,21 @@ export interface ElevationBatchParams {
   format?: string;
 }
 
-export namespace ElevationBatchParams {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Coordinate {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
-}
-
-export interface ElevationLookupParams {
-  /**
-   * Response format: json (default), geojson, csv, ndjson
-   */
-  format?: string;
-
-  /**
-   * Latitude (single point)
-   */
-  lat?: number;
-
-  /**
-   * Longitude (single point)
-   */
-  lng?: number;
-
-  /**
-   * Pipe-separated lng,lat pairs (batch)
-   */
-  locations?: string;
-
-  /**
-   * Comma-separated property fields to include
-   */
-  'output[fields]'?: string;
-
-  /**
-   * Extra computed fields: bbox, center
-   */
-  'output[include]'?: string;
-
-  /**
-   * Coordinate decimal precision (1-15, default 7)
-   */
-  'output[precision]'?: number;
-}
-
-export interface ElevationLookupPostParams {
-  /**
-   * Response format: json (default), geojson, csv, ndjson
-   */
-  format?: string;
-
-  /**
-   * Latitude (single point)
-   */
-  lat?: number;
-
-  /**
-   * Longitude (single point)
-   */
-  lng?: number;
-
-  /**
-   * Pipe-separated lng,lat pairs (batch)
-   */
-  locations?: string;
-
-  /**
-   * Comma-separated property fields to include
-   */
-  'output[fields]'?: string;
-
-  /**
-   * Extra computed fields: bbox, center
-   */
-  'output[include]'?: string;
-
-  /**
-   * Coordinate decimal precision (1-15, default 7)
-   */
-  'output[precision]'?: number;
-}
-
 export interface ElevationProfileParams {
   /**
-   * Path coordinates in order of travel (min 2, max 50)
+   * GeoJSON LineString geometry per RFC 7946. An ordered sequence of two or more
+   * positions.
    */
-  coordinates: Array<ElevationProfileParams.Coordinate>;
-}
-
-export namespace ElevationProfileParams {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Coordinate {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
+  geometry: TopLevelAPI.LineStringGeometry;
 }
 
 export declare namespace Elevation {
   export {
-    type ElevationBatchResult as ElevationBatchResult,
+    type ElevationLookupRequest as ElevationLookupRequest,
     type ElevationLookupResult as ElevationLookupResult,
     type ElevationProfileRequest as ElevationProfileRequest,
     type ElevationProfileResult as ElevationProfileResult,
-    type ElevationBatchParams as ElevationBatchParams,
     type ElevationLookupParams as ElevationLookupParams,
-    type ElevationLookupPostParams as ElevationLookupPostParams,
     type ElevationProfileParams as ElevationProfileParams,
   };
 }

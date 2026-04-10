@@ -13,11 +13,14 @@ export class Optimize extends APIResource {
    * @example
    * ```ts
    * const optimizeResult = await client.optimize.create({
-   *   waypoints: [
-   *     { lat: 48.8566, lng: 2.3522 },
-   *     { lat: 48.8606, lng: 2.3376 },
-   *     { lat: 48.8584, lng: 2.2945 },
-   *   ],
+   *   waypoints: {
+   *     coordinates: [
+   *       [2.3522, 48.8566],
+   *       [2.3376, 48.8606],
+   *       [2.2945, 48.8584],
+   *     ],
+   *     type: 'MultiPoint',
+   *   },
    * });
    * ```
    */
@@ -75,10 +78,10 @@ export namespace OptimizeCompletedResult {
    */
   export interface Feature {
     /**
-     * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
-     * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
+     * GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field
+     * determines the coordinate structure.
      */
-    geometry: TopLevelAPI.GeoJsonGeometry;
+    geometry: TopLevelAPI.Geometry;
 
     properties: Feature.Properties;
 
@@ -148,9 +151,9 @@ export interface OptimizeProcessingResult {
  */
 export interface OptimizeRequest {
   /**
-   * Waypoints to visit in optimized order (2-50 points)
+   * GeoJSON MultiPoint geometry per RFC 7946. An array of positions.
    */
-  waypoints: Array<OptimizeRequest.Waypoint>;
+  waypoints: TopLevelAPI.MultiPointGeometry;
 
   /**
    * Travel mode (default: `auto`)
@@ -163,23 +166,6 @@ export interface OptimizeRequest {
   roundtrip?: boolean;
 }
 
-export namespace OptimizeRequest {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Waypoint {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
-}
-
 /**
  * Optimization response — either a completed FeatureCollection with the optimized
  * route, or an async job reference to poll.
@@ -188,9 +174,9 @@ export type OptimizeResult = OptimizeCompletedResult | OptimizeProcessingResult;
 
 export interface OptimizeCreateParams {
   /**
-   * Body param: Waypoints to visit in optimized order (2-50 points)
+   * Body param: GeoJSON MultiPoint geometry per RFC 7946. An array of positions.
    */
-  waypoints: Array<OptimizeCreateParams.Waypoint>;
+  waypoints: TopLevelAPI.MultiPointGeometry;
 
   /**
    * Query param: Response format: json (default), geojson, csv, ndjson
@@ -207,23 +193,6 @@ export interface OptimizeCreateParams {
    * true)
    */
   roundtrip?: boolean;
-}
-
-export namespace OptimizeCreateParams {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Waypoint {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
 }
 
 export declare namespace Optimize {
