@@ -7,148 +7,124 @@ export type SdkMethod = {
   fullyQualifiedName: string;
   httpMethod?: 'get' | 'post' | 'put' | 'patch' | 'delete' | 'query';
   httpPath?: string;
-};
+}
 
-export const sdkMethods: SdkMethod[] = [
-  {
-    clientCallName: 'client.features.retrieve',
-    fullyQualifiedName: 'features.retrieve',
-    httpMethod: 'get',
-    httpPath: '/api/v1/features/{type}/{id}',
-  },
-  {
-    clientCallName: 'client.features.batch',
-    fullyQualifiedName: 'features.batch',
-    httpMethod: 'post',
-    httpPath: '/api/v1/features/batch',
-  },
-  {
-    clientCallName: 'client.features.query',
-    fullyQualifiedName: 'features.query',
-    httpMethod: 'post',
-    httpPath: '/api/v1/features',
-  },
-  {
-    clientCallName: 'client.datasets.create',
-    fullyQualifiedName: 'datasets.create',
-    httpMethod: 'post',
-    httpPath: '/api/v1/datasets',
-  },
-  {
-    clientCallName: 'client.datasets.retrieve',
-    fullyQualifiedName: 'datasets.retrieve',
-    httpMethod: 'get',
-    httpPath: '/api/v1/datasets/{id}',
-  },
-  {
-    clientCallName: 'client.datasets.list',
-    fullyQualifiedName: 'datasets.list',
-    httpMethod: 'get',
-    httpPath: '/api/v1/datasets',
-  },
-  {
-    clientCallName: 'client.datasets.delete',
-    fullyQualifiedName: 'datasets.delete',
-    httpMethod: 'delete',
-    httpPath: '/api/v1/datasets/{id}',
-  },
-  {
-    clientCallName: 'client.geocode.autocomplete',
-    fullyQualifiedName: 'geocode.autocomplete',
-    httpMethod: 'post',
-    httpPath: '/api/v1/geocode/autocomplete',
-  },
-  {
-    clientCallName: 'client.geocode.batch',
-    fullyQualifiedName: 'geocode.batch',
-    httpMethod: 'post',
-    httpPath: '/api/v1/geocode/batch',
-  },
-  {
-    clientCallName: 'client.geocode.forward',
-    fullyQualifiedName: 'geocode.forward',
-    httpMethod: 'post',
-    httpPath: '/api/v1/geocode',
-  },
-  {
-    clientCallName: 'client.geocode.reverse',
-    fullyQualifiedName: 'geocode.reverse',
-    httpMethod: 'post',
-    httpPath: '/api/v1/geocode/reverse',
-  },
-  {
-    clientCallName: 'client.search.query',
-    fullyQualifiedName: 'search.query',
-    httpMethod: 'post',
-    httpPath: '/api/v1/search',
-  },
-  {
-    clientCallName: 'client.routing.isochrone',
-    fullyQualifiedName: 'routing.isochrone',
-    httpMethod: 'post',
-    httpPath: '/api/v1/isochrone',
-  },
-  {
-    clientCallName: 'client.routing.matrix',
-    fullyQualifiedName: 'routing.matrix',
-    httpMethod: 'post',
-    httpPath: '/api/v1/matrix',
-  },
-  {
-    clientCallName: 'client.routing.nearest',
-    fullyQualifiedName: 'routing.nearest',
-    httpMethod: 'post',
-    httpPath: '/api/v1/nearest',
-  },
-  {
-    clientCallName: 'client.routing.route',
-    fullyQualifiedName: 'routing.route',
-    httpMethod: 'post',
-    httpPath: '/api/v1/route',
-  },
-  {
-    clientCallName: 'client.elevation.lookup',
-    fullyQualifiedName: 'elevation.lookup',
-    httpMethod: 'post',
-    httpPath: '/api/v1/elevation',
-  },
-  {
-    clientCallName: 'client.elevation.profile',
-    fullyQualifiedName: 'elevation.profile',
-    httpMethod: 'post',
-    httpPath: '/api/v1/elevation/profile',
-  },
-  {
-    clientCallName: 'client.mapMatch.match',
-    fullyQualifiedName: 'mapMatch.match',
-    httpMethod: 'post',
-    httpPath: '/api/v1/map-match',
-  },
-  {
-    clientCallName: 'client.optimize.create',
-    fullyQualifiedName: 'optimize.create',
-    httpMethod: 'post',
-    httpPath: '/api/v1/optimize',
-  },
-  {
-    clientCallName: 'client.optimize.retrieve',
-    fullyQualifiedName: 'optimize.retrieve',
-    httpMethod: 'get',
-    httpPath: '/api/v1/optimize/{job_id}',
-  },
-  {
-    clientCallName: 'client.query.execute',
-    fullyQualifiedName: 'query.execute',
-    httpMethod: 'post',
-    httpPath: '/api/v1/query',
-  },
-  {
-    clientCallName: 'client.tiles.get',
-    fullyQualifiedName: 'tiles.get',
-    httpMethod: 'get',
-    httpPath: '/api/v1/tiles/{z}/{x}/{y}',
-  },
-];
+export const sdkMethods: SdkMethod[] = [{
+  clientCallName: 'client.features.retrieve',
+  fullyQualifiedName: 'features.retrieve',
+  httpMethod: 'get',
+  httpPath: '/api/v1/features/{type}/{id}',
+},{
+  clientCallName: 'client.features.batch',
+  fullyQualifiedName: 'features.batch',
+  httpMethod: 'post',
+  httpPath: '/api/v1/features/batch',
+},{
+  clientCallName: 'client.features.query',
+  fullyQualifiedName: 'features.query',
+  httpMethod: 'post',
+  httpPath: '/api/v1/features',
+},{
+  clientCallName: 'client.datasets.create',
+  fullyQualifiedName: 'datasets.create',
+  httpMethod: 'post',
+  httpPath: '/api/v1/datasets',
+},{
+  clientCallName: 'client.datasets.retrieve',
+  fullyQualifiedName: 'datasets.retrieve',
+  httpMethod: 'get',
+  httpPath: '/api/v1/datasets/{id}',
+},{
+  clientCallName: 'client.datasets.list',
+  fullyQualifiedName: 'datasets.list',
+  httpMethod: 'get',
+  httpPath: '/api/v1/datasets',
+},{
+  clientCallName: 'client.datasets.delete',
+  fullyQualifiedName: 'datasets.delete',
+  httpMethod: 'delete',
+  httpPath: '/api/v1/datasets/{id}',
+},{
+  clientCallName: 'client.geocode.autocomplete',
+  fullyQualifiedName: 'geocode.autocomplete',
+  httpMethod: 'post',
+  httpPath: '/api/v1/geocode/autocomplete',
+},{
+  clientCallName: 'client.geocode.batch',
+  fullyQualifiedName: 'geocode.batch',
+  httpMethod: 'post',
+  httpPath: '/api/v1/geocode/batch',
+},{
+  clientCallName: 'client.geocode.forward',
+  fullyQualifiedName: 'geocode.forward',
+  httpMethod: 'post',
+  httpPath: '/api/v1/geocode',
+},{
+  clientCallName: 'client.geocode.reverse',
+  fullyQualifiedName: 'geocode.reverse',
+  httpMethod: 'post',
+  httpPath: '/api/v1/geocode/reverse',
+},{
+  clientCallName: 'client.search.query',
+  fullyQualifiedName: 'search.query',
+  httpMethod: 'post',
+  httpPath: '/api/v1/search',
+},{
+  clientCallName: 'client.routing.isochrone',
+  fullyQualifiedName: 'routing.isochrone',
+  httpMethod: 'post',
+  httpPath: '/api/v1/isochrone',
+},{
+  clientCallName: 'client.routing.matrix',
+  fullyQualifiedName: 'routing.matrix',
+  httpMethod: 'post',
+  httpPath: '/api/v1/matrix',
+},{
+  clientCallName: 'client.routing.nearest',
+  fullyQualifiedName: 'routing.nearest',
+  httpMethod: 'post',
+  httpPath: '/api/v1/nearest',
+},{
+  clientCallName: 'client.routing.route',
+  fullyQualifiedName: 'routing.route',
+  httpMethod: 'post',
+  httpPath: '/api/v1/route',
+},{
+  clientCallName: 'client.elevation.lookup',
+  fullyQualifiedName: 'elevation.lookup',
+  httpMethod: 'post',
+  httpPath: '/api/v1/elevation',
+},{
+  clientCallName: 'client.elevation.profile',
+  fullyQualifiedName: 'elevation.profile',
+  httpMethod: 'post',
+  httpPath: '/api/v1/elevation/profile',
+},{
+  clientCallName: 'client.mapMatch.match',
+  fullyQualifiedName: 'mapMatch.match',
+  httpMethod: 'post',
+  httpPath: '/api/v1/map-match',
+},{
+  clientCallName: 'client.optimize.create',
+  fullyQualifiedName: 'optimize.create',
+  httpMethod: 'post',
+  httpPath: '/api/v1/optimize',
+},{
+  clientCallName: 'client.optimize.retrieve',
+  fullyQualifiedName: 'optimize.retrieve',
+  httpMethod: 'get',
+  httpPath: '/api/v1/optimize/{job_id}',
+},{
+  clientCallName: 'client.query.execute',
+  fullyQualifiedName: 'query.execute',
+  httpMethod: 'post',
+  httpPath: '/api/v1/query',
+},{
+  clientCallName: 'client.tiles.get',
+  fullyQualifiedName: 'tiles.get',
+  httpMethod: 'get',
+  httpPath: '/api/v1/tiles/{z}/{x}/{y}',
+}];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
   if (!options) {
@@ -163,9 +139,9 @@ function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[]
 
     if (options.codeAllowHttpGets) {
       // Add all methods that map to an HTTP GET
-      sdkMethods
-        .filter((method) => method.httpMethod === 'get')
-        .forEach((method) => allowedMethodsSet.add(method));
+      sdkMethods.filter((method) => method.httpMethod === 'get').forEach(
+        (method) => allowedMethodsSet.add(method)
+      );
     }
 
     if (options.codeAllowedMethods) {
@@ -174,15 +150,13 @@ function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[]
         try {
           return new RegExp(pattern);
         } catch (e) {
-          throw new Error(
-            `Invalid regex pattern for allowed method: "${pattern}": ${e instanceof Error ? e.message : e}`,
-          );
+          throw new Error(`Invalid regex pattern for allowed method: "${pattern}": ${e instanceof Error ? e.message : e}`);
         }
       });
 
-      sdkMethods
-        .filter((method) => allowedRegexps.some((regexp) => regexp.test(method.fullyQualifiedName)))
-        .forEach((method) => allowedMethodsSet.add(method));
+      sdkMethods.filter((method) =>
+          allowedRegexps.some((regexp) => regexp.test(method.fullyQualifiedName))
+        ).forEach((method) => allowedMethodsSet.add(method));
     }
 
     allowedMethods = Array.from(allowedMethodsSet);
@@ -197,14 +171,12 @@ function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[]
       try {
         return new RegExp(pattern);
       } catch (e) {
-        throw new Error(
-          `Invalid regex pattern for blocked method: "${pattern}": ${e instanceof Error ? e.message : e}`,
-        );
+        throw new Error(`Invalid regex pattern for blocked method: "${pattern}": ${e instanceof Error ? e.message : e}`);
       }
     });
 
-    allowedMethods = allowedMethods.filter(
-      (method) => !blockedRegexps.some((regexp) => regexp.test(method.fullyQualifiedName)),
+    allowedMethods = allowedMethods.filter((method) =>
+      !blockedRegexps.some((regexp) => regexp.test(method.fullyQualifiedName))
     );
   }
 

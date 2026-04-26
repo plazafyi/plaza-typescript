@@ -21,7 +21,7 @@ export class Routing extends APIResource {
    * ```
    */
   isochrone(params: RoutingIsochroneParams, options?: RequestOptions): APIPromise<RoutingIsochroneResponse> {
-    const { format, ...body } = params;
+    const { format, ...body } = params
     return this._client.post('/api/v1/isochrone', { query: { format }, body, ...options });
   }
 
@@ -77,7 +77,7 @@ export class Routing extends APIResource {
    * ```
    */
   route(params: RoutingRouteParams, options?: RequestOptions): APIPromise<RouteResult> {
-    const { format, ...body } = params;
+    const { format, ...body } = params
     return this._client.post('/api/v1/route', { query: { format }, body, ...options });
   }
 }
@@ -143,7 +143,7 @@ export interface MatrixRequest {
  * Contains duration (and optionally distance) data for all origin-destination
  * pairs. Null values indicate unreachable pairs.
  */
-export type MatrixResult = { [key: string]: unknown };
+export type MatrixResult = { [key: string]: unknown }
 
 /**
  * Request body for nearest-road-segment lookup. Snaps a point to the road network.
@@ -594,6 +594,6 @@ export declare namespace Routing {
     type RoutingIsochroneParams as RoutingIsochroneParams,
     type RoutingMatrixParams as RoutingMatrixParams,
     type RoutingNearestParams as RoutingNearestParams,
-    type RoutingRouteParams as RoutingRouteParams,
+    type RoutingRouteParams as RoutingRouteParams
   };
 }

@@ -136,6 +136,6 @@ export declare namespace MapMatch {
   export {
     type MapMatchRequest as MapMatchRequest,
     type MapMatchResult as MapMatchResult,
-    type MapMatchMatchParams as MapMatchMatchParams,
+    type MapMatchMatchParams as MapMatchMatchParams
   };
 }

@@ -25,7 +25,7 @@ export class Optimize extends APIResource {
    * ```
    */
   create(params: OptimizeCreateParams, options?: RequestOptions): APIPromise<OptimizeResult> {
-    const { format, ...body } = params;
+    const { format, ...body } = params
     return this._client.post('/api/v1/optimize', { query: { format }, body, ...options });
   }
 
@@ -170,7 +170,7 @@ export interface OptimizeRequest {
  * Optimization response — either a completed FeatureCollection with the optimized
  * route, or an async job reference to poll.
  */
-export type OptimizeResult = OptimizeCompletedResult | OptimizeProcessingResult;
+export type OptimizeResult = OptimizeCompletedResult | OptimizeProcessingResult
 
 export interface OptimizeCreateParams {
   /**
@@ -202,6 +202,6 @@ export declare namespace Optimize {
     type OptimizeProcessingResult as OptimizeProcessingResult,
     type OptimizeRequest as OptimizeRequest,
     type OptimizeResult as OptimizeResult,
-    type OptimizeCreateParams as OptimizeCreateParams,
+    type OptimizeCreateParams as OptimizeCreateParams
   };
 }
