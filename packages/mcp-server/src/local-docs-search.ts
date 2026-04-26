@@ -80,23 +80,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## query\n\n`client.features.query(cursor?: string, format?: string, h3?: string, limit?: number, type?: string, around?: object | object | object | object | object | object, contains?: object | object | object | object | object | object, crosses?: object | object | object | object | object | object, intersects?: object | object | object | object | object | object, not_contains?: object | object | object | object | object | object, not_intersects?: object | object | object | object | object | object, not_within?: object | object | object | object | object | object, radius?: number, touches?: object | object | object | object | object | object, within?: object | object | object | object | object | object): { features: geo_json_feature[]; type: 'FeatureCollection'; }`\n\n**post** `/api/v1/features`\n\nQuery features by spatial predicate, bounding box, or H3 cell\n\n### Parameters\n\n- `cursor?: string`\n  Cursor for pagination\n\n- `format?: string`\n  Response format. json (default) returns paginated GeoJSON. geojson/csv/ndjson stream via chunked transfer encoding.\n\n- `h3?: string`\n  Legacy shorthand. H3 cell index. Use spatial predicates instead.\n\n- `limit?: number`\n  Maximum results (default 100, max 10000)\n\n- `type?: string`\n  Element types (comma-separated: node,way,relation)\n\n- `around?: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field determines the coordinate structure.\n\n- `contains?: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field determines the coordinate structure.\n\n- `crosses?: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field determines the coordinate structure.\n\n- `intersects?: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field determines the coordinate structure.\n\n- `not_contains?: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field determines the coordinate structure.\n\n- `not_intersects?: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field determines the coordinate structure.\n\n- `not_within?: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field determines the coordinate structure.\n\n- `radius?: number`\n  Search radius in meters. Required for `around`, optional buffer for other predicates.\n\n- `touches?: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field determines the coordinate structure.\n\n- `within?: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field determines the coordinate structure.\n\n### Returns\n\n- `{ features: { geometry: geometry; properties: object; type: 'Feature'; id?: string; }[]; type: 'FeatureCollection'; }`\n  GeoJSON FeatureCollection (RFC 7946). For paginated endpoints, metadata is returned in HTTP response headers rather than the body:\n\n| Header | Description |\n|---|---|\n| `X-Limit` | Requested result limit |\n| `X-Has-More` | `true` if more results exist |\n| `X-Next-Cursor` | Opaque cursor for next page (cursor pagination) |\n| `X-Next-Offset` | Numeric offset for next page (offset pagination) |\n| `Link` | RFC 8288 `rel=\"next\"` link to the next page |\n\nContent-Type is `application/geo+json`.\n\n\n  - `features: { geometry: object | object | object | object | object | object; properties: object; type: 'Feature'; id?: string; }[]`\n  - `type: 'FeatureCollection'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst featureCollection = await client.features.query();\n\nconsole.log(featureCollection);\n```",
     perLanguage: {
-      cli: {
-        method: 'features query',
-        example: "plaza features query \\\n  --api-key 'My API Key'",
-      },
-      csharp: {
-        method: 'Features.Query',
+      typescript: {
+        method: 'client.features.query',
         example:
-          'FeatureQueryParams parameters = new();\n\nvar featureCollection = await client.Features.Query(parameters);\n\nConsole.WriteLine(featureCollection);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst featureCollection = await client.features.query();\n\nconsole.log(featureCollection.features);",
       },
-      go: {
-        method: 'client.Features.Query',
+      python: {
+        method: 'features.query',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfeatureCollection, err := client.Features.Query(context.TODO(), githubcomplazafyiplazago.FeatureQueryParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", featureCollection.Features)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/features \\\n    -X POST \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nfeature_collection = client.features.query()\nprint(feature_collection.features)',
       },
       java: {
         method: 'features().query',
@@ -108,25 +100,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.features.FeatureQueryParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val featureCollection: FeatureCollection = client.features().query()\n}',
       },
-      php: {
-        method: 'features->query',
+      go: {
+        method: 'client.Features.Query',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->features->query(\n  cursor: 'cursor',\n  format: 'format',\n  h3: 'h3',\n  limit: 0,\n  type: 'type',\n  around: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  contains: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  crosses: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  intersects: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  notContains: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  notIntersects: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  notWithin: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  radius: 500,\n  touches: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  within: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n);\n\nvar_dump($featureCollection);",
-      },
-      python: {
-        method: 'features.query',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nfeature_collection = client.features.query()\nprint(feature_collection.features)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfeatureCollection, err := client.Features.Query(context.TODO(), githubcomplazafyiplazago.FeatureQueryParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", featureCollection.Features)\n}\n',
       },
       ruby: {
         method: 'features.query',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nfeature_collection = plaza.features.query\n\nputs(feature_collection)',
       },
-      typescript: {
-        method: 'client.features.query',
+      cli: {
+        method: 'features query',
+        example: "plaza features query \\\n  --api-key 'My API Key'",
+      },
+      php: {
+        method: 'features->query',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst featureCollection = await client.features.query();\n\nconsole.log(featureCollection.features);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->features->query(\n  cursor: 'cursor',\n  format: 'format',\n  h3: 'h3',\n  limit: 0,\n  type: 'type',\n  around: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  contains: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  crosses: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  intersects: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  notContains: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  notIntersects: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  notWithin: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  radius: 500,\n  touches: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  within: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n);\n\nvar_dump($featureCollection);",
+      },
+      csharp: {
+        method: 'Features.Query',
+        example:
+          'FeatureQueryParams parameters = new();\n\nvar featureCollection = await client.Features.Query(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/features \\\n    -X POST \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
       },
     },
   },
@@ -144,23 +144,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.features.retrieve(type: string, id: number): { geometry: geometry; properties: object; type: 'Feature'; id?: string; }`\n\n**get** `/api/v1/features/{type}/{id}`\n\nGet feature by type and ID\n\n### Parameters\n\n- `type: string`\n\n- `id: number`\n\n### Returns\n\n- `{ geometry: object | object | object | object | object | object; properties: object; type: 'Feature'; id?: string; }`\n  GeoJSON Feature representing an OSM element. Tags from the original OSM element are flattened directly into `properties` (not nested under a `tags` key). Metadata fields `@type` and `@id` identify the OSM element type and ID within properties.\n\n\n  - `geometry: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  - `properties: object`\n  - `type: 'Feature'`\n  - `id?: string`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst geoJsonFeature = await client.features.retrieve(0, { type: 'type' });\n\nconsole.log(geoJsonFeature);\n```",
     perLanguage: {
-      cli: {
-        method: 'features retrieve',
-        example: "plaza features retrieve \\\n  --api-key 'My API Key' \\\n  --type type \\\n  --id 0",
-      },
-      csharp: {
-        method: 'Features.Retrieve',
+      typescript: {
+        method: 'client.features.retrieve',
         example:
-          'FeatureRetrieveParams parameters = new()\n{\n    Type = "type",\n    ID = 0,\n};\n\nvar geoJsonFeature = await client.Features.Retrieve(parameters);\n\nConsole.WriteLine(geoJsonFeature);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst geoJsonFeature = await client.features.retrieve(0, { type: 'type' });\n\nconsole.log(geoJsonFeature.id);",
       },
-      go: {
-        method: 'client.Features.Get',
+      python: {
+        method: 'features.retrieve',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tgeoJsonFeature, err := client.Features.Get(\n\t\tcontext.TODO(),\n\t\t"type",\n\t\tint64(0),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", geoJsonFeature.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/features/$TYPE/$ID \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ngeo_json_feature = client.features.retrieve(\n    id=0,\n    type="type",\n)\nprint(geo_json_feature.id)',
       },
       java: {
         method: 'features().retrieve',
@@ -172,25 +164,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.GeoJsonFeature\nimport com.plazafyi.models.features.FeatureRetrieveParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: FeatureRetrieveParams = FeatureRetrieveParams.builder()\n        .type("type")\n        .id(0L)\n        .build()\n    val geoJsonFeature: GeoJsonFeature = client.features().retrieve(params)\n}',
       },
-      php: {
-        method: 'features->retrieve',
+      go: {
+        method: 'client.Features.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$geoJsonFeature = $client->features->retrieve(0, type: 'type');\n\nvar_dump($geoJsonFeature);",
-      },
-      python: {
-        method: 'features.retrieve',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ngeo_json_feature = client.features.retrieve(\n    id=0,\n    type="type",\n)\nprint(geo_json_feature.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tgeoJsonFeature, err := client.Features.Get(\n\t\tcontext.TODO(),\n\t\t"type",\n\t\tint64(0),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", geoJsonFeature.ID)\n}\n',
       },
       ruby: {
         method: 'features.retrieve',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\ngeo_json_feature = plaza.features.retrieve(0, type: "type")\n\nputs(geo_json_feature)',
       },
-      typescript: {
-        method: 'client.features.retrieve',
+      cli: {
+        method: 'features retrieve',
+        example: "plaza features retrieve \\\n  --api-key 'My API Key' \\\n  --type type \\\n  --id 0",
+      },
+      php: {
+        method: 'features->retrieve',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst geoJsonFeature = await client.features.retrieve(0, { type: 'type' });\n\nconsole.log(geoJsonFeature.id);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$geoJsonFeature = $client->features->retrieve(0, type: 'type');\n\nvar_dump($geoJsonFeature);",
+      },
+      csharp: {
+        method: 'Features.Retrieve',
+        example:
+          'FeatureRetrieveParams parameters = new()\n{\n    Type = "type",\n    ID = 0,\n};\n\nvar geoJsonFeature = await client.Features.Retrieve(parameters);\n\nConsole.WriteLine(geoJsonFeature);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/features/$TYPE/$ID \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
       },
     },
   },
@@ -208,24 +208,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## batch\n\n`client.features.batch(elements: { id: number; type: 'node' | 'way' | 'relation'; }[]): { features: geo_json_feature[]; type: 'FeatureCollection'; }`\n\n**post** `/api/v1/features/batch`\n\nFetch multiple features by type and ID\n\n### Parameters\n\n- `elements: { id: number; type: 'node' | 'way' | 'relation'; }[]`\n  Array of element references to fetch\n\n### Returns\n\n- `{ features: { geometry: geometry; properties: object; type: 'Feature'; id?: string; }[]; type: 'FeatureCollection'; }`\n  GeoJSON FeatureCollection (RFC 7946). For paginated endpoints, metadata is returned in HTTP response headers rather than the body:\n\n| Header | Description |\n|---|---|\n| `X-Limit` | Requested result limit |\n| `X-Has-More` | `true` if more results exist |\n| `X-Next-Cursor` | Opaque cursor for next page (cursor pagination) |\n| `X-Next-Offset` | Numeric offset for next page (offset pagination) |\n| `Link` | RFC 8288 `rel=\"next\"` link to the next page |\n\nContent-Type is `application/geo+json`.\n\n\n  - `features: { geometry: object | object | object | object | object | object; properties: object; type: 'Feature'; id?: string; }[]`\n  - `type: 'FeatureCollection'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst featureCollection = await client.features.batch({ elements: [{ id: 21154906, type: 'node' }, { id: 4589123, type: 'way' }] });\n\nconsole.log(featureCollection);\n```",
     perLanguage: {
-      cli: {
-        method: 'features batch',
+      typescript: {
+        method: 'client.features.batch',
         example:
-          "plaza features batch \\\n  --api-key 'My API Key' \\\n  --element '{id: 21154906, type: node}' \\\n  --element '{id: 4589123, type: way}'",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst featureCollection = await client.features.batch({\n  elements: [\n    { id: 21154906, type: 'node' },\n    { id: 4589123, type: 'way' },\n  ],\n});\n\nconsole.log(featureCollection.features);",
       },
-      csharp: {
-        method: 'Features.Batch',
+      python: {
+        method: 'features.batch',
         example:
-          'FeatureBatchParams parameters = new()\n{\n    Elements =\n    [\n        new()\n        {\n            ID = 21154906,\n            Type = Type.Node,\n        },\n        new()\n        {\n            ID = 4589123,\n            Type = Type.Way,\n        },\n    ],\n};\n\nvar featureCollection = await client.Features.Batch(parameters);\n\nConsole.WriteLine(featureCollection);',
-      },
-      go: {
-        method: 'client.Features.Batch',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfeatureCollection, err := client.Features.Batch(context.TODO(), githubcomplazafyiplazago.FeatureBatchParams{\n\t\tBatchRequest: githubcomplazafyiplazago.BatchRequestParam{\n\t\t\tElements: githubcomplazafyiplazago.F([]githubcomplazafyiplazago.BatchRequestElementParam{{\n\t\t\t\tID:   githubcomplazafyiplazago.F(int64(21154906)),\n\t\t\t\tType: githubcomplazafyiplazago.F(githubcomplazafyiplazago.BatchRequestElementsTypeNode),\n\t\t\t}, {\n\t\t\t\tID:   githubcomplazafyiplazago.F(int64(4589123)),\n\t\t\t\tType: githubcomplazafyiplazago.F(githubcomplazafyiplazago.BatchRequestElementsTypeWay),\n\t\t\t}}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", featureCollection.Features)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/features/batch \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "elements": [\n            {\n              "id": 21154906,\n              "type": "node"\n            },\n            {\n              "id": 4589123,\n              "type": "way"\n            }\n          ]\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nfeature_collection = client.features.batch(\n    elements=[{\n        "id": 21154906,\n        "type": "node",\n    }, {\n        "id": 4589123,\n        "type": "way",\n    }],\n)\nprint(feature_collection.features)',
       },
       java: {
         method: 'features().batch',
@@ -237,25 +228,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.features.BatchRequest\nimport com.plazafyi.models.features.FeatureBatchParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: BatchRequest = BatchRequest.builder()\n        .addElement(BatchRequest.Element.builder()\n            .id(21154906L)\n            .type(BatchRequest.Element.Type.NODE)\n            .build())\n        .addElement(BatchRequest.Element.builder()\n            .id(4589123L)\n            .type(BatchRequest.Element.Type.WAY)\n            .build())\n        .build()\n    val featureCollection: FeatureCollection = client.features().batch(params)\n}',
       },
-      php: {
-        method: 'features->batch',
+      go: {
+        method: 'client.Features.Batch',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->features->batch(\n  elements: [\n    ['id' => 21154906, 'type' => 'node'], ['id' => 4589123, 'type' => 'way']\n  ],\n);\n\nvar_dump($featureCollection);",
-      },
-      python: {
-        method: 'features.batch',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nfeature_collection = client.features.batch(\n    elements=[{\n        "id": 21154906,\n        "type": "node",\n    }, {\n        "id": 4589123,\n        "type": "way",\n    }],\n)\nprint(feature_collection.features)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfeatureCollection, err := client.Features.Batch(context.TODO(), githubcomplazafyiplazago.FeatureBatchParams{\n\t\tBatchRequest: githubcomplazafyiplazago.BatchRequestParam{\n\t\t\tElements: githubcomplazafyiplazago.F([]githubcomplazafyiplazago.BatchRequestElementParam{{\n\t\t\t\tID:   githubcomplazafyiplazago.F(int64(21154906)),\n\t\t\t\tType: githubcomplazafyiplazago.F(githubcomplazafyiplazago.BatchRequestElementsTypeNode),\n\t\t\t}, {\n\t\t\t\tID:   githubcomplazafyiplazago.F(int64(4589123)),\n\t\t\t\tType: githubcomplazafyiplazago.F(githubcomplazafyiplazago.BatchRequestElementsTypeWay),\n\t\t\t}}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", featureCollection.Features)\n}\n',
       },
       ruby: {
         method: 'features.batch',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nfeature_collection = plaza.features.batch(elements: [{id: 21154906, type: :node}, {id: 4589123, type: :way}])\n\nputs(feature_collection)',
       },
-      typescript: {
-        method: 'client.features.batch',
+      cli: {
+        method: 'features batch',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst featureCollection = await client.features.batch({\n  elements: [\n    { id: 21154906, type: 'node' },\n    { id: 4589123, type: 'way' },\n  ],\n});\n\nconsole.log(featureCollection.features);",
+          "plaza features batch \\\n  --api-key 'My API Key' \\\n  --element '{id: 21154906, type: node}' \\\n  --element '{id: 4589123, type: way}'",
+      },
+      php: {
+        method: 'features->batch',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->features->batch(\n  elements: [\n    ['id' => 21154906, 'type' => 'node'], ['id' => 4589123, 'type' => 'way']\n  ],\n);\n\nvar_dump($featureCollection);",
+      },
+      csharp: {
+        method: 'Features.Batch',
+        example:
+          'FeatureBatchParams parameters = new()\n{\n    Elements =\n    [\n        new()\n        {\n            ID = 21154906,\n            Type = Type.Node,\n        },\n        new()\n        {\n            ID = 4589123,\n            Type = Type.Way,\n        },\n    ],\n};\n\nvar featureCollection = await client.Features.Batch(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/features/batch \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "elements": [\n            {\n              "id": 21154906,\n              "type": "node"\n            },\n            {\n              "id": 4589123,\n              "type": "way"\n            }\n          ]\n        }\'',
       },
     },
   },
@@ -273,22 +273,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.datasets.list(scope?: string): { datasets: dataset[]; }`\n\n**get** `/api/v1/datasets`\n\nList datasets\n\n### Parameters\n\n- `scope?: string`\n  Filter by scope: plaza, user. Default shows user's own + plaza datasets.\n\n### Returns\n\n- `{ datasets: { id: string; inserted_at: string; name: string; scope: 'plaza' | 'user'; slug: string; status: 'pending' | 'processing' | 'ready' | 'error'; updated_at: string; address_count?: number; attribution?: string; description?: string; edge_count?: number; error_message?: string; feature_count?: number; license?: string; schema_definition?: object; source_format?: string; source_url?: string; storage_bytes?: number; strict_mode?: boolean; }[]; }`\n  List of datasets visible to the authenticated user.\n\n  - `datasets: { id: string; inserted_at: string; name: string; scope: 'plaza' | 'user'; slug: string; status: 'pending' | 'processing' | 'ready' | 'error'; updated_at: string; address_count?: number; attribution?: string; description?: string; edge_count?: number; error_message?: string; feature_count?: number; license?: string; schema_definition?: object; source_format?: string; source_url?: string; storage_bytes?: number; strict_mode?: boolean; }[]`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst datasetList = await client.datasets.list();\n\nconsole.log(datasetList);\n```",
     perLanguage: {
-      cli: {
-        method: 'datasets list',
-        example: "plaza datasets list \\\n  --api-key 'My API Key'",
-      },
-      csharp: {
-        method: 'Datasets.List',
+      typescript: {
+        method: 'client.datasets.list',
         example:
-          'DatasetListParams parameters = new();\n\nvar datasetList = await client.Datasets.List(parameters);\n\nConsole.WriteLine(datasetList);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst datasetList = await client.datasets.list();\n\nconsole.log(datasetList.datasets);",
       },
-      go: {
-        method: 'client.Datasets.List',
+      python: {
+        method: 'datasets.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tdatasetList, err := client.Datasets.List(context.TODO(), githubcomplazafyiplazago.DatasetListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", datasetList.Datasets)\n}\n',
-      },
-      http: {
-        example: 'curl https://plaza.fyi/api/v1/datasets \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ndataset_list = client.datasets.list()\nprint(dataset_list.datasets)',
       },
       java: {
         method: 'datasets().list',
@@ -300,25 +293,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.datasets.DatasetList\nimport com.plazafyi.models.datasets.DatasetListParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val datasetList: DatasetList = client.datasets().list()\n}',
       },
-      php: {
-        method: 'datasets->list',
+      go: {
+        method: 'client.Datasets.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$datasetList = $client->datasets->list(scope: 'scope');\n\nvar_dump($datasetList);",
-      },
-      python: {
-        method: 'datasets.list',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ndataset_list = client.datasets.list()\nprint(dataset_list.datasets)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tdatasetList, err := client.Datasets.List(context.TODO(), githubcomplazafyiplazago.DatasetListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", datasetList.Datasets)\n}\n',
       },
       ruby: {
         method: 'datasets.list',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\ndataset_list = plaza.datasets.list\n\nputs(dataset_list)',
       },
-      typescript: {
-        method: 'client.datasets.list',
+      cli: {
+        method: 'datasets list',
+        example: "plaza datasets list \\\n  --api-key 'My API Key'",
+      },
+      php: {
+        method: 'datasets->list',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst datasetList = await client.datasets.list();\n\nconsole.log(datasetList.datasets);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$datasetList = $client->datasets->list(scope: 'scope');\n\nvar_dump($datasetList);",
+      },
+      csharp: {
+        method: 'Datasets.List',
+        example:
+          'DatasetListParams parameters = new();\n\nvar datasetList = await client.Datasets.List(parameters);\n\nConsole.WriteLine(datasetList);',
+      },
+      http: {
+        example: 'curl https://plaza.fyi/api/v1/datasets \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
       },
     },
   },
@@ -344,24 +344,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.datasets.create(name: string, slug: string, attribution?: string, description?: string, license?: string, source_url?: string, strict_mode?: boolean): { id: string; inserted_at: string; name: string; scope: 'plaza' | 'user'; slug: string; status: 'pending' | 'processing' | 'ready' | 'error'; updated_at: string; address_count?: number; attribution?: string; description?: string; edge_count?: number; error_message?: string; feature_count?: number; license?: string; schema_definition?: object; source_format?: string; source_url?: string; storage_bytes?: number; strict_mode?: boolean; }`\n\n**post** `/api/v1/datasets`\n\nCreate a new dataset\n\n### Parameters\n\n- `name: string`\n  Human-readable dataset name\n\n- `slug: string`\n  URL-friendly identifier (lowercase, hyphens, no spaces)\n\n- `attribution?: string`\n  Required attribution text\n\n- `description?: string`\n  Dataset description\n\n- `license?: string`\n  License identifier (e.g. CC-BY-4.0)\n\n- `source_url?: string`\n  Source data URL\n\n- `strict_mode?: boolean`\n  Enable strict schema validation (default true)\n\n### Returns\n\n- `{ id: string; inserted_at: string; name: string; scope: 'plaza' | 'user'; slug: string; status: 'pending' | 'processing' | 'ready' | 'error'; updated_at: string; address_count?: number; attribution?: string; description?: string; edge_count?: number; error_message?: string; feature_count?: number; license?: string; schema_definition?: object; source_format?: string; source_url?: string; storage_bytes?: number; strict_mode?: boolean; }`\n  Metadata for a custom dataset. Datasets contain user-uploaded geospatial features separate from the OSM data.\n\n  - `id: string`\n  - `inserted_at: string`\n  - `name: string`\n  - `scope: 'plaza' | 'user'`\n  - `slug: string`\n  - `status: 'pending' | 'processing' | 'ready' | 'error'`\n  - `updated_at: string`\n  - `address_count?: number`\n  - `attribution?: string`\n  - `description?: string`\n  - `edge_count?: number`\n  - `error_message?: string`\n  - `feature_count?: number`\n  - `license?: string`\n  - `schema_definition?: object`\n  - `source_format?: string`\n  - `source_url?: string`\n  - `storage_bytes?: number`\n  - `strict_mode?: boolean`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst dataset = await client.datasets.create({ name: 'NYC Bike Lanes', slug: 'nyc-bike-lanes' });\n\nconsole.log(dataset);\n```",
     perLanguage: {
-      cli: {
-        method: 'datasets create',
+      typescript: {
+        method: 'client.datasets.create',
         example:
-          "plaza datasets create \\\n  --api-key 'My API Key' \\\n  --name 'NYC Bike Lanes' \\\n  --slug nyc-bike-lanes",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst dataset = await client.datasets.create({ name: 'NYC Bike Lanes', slug: 'nyc-bike-lanes' });\n\nconsole.log(dataset.id);",
       },
-      csharp: {
-        method: 'Datasets.Create',
+      python: {
+        method: 'datasets.create',
         example:
-          'DatasetCreateParams parameters = new()\n{\n    Name = "NYC Bike Lanes",\n    Slug = "nyc-bike-lanes",\n};\n\nvar dataset = await client.Datasets.Create(parameters);\n\nConsole.WriteLine(dataset);',
-      },
-      go: {
-        method: 'client.Datasets.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tdataset, err := client.Datasets.New(context.TODO(), githubcomplazafyiplazago.DatasetNewParams{\n\t\tName: githubcomplazafyiplazago.F("NYC Bike Lanes"),\n\t\tSlug: githubcomplazafyiplazago.F("nyc-bike-lanes"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dataset.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/datasets \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "name": "NYC Bike Lanes",\n          "slug": "nyc-bike-lanes"\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ndataset = client.datasets.create(\n    name="NYC Bike Lanes",\n    slug="nyc-bike-lanes",\n)\nprint(dataset.id)',
       },
       java: {
         method: 'datasets().create',
@@ -373,25 +364,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.datasets.Dataset\nimport com.plazafyi.models.datasets.DatasetCreateParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: DatasetCreateParams = DatasetCreateParams.builder()\n        .name("NYC Bike Lanes")\n        .slug("nyc-bike-lanes")\n        .build()\n    val dataset: Dataset = client.datasets().create(params)\n}',
       },
-      php: {
-        method: 'datasets->create',
+      go: {
+        method: 'client.Datasets.New',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$dataset = $client->datasets->create(\n  name: 'NYC Bike Lanes',\n  slug: 'nyc-bike-lanes',\n  attribution: 'attribution',\n  description: 'description',\n  license: 'license',\n  sourceURL: 'https://example.com',\n  strictMode: true,\n);\n\nvar_dump($dataset);",
-      },
-      python: {
-        method: 'datasets.create',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ndataset = client.datasets.create(\n    name="NYC Bike Lanes",\n    slug="nyc-bike-lanes",\n)\nprint(dataset.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tdataset, err := client.Datasets.New(context.TODO(), githubcomplazafyiplazago.DatasetNewParams{\n\t\tName: githubcomplazafyiplazago.F("NYC Bike Lanes"),\n\t\tSlug: githubcomplazafyiplazago.F("nyc-bike-lanes"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dataset.ID)\n}\n',
       },
       ruby: {
         method: 'datasets.create',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\ndataset = plaza.datasets.create(name: "NYC Bike Lanes", slug: "nyc-bike-lanes")\n\nputs(dataset)',
       },
-      typescript: {
-        method: 'client.datasets.create',
+      cli: {
+        method: 'datasets create',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst dataset = await client.datasets.create({ name: 'NYC Bike Lanes', slug: 'nyc-bike-lanes' });\n\nconsole.log(dataset.id);",
+          "plaza datasets create \\\n  --api-key 'My API Key' \\\n  --name 'NYC Bike Lanes' \\\n  --slug nyc-bike-lanes",
+      },
+      php: {
+        method: 'datasets->create',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$dataset = $client->datasets->create(\n  name: 'NYC Bike Lanes',\n  slug: 'nyc-bike-lanes',\n  attribution: 'attribution',\n  description: 'description',\n  license: 'license',\n  sourceURL: 'https://example.com',\n  strictMode: true,\n);\n\nvar_dump($dataset);",
+      },
+      csharp: {
+        method: 'Datasets.Create',
+        example:
+          'DatasetCreateParams parameters = new()\n{\n    Name = "NYC Bike Lanes",\n    Slug = "nyc-bike-lanes",\n};\n\nvar dataset = await client.Datasets.Create(parameters);\n\nConsole.WriteLine(dataset);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/datasets \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "name": "NYC Bike Lanes",\n          "slug": "nyc-bike-lanes"\n        }\'',
       },
     },
   },
@@ -409,23 +409,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.datasets.retrieve(id: string): { id: string; inserted_at: string; name: string; scope: 'plaza' | 'user'; slug: string; status: 'pending' | 'processing' | 'ready' | 'error'; updated_at: string; address_count?: number; attribution?: string; description?: string; edge_count?: number; error_message?: string; feature_count?: number; license?: string; schema_definition?: object; source_format?: string; source_url?: string; storage_bytes?: number; strict_mode?: boolean; }`\n\n**get** `/api/v1/datasets/{id}`\n\nGet dataset by ID\n\n### Parameters\n\n- `id: string`\n\n### Returns\n\n- `{ id: string; inserted_at: string; name: string; scope: 'plaza' | 'user'; slug: string; status: 'pending' | 'processing' | 'ready' | 'error'; updated_at: string; address_count?: number; attribution?: string; description?: string; edge_count?: number; error_message?: string; feature_count?: number; license?: string; schema_definition?: object; source_format?: string; source_url?: string; storage_bytes?: number; strict_mode?: boolean; }`\n  Metadata for a custom dataset. Datasets contain user-uploaded geospatial features separate from the OSM data.\n\n  - `id: string`\n  - `inserted_at: string`\n  - `name: string`\n  - `scope: 'plaza' | 'user'`\n  - `slug: string`\n  - `status: 'pending' | 'processing' | 'ready' | 'error'`\n  - `updated_at: string`\n  - `address_count?: number`\n  - `attribution?: string`\n  - `description?: string`\n  - `edge_count?: number`\n  - `error_message?: string`\n  - `feature_count?: number`\n  - `license?: string`\n  - `schema_definition?: object`\n  - `source_format?: string`\n  - `source_url?: string`\n  - `storage_bytes?: number`\n  - `strict_mode?: boolean`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst dataset = await client.datasets.retrieve('id');\n\nconsole.log(dataset);\n```",
     perLanguage: {
-      cli: {
-        method: 'datasets retrieve',
-        example: "plaza datasets retrieve \\\n  --api-key 'My API Key' \\\n  --id id",
-      },
-      csharp: {
-        method: 'Datasets.Retrieve',
+      typescript: {
+        method: 'client.datasets.retrieve',
         example:
-          'DatasetRetrieveParams parameters = new() { ID = "id" };\n\nvar dataset = await client.Datasets.Retrieve(parameters);\n\nConsole.WriteLine(dataset);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst dataset = await client.datasets.retrieve('id');\n\nconsole.log(dataset.id);",
       },
-      go: {
-        method: 'client.Datasets.Get',
+      python: {
+        method: 'datasets.retrieve',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tdataset, err := client.Datasets.Get(context.TODO(), "id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dataset.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/datasets/$ID \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ndataset = client.datasets.retrieve(\n    "id",\n)\nprint(dataset.id)',
       },
       java: {
         method: 'datasets().retrieve',
@@ -437,25 +429,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.datasets.Dataset\nimport com.plazafyi.models.datasets.DatasetRetrieveParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val dataset: Dataset = client.datasets().retrieve("id")\n}',
       },
-      php: {
-        method: 'datasets->retrieve',
+      go: {
+        method: 'client.Datasets.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$dataset = $client->datasets->retrieve('id');\n\nvar_dump($dataset);",
-      },
-      python: {
-        method: 'datasets.retrieve',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ndataset = client.datasets.retrieve(\n    "id",\n)\nprint(dataset.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tdataset, err := client.Datasets.Get(context.TODO(), "id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dataset.ID)\n}\n',
       },
       ruby: {
         method: 'datasets.retrieve',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\ndataset = plaza.datasets.retrieve("id")\n\nputs(dataset)',
       },
-      typescript: {
-        method: 'client.datasets.retrieve',
+      cli: {
+        method: 'datasets retrieve',
+        example: "plaza datasets retrieve \\\n  --api-key 'My API Key' \\\n  --id id",
+      },
+      php: {
+        method: 'datasets->retrieve',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst dataset = await client.datasets.retrieve('id');\n\nconsole.log(dataset.id);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$dataset = $client->datasets->retrieve('id');\n\nvar_dump($dataset);",
+      },
+      csharp: {
+        method: 'Datasets.Retrieve',
+        example:
+          'DatasetRetrieveParams parameters = new() { ID = "id" };\n\nvar dataset = await client.Datasets.Retrieve(parameters);\n\nConsole.WriteLine(dataset);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/datasets/$ID \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
       },
     },
   },
@@ -471,23 +471,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.datasets.delete(id: string): void`\n\n**delete** `/api/v1/datasets/{id}`\n\nDelete a dataset\n\n### Parameters\n\n- `id: string`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nawait client.datasets.delete('id')\n```",
     perLanguage: {
-      cli: {
-        method: 'datasets delete',
-        example: "plaza datasets delete \\\n  --api-key 'My API Key' \\\n  --id id",
-      },
-      csharp: {
-        method: 'Datasets.Delete',
+      typescript: {
+        method: 'client.datasets.delete',
         example:
-          'DatasetDeleteParams parameters = new() { ID = "id" };\n\nawait client.Datasets.Delete(parameters);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.datasets.delete('id');",
       },
-      go: {
-        method: 'client.Datasets.Delete',
+      python: {
+        method: 'datasets.delete',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Datasets.Delete(context.TODO(), "id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/datasets/$ID \\\n    -X DELETE \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nclient.datasets.delete(\n    "id",\n)',
       },
       java: {
         method: 'datasets().delete',
@@ -499,25 +491,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.datasets.DatasetDeleteParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    client.datasets().delete("id")\n}',
       },
-      php: {
-        method: 'datasets->delete',
+      go: {
+        method: 'client.Datasets.Delete',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$result = $client->datasets->delete('id');\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'datasets.delete',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nclient.datasets.delete(\n    "id",\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Datasets.Delete(context.TODO(), "id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'datasets.delete',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nresult = plaza.datasets.delete("id")\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.datasets.delete',
+      cli: {
+        method: 'datasets delete',
+        example: "plaza datasets delete \\\n  --api-key 'My API Key' \\\n  --id id",
+      },
+      php: {
+        method: 'datasets->delete',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.datasets.delete('id');",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$result = $client->datasets->delete('id');\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Datasets.Delete',
+        example:
+          'DatasetDeleteParams parameters = new() { ID = "id" };\n\nawait client.Datasets.Delete(parameters);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/datasets/$ID \\\n    -X DELETE \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
       },
     },
   },
@@ -543,23 +543,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## forward\n\n`client.geocode.forward(q: string, format?: string, country_code?: string, focus?: { coordinates: number[]; type: 'Point'; }, lang?: string, layer?: string, limit?: number): { features: geocoding_feature[]; type: 'FeatureCollection'; }`\n\n**post** `/api/v1/geocode`\n\nForward geocode an address\n\n### Parameters\n\n- `q: string`\n  Address or place name to geocode\n\n- `format?: string`\n  Response format: json (default), geojson, csv, ndjson\n\n- `country_code?: string`\n  ISO 3166-1 alpha-2 country code to restrict results\n\n- `focus?: { coordinates: number[]; type: 'Point'; }`\n  GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude] order. Optional third element is altitude in meters.\n  - `coordinates: number[]`\n    [longitude, latitude] or [longitude, latitude, altitude]\n  - `type: 'Point'`\n\n- `lang?: string`\n  Preferred response language (ISO 639-1)\n\n- `layer?: string`\n  Filter by result layer (e.g. `address`, `place`, `poi`)\n\n- `limit?: number`\n  Maximum number of results (default: 5, max: 50)\n\n### Returns\n\n- `{ features: { geometry: geometry; properties: object; type: 'Feature'; }[]; type: 'FeatureCollection'; }`\n  GeoJSON FeatureCollection of forward geocoding results, ordered by relevance. Content-Type: `application/geo+json`.\n\n  - `features: { geometry: object | object | object | object | object | object; properties: { display_name: string; category?: string; city?: string; confidence?: number; country?: string; country_code?: string; distance_m?: number; full_address?: string; house_number?: string; interpolated?: boolean; name?: string; osm_id?: number; osm_type?: 'node' | 'way' | 'relation'; postcode?: string; score?: number; source?: 'structured' | 'fuzzy' | 'address' | 'place' | 'interpolation'; state?: string; street?: string; subcategory?: string; tags?: object; wikipedia?: string; }; type: 'Feature'; }[]`\n  - `type: 'FeatureCollection'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst geocodeResult = await client.geocode.forward({ q: '221B Baker Street, London' });\n\nconsole.log(geocodeResult);\n```",
     perLanguage: {
-      cli: {
-        method: 'geocode forward',
-        example: "plaza geocode forward \\\n  --api-key 'My API Key' \\\n  --q '221B Baker Street, London'",
-      },
-      csharp: {
-        method: 'Geocode.Forward',
+      typescript: {
+        method: 'client.geocode.forward',
         example:
-          'GeocodeForwardParams parameters = new() { Q = "221B Baker Street, London" };\n\nvar geocodeResult = await client.Geocode.Forward(parameters);\n\nConsole.WriteLine(geocodeResult);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst geocodeResult = await client.geocode.forward({ q: '221B Baker Street, London' });\n\nconsole.log(geocodeResult.features);",
       },
-      go: {
-        method: 'client.Geocode.Forward',
+      python: {
+        method: 'geocode.forward',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tgeocodeResult, err := client.Geocode.Forward(context.TODO(), githubcomplazafyiplazago.GeocodeForwardParams{\n\t\tGeocodeForwardRequest: githubcomplazafyiplazago.GeocodeForwardRequestParam{\n\t\t\tQ: githubcomplazafyiplazago.F("221B Baker Street, London"),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", geocodeResult.Features)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/geocode \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "q": "221B Baker Street, London"\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ngeocode_result = client.geocode.forward(\n    q="221B Baker Street, London",\n)\nprint(geocode_result.features)',
       },
       java: {
         method: 'geocode().forward',
@@ -571,25 +563,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.geocode.GeocodeForwardParams\nimport com.plazafyi.models.geocode.GeocodeForwardRequest\nimport com.plazafyi.models.geocode.GeocodeResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: GeocodeForwardRequest = GeocodeForwardRequest.builder()\n        .q("221B Baker Street, London")\n        .build()\n    val geocodeResult: GeocodeResult = client.geocode().forward(params)\n}',
       },
-      php: {
-        method: 'geocode->forward',
+      go: {
+        method: 'client.Geocode.Forward',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$geocodeResult = $client->geocode->forward(\n  q: '221B Baker Street, London',\n  format: 'format',\n  countryCode: 'xx',\n  focus: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  lang: 'lang',\n  layer: 'layer',\n  limit: 1,\n);\n\nvar_dump($geocodeResult);",
-      },
-      python: {
-        method: 'geocode.forward',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ngeocode_result = client.geocode.forward(\n    q="221B Baker Street, London",\n)\nprint(geocode_result.features)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tgeocodeResult, err := client.Geocode.Forward(context.TODO(), githubcomplazafyiplazago.GeocodeForwardParams{\n\t\tGeocodeForwardRequest: githubcomplazafyiplazago.GeocodeForwardRequestParam{\n\t\t\tQ: githubcomplazafyiplazago.F("221B Baker Street, London"),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", geocodeResult.Features)\n}\n',
       },
       ruby: {
         method: 'geocode.forward',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\ngeocode_result = plaza.geocode.forward(q: "221B Baker Street, London")\n\nputs(geocode_result)',
       },
-      typescript: {
-        method: 'client.geocode.forward',
+      cli: {
+        method: 'geocode forward',
+        example: "plaza geocode forward \\\n  --api-key 'My API Key' \\\n  --q '221B Baker Street, London'",
+      },
+      php: {
+        method: 'geocode->forward',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst geocodeResult = await client.geocode.forward({ q: '221B Baker Street, London' });\n\nconsole.log(geocodeResult.features);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$geocodeResult = $client->geocode->forward(\n  q: '221B Baker Street, London',\n  format: 'format',\n  countryCode: 'xx',\n  focus: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  lang: 'lang',\n  layer: 'layer',\n  limit: 1,\n);\n\nvar_dump($geocodeResult);",
+      },
+      csharp: {
+        method: 'Geocode.Forward',
+        example:
+          'GeocodeForwardParams parameters = new() { Q = "221B Baker Street, London" };\n\nvar geocodeResult = await client.Geocode.Forward(parameters);\n\nConsole.WriteLine(geocodeResult);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/geocode \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "q": "221B Baker Street, London"\n        }\'',
       },
     },
   },
@@ -613,24 +613,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## reverse\n\n`client.geocode.reverse(geometry: { coordinates: number[]; type: 'Point'; }, format?: string, lang?: string, limit?: number, radius?: number): { features: geocoding_feature[]; type: 'FeatureCollection'; }`\n\n**post** `/api/v1/geocode/reverse`\n\nReverse geocode a coordinate\n\n### Parameters\n\n- `geometry: { coordinates: number[]; type: 'Point'; }`\n  GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude] order. Optional third element is altitude in meters.\n  - `coordinates: number[]`\n    [longitude, latitude] or [longitude, latitude, altitude]\n  - `type: 'Point'`\n\n- `format?: string`\n  Response format: json (default), geojson, csv, ndjson\n\n- `lang?: string`\n  Preferred response language (ISO 639-1)\n\n- `limit?: number`\n  Maximum number of results (default: 1, max: 50)\n\n- `radius?: number`\n  Search radius in meters (default: 100)\n\n### Returns\n\n- `{ features: { geometry: geometry; properties: object; type: 'Feature'; }[]; type: 'FeatureCollection'; }`\n  GeoJSON FeatureCollection of reverse geocoding results, ordered by distance from the query point. Content-Type: `application/geo+json`.\n\n  - `features: { geometry: object | object | object | object | object | object; properties: { display_name: string; category?: string; city?: string; confidence?: number; country?: string; country_code?: string; distance_m?: number; full_address?: string; house_number?: string; interpolated?: boolean; name?: string; osm_id?: number; osm_type?: 'node' | 'way' | 'relation'; postcode?: string; score?: number; source?: 'structured' | 'fuzzy' | 'address' | 'place' | 'interpolation'; state?: string; street?: string; subcategory?: string; tags?: object; wikipedia?: string; }; type: 'Feature'; }[]`\n  - `type: 'FeatureCollection'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst reverseGeocodeResult = await client.geocode.reverse({ geometry: { coordinates: [2.3522, 48.8566], type: 'Point' } });\n\nconsole.log(reverseGeocodeResult);\n```",
     perLanguage: {
-      cli: {
-        method: 'geocode reverse',
+      typescript: {
+        method: 'client.geocode.reverse',
         example:
-          "plaza geocode reverse \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [2.3522, 48.8566], type: Point}'",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst reverseGeocodeResult = await client.geocode.reverse({\n  geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },\n});\n\nconsole.log(reverseGeocodeResult.features);",
       },
-      csharp: {
-        method: 'Geocode.Reverse',
+      python: {
+        method: 'geocode.reverse',
         example:
-          'GeocodeReverseParams parameters = new()\n{\n    Geometry = new()\n    {\n        Coordinates =\n        [\n            2.3522, 48.8566\n        ],\n        Type = Type.Point,\n    },\n};\n\nvar reverseGeocodeResult = await client.Geocode.Reverse(parameters);\n\nConsole.WriteLine(reverseGeocodeResult);',
-      },
-      go: {
-        method: 'client.Geocode.Reverse',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\treverseGeocodeResult, err := client.Geocode.Reverse(context.TODO(), githubcomplazafyiplazago.GeocodeReverseParams{\n\t\tGeocodeReverseRequest: githubcomplazafyiplazago.GeocodeReverseRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", reverseGeocodeResult.Features)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/geocode/reverse \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          }\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nreverse_geocode_result = client.geocode.reverse(\n    geometry={\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    },\n)\nprint(reverse_geocode_result.features)',
       },
       java: {
         method: 'geocode().reverse',
@@ -642,25 +633,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.PointGeometry\nimport com.plazafyi.models.geocode.GeocodeReverseParams\nimport com.plazafyi.models.geocode.GeocodeReverseRequest\nimport com.plazafyi.models.geocode.ReverseGeocodeResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: GeocodeReverseRequest = GeocodeReverseRequest.builder()\n        .geometry(PointGeometry.builder()\n            .addCoordinate(2.3522)\n            .addCoordinate(48.8566)\n            .type(PointGeometry.Type.POINT)\n            .build())\n        .build()\n    val reverseGeocodeResult: ReverseGeocodeResult = client.geocode().reverse(params)\n}',
       },
-      php: {
-        method: 'geocode->reverse',
+      go: {
+        method: 'client.Geocode.Reverse',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$reverseGeocodeResult = $client->geocode->reverse(\n  geometry: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  format: 'format',\n  lang: 'lang',\n  limit: 1,\n  radius: 1,\n);\n\nvar_dump($reverseGeocodeResult);",
-      },
-      python: {
-        method: 'geocode.reverse',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nreverse_geocode_result = client.geocode.reverse(\n    geometry={\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    },\n)\nprint(reverse_geocode_result.features)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\treverseGeocodeResult, err := client.Geocode.Reverse(context.TODO(), githubcomplazafyiplazago.GeocodeReverseParams{\n\t\tGeocodeReverseRequest: githubcomplazafyiplazago.GeocodeReverseRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", reverseGeocodeResult.Features)\n}\n',
       },
       ruby: {
         method: 'geocode.reverse',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nreverse_geocode_result = plaza.geocode.reverse(geometry: {coordinates: [2.3522, 48.8566], type: :Point})\n\nputs(reverse_geocode_result)',
       },
-      typescript: {
-        method: 'client.geocode.reverse',
+      cli: {
+        method: 'geocode reverse',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst reverseGeocodeResult = await client.geocode.reverse({\n  geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },\n});\n\nconsole.log(reverseGeocodeResult.features);",
+          "plaza geocode reverse \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [2.3522, 48.8566], type: Point}'",
+      },
+      php: {
+        method: 'geocode->reverse',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$reverseGeocodeResult = $client->geocode->reverse(\n  geometry: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  format: 'format',\n  lang: 'lang',\n  limit: 1,\n  radius: 1,\n);\n\nvar_dump($reverseGeocodeResult);",
+      },
+      csharp: {
+        method: 'Geocode.Reverse',
+        example:
+          'GeocodeReverseParams parameters = new()\n{\n    Geometry = new()\n    {\n        Coordinates =\n        [\n            2.3522, 48.8566\n        ],\n        Type = Type.Point,\n    },\n};\n\nvar reverseGeocodeResult = await client.Geocode.Reverse(parameters);\n\nConsole.WriteLine(reverseGeocodeResult);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/geocode/reverse \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          }\n        }\'',
       },
     },
   },
@@ -686,23 +686,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## autocomplete\n\n`client.geocode.autocomplete(q: string, format?: string, country_code?: string, focus?: { coordinates: number[]; type: 'Point'; }, lang?: string, layer?: string, limit?: number): { features: geocoding_feature[]; type: 'FeatureCollection'; }`\n\n**post** `/api/v1/geocode/autocomplete`\n\nAutocomplete a partial address\n\n### Parameters\n\n- `q: string`\n  Partial address or place name input\n\n- `format?: string`\n  Response format: json (default), geojson, csv, ndjson\n\n- `country_code?: string`\n  ISO 3166-1 alpha-2 country code to restrict results\n\n- `focus?: { coordinates: number[]; type: 'Point'; }`\n  GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude] order. Optional third element is altitude in meters.\n  - `coordinates: number[]`\n    [longitude, latitude] or [longitude, latitude, altitude]\n  - `type: 'Point'`\n\n- `lang?: string`\n  Preferred response language (ISO 639-1)\n\n- `layer?: string`\n  Filter by result layer (e.g. `address`, `place`, `poi`)\n\n- `limit?: number`\n  Maximum number of suggestions (default: 5, max: 20)\n\n### Returns\n\n- `{ features: { geometry: geometry; properties: object; type: 'Feature'; }[]; type: 'FeatureCollection'; }`\n  GeoJSON FeatureCollection of autocomplete suggestions for partial address input. Optimized for low-latency type-ahead UIs. Content-Type: `application/geo+json`.\n\n  - `features: { geometry: object | object | object | object | object | object; properties: { display_name: string; category?: string; city?: string; confidence?: number; country?: string; country_code?: string; distance_m?: number; full_address?: string; house_number?: string; interpolated?: boolean; name?: string; osm_id?: number; osm_type?: 'node' | 'way' | 'relation'; postcode?: string; score?: number; source?: 'structured' | 'fuzzy' | 'address' | 'place' | 'interpolation'; state?: string; street?: string; subcategory?: string; tags?: object; wikipedia?: string; }; type: 'Feature'; }[]`\n  - `type: 'FeatureCollection'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst autocompleteResult = await client.geocode.autocomplete({ q: '221B Bak' });\n\nconsole.log(autocompleteResult);\n```",
     perLanguage: {
-      cli: {
-        method: 'geocode autocomplete',
-        example: "plaza geocode autocomplete \\\n  --api-key 'My API Key' \\\n  --q '221B Bak'",
-      },
-      csharp: {
-        method: 'Geocode.Autocomplete',
+      typescript: {
+        method: 'client.geocode.autocomplete',
         example:
-          'GeocodeAutocompleteParams parameters = new() { Q = "221B Bak" };\n\nvar autocompleteResult = await client.Geocode.Autocomplete(parameters);\n\nConsole.WriteLine(autocompleteResult);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst autocompleteResult = await client.geocode.autocomplete({ q: '221B Bak' });\n\nconsole.log(autocompleteResult.features);",
       },
-      go: {
-        method: 'client.Geocode.Autocomplete',
+      python: {
+        method: 'geocode.autocomplete',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tautocompleteResult, err := client.Geocode.Autocomplete(context.TODO(), githubcomplazafyiplazago.GeocodeAutocompleteParams{\n\t\tAutocompleteRequest: githubcomplazafyiplazago.AutocompleteRequestParam{\n\t\t\tQ: githubcomplazafyiplazago.F("221B Bak"),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", autocompleteResult.Features)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/geocode/autocomplete \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "q": "221B Bak"\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nautocomplete_result = client.geocode.autocomplete(\n    q="221B Bak",\n)\nprint(autocomplete_result.features)',
       },
       java: {
         method: 'geocode().autocomplete',
@@ -714,25 +706,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.geocode.AutocompleteRequest\nimport com.plazafyi.models.geocode.AutocompleteResult\nimport com.plazafyi.models.geocode.GeocodeAutocompleteParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: AutocompleteRequest = AutocompleteRequest.builder()\n        .q("221B Bak")\n        .build()\n    val autocompleteResult: AutocompleteResult = client.geocode().autocomplete(params)\n}',
       },
-      php: {
-        method: 'geocode->autocomplete',
+      go: {
+        method: 'client.Geocode.Autocomplete',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$autocompleteResult = $client->geocode->autocomplete(\n  q: '221B Bak',\n  format: 'format',\n  countryCode: 'xx',\n  focus: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  lang: 'lang',\n  layer: 'layer',\n  limit: 1,\n);\n\nvar_dump($autocompleteResult);",
-      },
-      python: {
-        method: 'geocode.autocomplete',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nautocomplete_result = client.geocode.autocomplete(\n    q="221B Bak",\n)\nprint(autocomplete_result.features)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tautocompleteResult, err := client.Geocode.Autocomplete(context.TODO(), githubcomplazafyiplazago.GeocodeAutocompleteParams{\n\t\tAutocompleteRequest: githubcomplazafyiplazago.AutocompleteRequestParam{\n\t\t\tQ: githubcomplazafyiplazago.F("221B Bak"),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", autocompleteResult.Features)\n}\n',
       },
       ruby: {
         method: 'geocode.autocomplete',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nautocomplete_result = plaza.geocode.autocomplete(q: "221B Bak")\n\nputs(autocomplete_result)',
       },
-      typescript: {
-        method: 'client.geocode.autocomplete',
+      cli: {
+        method: 'geocode autocomplete',
+        example: "plaza geocode autocomplete \\\n  --api-key 'My API Key' \\\n  --q '221B Bak'",
+      },
+      php: {
+        method: 'geocode->autocomplete',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst autocompleteResult = await client.geocode.autocomplete({ q: '221B Bak' });\n\nconsole.log(autocompleteResult.features);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$autocompleteResult = $client->geocode->autocomplete(\n  q: '221B Bak',\n  format: 'format',\n  countryCode: 'xx',\n  focus: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  lang: 'lang',\n  layer: 'layer',\n  limit: 1,\n);\n\nvar_dump($autocompleteResult);",
+      },
+      csharp: {
+        method: 'Geocode.Autocomplete',
+        example:
+          'GeocodeAutocompleteParams parameters = new() { Q = "221B Bak" };\n\nvar autocompleteResult = await client.Geocode.Autocomplete(parameters);\n\nConsole.WriteLine(autocompleteResult);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/geocode/autocomplete \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "q": "221B Bak"\n        }\'',
       },
     },
   },
@@ -749,23 +749,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## batch\n\n`client.geocode.batch(addresses: string[]): { count: number; results: geocode_result[]; }`\n\n**post** `/api/v1/geocode/batch`\n\nBatch geocode multiple addresses\n\n### Parameters\n\n- `addresses: string[]`\n\n### Returns\n\n- `{ count: number; results: { features: geocoding_feature[]; type: 'FeatureCollection'; }[]; }`\n  Batch geocoding result. Each entry in `results` is a FeatureCollection corresponding to the input address at the same index. Order is preserved.\n\n  - `count: number`\n  - `results: { features: { geometry: geometry; properties: object; type: 'Feature'; }[]; type: 'FeatureCollection'; }[]`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst response = await client.geocode.batch({ addresses: ['string'] });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'geocode batch',
-        example: "plaza geocode batch \\\n  --api-key 'My API Key' \\\n  --address string",
-      },
-      csharp: {
-        method: 'Geocode.Batch',
+      typescript: {
+        method: 'client.geocode.batch',
         example:
-          'GeocodeBatchParams parameters = new()\n{\n    Addresses =\n    [\n        "string"\n    ],\n};\n\nvar response = await client.Geocode.Batch(parameters);\n\nConsole.WriteLine(response);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.geocode.batch({ addresses: ['string'] });\n\nconsole.log(response.count);",
       },
-      go: {
-        method: 'client.Geocode.Batch',
+      python: {
+        method: 'geocode.batch',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Geocode.Batch(context.TODO(), githubcomplazafyiplazago.GeocodeBatchParams{\n\t\tAddresses: githubcomplazafyiplazago.F([]string{"string"}),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Count)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/geocode/batch \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "addresses": [\n            "string"\n          ]\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.geocode.batch(\n    addresses=["string"],\n)\nprint(response.count)',
       },
       java: {
         method: 'geocode().batch',
@@ -777,25 +769,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.geocode.GeocodeBatchParams\nimport com.plazafyi.models.geocode.GeocodeBatchResponse\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: GeocodeBatchParams = GeocodeBatchParams.builder()\n        .addAddress("string")\n        .build()\n    val response: GeocodeBatchResponse = client.geocode().batch(params)\n}',
       },
-      php: {
-        method: 'geocode->batch',
+      go: {
+        method: 'client.Geocode.Batch',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$response = $client->geocode->batch(addresses: ['string']);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'geocode.batch',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.geocode.batch(\n    addresses=["string"],\n)\nprint(response.count)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Geocode.Batch(context.TODO(), githubcomplazafyiplazago.GeocodeBatchParams{\n\t\tAddresses: githubcomplazafyiplazago.F([]string{"string"}),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Count)\n}\n',
       },
       ruby: {
         method: 'geocode.batch',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nresponse = plaza.geocode.batch(addresses: ["string"])\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.geocode.batch',
+      cli: {
+        method: 'geocode batch',
+        example: "plaza geocode batch \\\n  --api-key 'My API Key' \\\n  --address string",
+      },
+      php: {
+        method: 'geocode->batch',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.geocode.batch({ addresses: ['string'] });\n\nconsole.log(response.count);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$response = $client->geocode->batch(addresses: ['string']);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Geocode.Batch',
+        example:
+          'GeocodeBatchParams parameters = new()\n{\n    Addresses =\n    [\n        "string"\n    ],\n};\n\nvar response = await client.Geocode.Batch(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/geocode/batch \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "addresses": [\n            "string"\n          ]\n        }\'',
       },
     },
   },
@@ -822,23 +822,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## query\n\n`client.search.query(q: string, cursor?: string, format?: string, limit?: number, output[fields]?: string, output[include]?: string, output[precision]?: number, output[sort]?: string): { features: geo_json_feature[]; type: 'FeatureCollection'; }`\n\n**post** `/api/v1/search`\n\nSearch OSM features by name\n\n### Parameters\n\n- `q: string`\n  Search query string\n\n- `cursor?: string`\n  Cursor for pagination\n\n- `format?: string`\n  Response format: json (default), geojson, csv, ndjson\n\n- `limit?: number`\n  Maximum results (default 25, max 100)\n\n- `output[fields]?: string`\n  Comma-separated property fields to include\n\n- `output[include]?: string`\n  Extra computed fields: bbox, distance, center\n\n- `output[precision]?: number`\n  Coordinate decimal precision (1-15, default 7)\n\n- `output[sort]?: string`\n  Sort by: distance, name, osm_id\n\n### Returns\n\n- `{ features: { geometry: geometry; properties: object; type: 'Feature'; id?: string; }[]; type: 'FeatureCollection'; }`\n  GeoJSON FeatureCollection (RFC 7946). For paginated endpoints, metadata is returned in HTTP response headers rather than the body:\n\n| Header | Description |\n|---|---|\n| `X-Limit` | Requested result limit |\n| `X-Has-More` | `true` if more results exist |\n| `X-Next-Cursor` | Opaque cursor for next page (cursor pagination) |\n| `X-Next-Offset` | Numeric offset for next page (offset pagination) |\n| `Link` | RFC 8288 `rel=\"next\"` link to the next page |\n\nContent-Type is `application/geo+json`.\n\n\n  - `features: { geometry: object | object | object | object | object | object; properties: object; type: 'Feature'; id?: string; }[]`\n  - `type: 'FeatureCollection'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst featureCollection = await client.search.query({ q: 'q' });\n\nconsole.log(featureCollection);\n```",
     perLanguage: {
-      cli: {
-        method: 'search query',
-        example: "plaza search query \\\n  --api-key 'My API Key' \\\n  --q q",
-      },
-      csharp: {
-        method: 'Search.Query',
+      typescript: {
+        method: 'client.search.query',
         example:
-          'SearchQueryParams parameters = new() { Q = "q" };\n\nvar featureCollection = await client.Search.Query(parameters);\n\nConsole.WriteLine(featureCollection);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst featureCollection = await client.search.query({ q: 'q' });\n\nconsole.log(featureCollection.features);",
       },
-      go: {
-        method: 'client.Search.Query',
+      python: {
+        method: 'search.query',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfeatureCollection, err := client.Search.Query(context.TODO(), githubcomplazafyiplazago.SearchQueryParams{\n\t\tQ: githubcomplazafyiplazago.F("q"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", featureCollection.Features)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/search \\\n    -X POST \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nfeature_collection = client.search.query(\n    q="q",\n)\nprint(feature_collection.features)',
       },
       java: {
         method: 'search().query',
@@ -850,25 +842,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.search.SearchQueryParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: SearchQueryParams = SearchQueryParams.builder()\n        .q("q")\n        .build()\n    val featureCollection: FeatureCollection = client.search().query(params)\n}',
       },
-      php: {
-        method: 'search->query',
+      go: {
+        method: 'client.Search.Query',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->search->query(\n  q: 'q',\n  cursor: 'cursor',\n  format: 'format',\n  limit: 0,\n  outputFields: 'output[fields]',\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSort: 'output[sort]',\n);\n\nvar_dump($featureCollection);",
-      },
-      python: {
-        method: 'search.query',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nfeature_collection = client.search.query(\n    q="q",\n)\nprint(feature_collection.features)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfeatureCollection, err := client.Search.Query(context.TODO(), githubcomplazafyiplazago.SearchQueryParams{\n\t\tQ: githubcomplazafyiplazago.F("q"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", featureCollection.Features)\n}\n',
       },
       ruby: {
         method: 'search.query',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nfeature_collection = plaza.search.query(q: "q")\n\nputs(feature_collection)',
       },
-      typescript: {
-        method: 'client.search.query',
+      cli: {
+        method: 'search query',
+        example: "plaza search query \\\n  --api-key 'My API Key' \\\n  --q q",
+      },
+      php: {
+        method: 'search->query',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst featureCollection = await client.search.query({ q: 'q' });\n\nconsole.log(featureCollection.features);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->search->query(\n  q: 'q',\n  cursor: 'cursor',\n  format: 'format',\n  limit: 0,\n  outputFields: 'output[fields]',\n  outputInclude: 'output[include]',\n  outputPrecision: 0,\n  outputSort: 'output[sort]',\n);\n\nvar_dump($featureCollection);",
+      },
+      csharp: {
+        method: 'Search.Query',
+        example:
+          'SearchQueryParams parameters = new() { Q = "q" };\n\nvar featureCollection = await client.Search.Query(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/search \\\n    -X POST \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
       },
     },
   },
@@ -901,24 +901,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## route\n\n`client.routing.route(destination: { coordinates: number[]; type: 'Point'; }, origin: { coordinates: number[]; type: 'Point'; }, format?: string, alternatives?: number, annotations?: boolean, depart_at?: string, ev?: { battery_capacity_wh: number; connector_types?: string[]; initial_charge_pct?: number; min_charge_pct?: number; min_power_kw?: number; }, exclude?: string, geometries?: 'geojson' | 'polyline' | 'polyline6', mode?: 'auto' | 'foot' | 'bicycle', overview?: 'full' | 'simplified' | 'false', steps?: boolean, traffic_model?: 'best_guess' | 'optimistic' | 'pessimistic', waypoints?: { coordinates: number[]; type: 'Point'; }[]): { geometry: geometry; properties: object; type: 'Feature'; }`\n\n**post** `/api/v1/route`\n\nCalculate a route between two points\n\n### Parameters\n\n- `destination: { coordinates: number[]; type: 'Point'; }`\n  GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude] order. Optional third element is altitude in meters.\n  - `coordinates: number[]`\n    [longitude, latitude] or [longitude, latitude, altitude]\n  - `type: 'Point'`\n\n- `origin: { coordinates: number[]; type: 'Point'; }`\n  GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude] order. Optional third element is altitude in meters.\n  - `coordinates: number[]`\n    [longitude, latitude] or [longitude, latitude, altitude]\n  - `type: 'Point'`\n\n- `format?: string`\n  Response format for alternatives: json (default), geojson, csv, ndjson\n\n- `alternatives?: number`\n  Number of alternative routes to return (0-3, default 0). When > 0, response is a FeatureCollection of route Features.\n\n- `annotations?: boolean`\n  Include per-edge annotations (speed, duration) on the route (default: false)\n\n- `depart_at?: string`\n  Departure time for traffic-aware routing (ISO 8601)\n\n- `ev?: { battery_capacity_wh: number; connector_types?: string[]; initial_charge_pct?: number; min_charge_pct?: number; min_power_kw?: number; }`\n  Electric vehicle parameters for EV-aware routing\n  - `battery_capacity_wh: number`\n    Total battery capacity in watt-hours (required for EV routing)\n  - `connector_types?: string[]`\n    Acceptable connector types (e.g. `[\"ccs\", \"chademo\"]`)\n  - `initial_charge_pct?: number`\n    Starting charge as a fraction 0-1 (default: 0.8)\n  - `min_charge_pct?: number`\n    Minimum acceptable charge at destination as a fraction 0-1 (default: 0.10)\n  - `min_power_kw?: number`\n    Minimum charger power in kilowatts\n\n- `exclude?: string`\n  Comma-separated road types to exclude (e.g. `toll,motorway,ferry`)\n\n- `geometries?: 'geojson' | 'polyline' | 'polyline6'`\n  Geometry encoding format. Default: `geojson`.\n\n- `mode?: 'auto' | 'foot' | 'bicycle'`\n  Travel mode (default: `auto`)\n\n- `overview?: 'full' | 'simplified' | 'false'`\n  Level of geometry detail: `full` (all points), `simplified` (Douglas-Peucker), `false` (no geometry). Default: `full`.\n\n- `steps?: boolean`\n  Include turn-by-turn navigation steps (default: false)\n\n- `traffic_model?: 'best_guess' | 'optimistic' | 'pessimistic'`\n  Traffic prediction model (only used when `depart_at` is set)\n\n- `waypoints?: { coordinates: number[]; type: 'Point'; }[]`\n  Intermediate waypoints to visit in order (maximum 25)\n\n### Returns\n\n- `{ geometry: object | object | object | object | object | object; properties: { distance_m: number; duration_s: number; annotations?: object; charge_profile?: number[][]; charging_stops?: object[]; edges?: object[]; energy_used_wh?: number; }; type: 'Feature'; }`\n  GeoJSON Feature representing a calculated route. The geometry is a LineString or MultiLineString of the route path. When `alternatives > 0`, the response is a FeatureCollection containing multiple route Features.\n\n  - `geometry: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  - `properties: { distance_m: number; duration_s: number; annotations?: object; charge_profile?: number[][]; charging_stops?: object[]; edges?: object[]; energy_used_wh?: number; }`\n  - `type: 'Feature'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst routeResult = await client.routing.route({\n  destination: { coordinates: [2.2945, 48.8584], type: 'Point' },\n  origin: { coordinates: [2.3522, 48.8566], type: 'Point' },\n});\n\nconsole.log(routeResult);\n```",
     perLanguage: {
-      cli: {
-        method: 'routing route',
+      typescript: {
+        method: 'client.routing.route',
         example:
-          "plaza routing route \\\n  --api-key 'My API Key' \\\n  --destination '{coordinates: [2.2945, 48.8584], type: Point}' \\\n  --origin '{coordinates: [2.3522, 48.8566], type: Point}'",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst routeResult = await client.routing.route({\n  destination: { coordinates: [2.2945, 48.8584], type: 'Point' },\n  origin: { coordinates: [2.3522, 48.8566], type: 'Point' },\n});\n\nconsole.log(routeResult.geometry);",
       },
-      csharp: {
-        method: 'Routing.Route',
+      python: {
+        method: 'routing.route',
         example:
-          'RoutingRouteParams parameters = new()\n{\n    Destination = new()\n    {\n        Coordinates =\n        [\n            2.2945, 48.8584\n        ],\n        Type = Type.Point,\n    },\n    Origin = new()\n    {\n        Coordinates =\n        [\n            2.3522, 48.8566\n        ],\n        Type = Type.Point,\n    },\n};\n\nvar routeResult = await client.Routing.Route(parameters);\n\nConsole.WriteLine(routeResult);',
-      },
-      go: {
-        method: 'client.Routing.Route',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\trouteResult, err := client.Routing.Route(context.TODO(), githubcomplazafyiplazago.RoutingRouteParams{\n\t\tRouteRequest: githubcomplazafyiplazago.RouteRequestParam{\n\t\t\tDestination: githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.294500, 48.858400}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t\tOrigin: githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", routeResult.Geometry)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/route \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "destination": {\n            "coordinates": [\n              2.2945,\n              48.8584\n            ],\n            "type": "Point"\n          },\n          "origin": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          }\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nroute_result = client.routing.route(\n    destination={\n        "coordinates": [2.2945, 48.8584],\n        "type": "Point",\n    },\n    origin={\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    },\n)\nprint(route_result.geometry)',
       },
       java: {
         method: 'routing().route',
@@ -930,25 +921,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.PointGeometry\nimport com.plazafyi.models.routing.RouteRequest\nimport com.plazafyi.models.routing.RouteResult\nimport com.plazafyi.models.routing.RoutingRouteParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: RouteRequest = RouteRequest.builder()\n        .destination(PointGeometry.builder()\n            .addCoordinate(2.2945)\n            .addCoordinate(48.8584)\n            .type(PointGeometry.Type.POINT)\n            .build())\n        .origin(PointGeometry.builder()\n            .addCoordinate(2.3522)\n            .addCoordinate(48.8566)\n            .type(PointGeometry.Type.POINT)\n            .build())\n        .build()\n    val routeResult: RouteResult = client.routing().route(params)\n}',
       },
-      php: {
-        method: 'routing->route',
+      go: {
+        method: 'client.Routing.Route',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$routeResult = $client->routing->route(\n  destination: ['coordinates' => [2.2945, 48.8584], 'type' => 'Point'],\n  origin: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  format: 'format',\n  alternatives: 0,\n  annotations: true,\n  departAt: new \\DateTimeImmutable('2019-12-27T18:11:19.117Z'),\n  ev: [\n    'batteryCapacityWh' => 75000,\n    'connectorTypes' => ['string'],\n    'initialChargePct' => 0,\n    'minChargePct' => 0,\n    'minPowerKw' => 0,\n  ],\n  exclude: 'exclude',\n  geometries: 'geojson',\n  mode: 'auto',\n  overview: 'full',\n  steps: true,\n  trafficModel: 'best_guess',\n  waypoints: [['coordinates' => [2.3522, 48.8566], 'type' => 'Point']],\n);\n\nvar_dump($routeResult);",
-      },
-      python: {
-        method: 'routing.route',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nroute_result = client.routing.route(\n    destination={\n        "coordinates": [2.2945, 48.8584],\n        "type": "Point",\n    },\n    origin={\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    },\n)\nprint(route_result.geometry)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\trouteResult, err := client.Routing.Route(context.TODO(), githubcomplazafyiplazago.RoutingRouteParams{\n\t\tRouteRequest: githubcomplazafyiplazago.RouteRequestParam{\n\t\t\tDestination: githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.294500, 48.858400}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t\tOrigin: githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", routeResult.Geometry)\n}\n',
       },
       ruby: {
         method: 'routing.route',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nroute_result = plaza.routing.route(\n  destination: {coordinates: [2.2945, 48.8584], type: :Point},\n  origin: {coordinates: [2.3522, 48.8566], type: :Point}\n)\n\nputs(route_result)',
       },
-      typescript: {
-        method: 'client.routing.route',
+      cli: {
+        method: 'routing route',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst routeResult = await client.routing.route({\n  destination: { coordinates: [2.2945, 48.8584], type: 'Point' },\n  origin: { coordinates: [2.3522, 48.8566], type: 'Point' },\n});\n\nconsole.log(routeResult.geometry);",
+          "plaza routing route \\\n  --api-key 'My API Key' \\\n  --destination '{coordinates: [2.2945, 48.8584], type: Point}' \\\n  --origin '{coordinates: [2.3522, 48.8566], type: Point}'",
+      },
+      php: {
+        method: 'routing->route',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$routeResult = $client->routing->route(\n  destination: ['coordinates' => [2.2945, 48.8584], 'type' => 'Point'],\n  origin: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  format: 'format',\n  alternatives: 0,\n  annotations: true,\n  departAt: new \\DateTimeImmutable('2019-12-27T18:11:19.117Z'),\n  ev: [\n    'batteryCapacityWh' => 75000,\n    'connectorTypes' => ['string'],\n    'initialChargePct' => 0,\n    'minChargePct' => 0,\n    'minPowerKw' => 0,\n  ],\n  exclude: 'exclude',\n  geometries: 'geojson',\n  mode: 'auto',\n  overview: 'full',\n  steps: true,\n  trafficModel: 'best_guess',\n  waypoints: [['coordinates' => [2.3522, 48.8566], 'type' => 'Point']],\n);\n\nvar_dump($routeResult);",
+      },
+      csharp: {
+        method: 'Routing.Route',
+        example:
+          'RoutingRouteParams parameters = new()\n{\n    Destination = new()\n    {\n        Coordinates =\n        [\n            2.2945, 48.8584\n        ],\n        Type = Type.Point,\n    },\n    Origin = new()\n    {\n        Coordinates =\n        [\n            2.3522, 48.8566\n        ],\n        Type = Type.Point,\n    },\n};\n\nvar routeResult = await client.Routing.Route(parameters);\n\nConsole.WriteLine(routeResult);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/route \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "destination": {\n            "coordinates": [\n              2.2945,\n              48.8584\n            ],\n            "type": "Point"\n          },\n          "origin": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          }\n        }\'',
       },
     },
   },
@@ -966,24 +966,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## nearest\n\n`client.routing.nearest(geometry: { coordinates: number[]; type: 'Point'; }, radius?: number): { geometry: geometry; properties: object; type: 'Feature'; }`\n\n**post** `/api/v1/nearest`\n\nSnap a coordinate to the nearest road\n\n### Parameters\n\n- `geometry: { coordinates: number[]; type: 'Point'; }`\n  GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude] order. Optional third element is altitude in meters.\n  - `coordinates: number[]`\n    [longitude, latitude] or [longitude, latitude, altitude]\n  - `type: 'Point'`\n\n- `radius?: number`\n  Maximum search radius in meters (default: 100)\n\n### Returns\n\n- `{ geometry: object | object | object | object | object | object; properties: { distance_m?: number; edge_id?: number; edge_length_m?: number; highway?: string; osm_way_id?: number; surface?: string; }; type: 'Feature'; }`\n  GeoJSON Point Feature representing the nearest point on the road network to the input coordinate. Used for snapping GPS coordinates to roads.\n\n  - `geometry: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  - `properties: { distance_m?: number; edge_id?: number; edge_length_m?: number; highway?: string; osm_way_id?: number; surface?: string; }`\n  - `type: 'Feature'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst nearestResult = await client.routing.nearest({ geometry: { coordinates: [2.3522, 48.8566], type: 'Point' } });\n\nconsole.log(nearestResult);\n```",
     perLanguage: {
-      cli: {
-        method: 'routing nearest',
+      typescript: {
+        method: 'client.routing.nearest',
         example:
-          "plaza routing nearest \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [2.3522, 48.8566], type: Point}'",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst nearestResult = await client.routing.nearest({\n  geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },\n});\n\nconsole.log(nearestResult.geometry);",
       },
-      csharp: {
-        method: 'Routing.Nearest',
+      python: {
+        method: 'routing.nearest',
         example:
-          'RoutingNearestParams parameters = new()\n{\n    Geometry = new()\n    {\n        Coordinates =\n        [\n            2.3522, 48.8566\n        ],\n        Type = Type.Point,\n    },\n};\n\nvar nearestResult = await client.Routing.Nearest(parameters);\n\nConsole.WriteLine(nearestResult);',
-      },
-      go: {
-        method: 'client.Routing.Nearest',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tnearestResult, err := client.Routing.Nearest(context.TODO(), githubcomplazafyiplazago.RoutingNearestParams{\n\t\tNearestRequest: githubcomplazafyiplazago.NearestRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", nearestResult.Geometry)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/nearest \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          }\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nnearest_result = client.routing.nearest(\n    geometry={\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    },\n)\nprint(nearest_result.geometry)',
       },
       java: {
         method: 'routing().nearest',
@@ -995,25 +986,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.PointGeometry\nimport com.plazafyi.models.routing.NearestRequest\nimport com.plazafyi.models.routing.NearestResult\nimport com.plazafyi.models.routing.RoutingNearestParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: NearestRequest = NearestRequest.builder()\n        .geometry(PointGeometry.builder()\n            .addCoordinate(2.3522)\n            .addCoordinate(48.8566)\n            .type(PointGeometry.Type.POINT)\n            .build())\n        .build()\n    val nearestResult: NearestResult = client.routing().nearest(params)\n}',
       },
-      php: {
-        method: 'routing->nearest',
+      go: {
+        method: 'client.Routing.Nearest',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$nearestResult = $client->routing->nearest(\n  geometry: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'], radius: 1\n);\n\nvar_dump($nearestResult);",
-      },
-      python: {
-        method: 'routing.nearest',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nnearest_result = client.routing.nearest(\n    geometry={\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    },\n)\nprint(nearest_result.geometry)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tnearestResult, err := client.Routing.Nearest(context.TODO(), githubcomplazafyiplazago.RoutingNearestParams{\n\t\tNearestRequest: githubcomplazafyiplazago.NearestRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", nearestResult.Geometry)\n}\n',
       },
       ruby: {
         method: 'routing.nearest',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nnearest_result = plaza.routing.nearest(geometry: {coordinates: [2.3522, 48.8566], type: :Point})\n\nputs(nearest_result)',
       },
-      typescript: {
-        method: 'client.routing.nearest',
+      cli: {
+        method: 'routing nearest',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst nearestResult = await client.routing.nearest({\n  geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },\n});\n\nconsole.log(nearestResult.geometry);",
+          "plaza routing nearest \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [2.3522, 48.8566], type: Point}'",
+      },
+      php: {
+        method: 'routing->nearest',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$nearestResult = $client->routing->nearest(\n  geometry: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'], radius: 1\n);\n\nvar_dump($nearestResult);",
+      },
+      csharp: {
+        method: 'Routing.Nearest',
+        example:
+          'RoutingNearestParams parameters = new()\n{\n    Geometry = new()\n    {\n        Coordinates =\n        [\n            2.3522, 48.8566\n        ],\n        Type = Type.Point,\n    },\n};\n\nvar nearestResult = await client.Routing.Nearest(parameters);\n\nConsole.WriteLine(nearestResult);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/nearest \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          }\n        }\'',
       },
     },
   },
@@ -1036,24 +1036,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## isochrone\n\n`client.routing.isochrone(geometry: { coordinates: number[]; type: 'Point'; }, time: number[], format?: string, mode?: 'auto' | 'foot' | 'bicycle'): { features: geo_json_feature[]; type: 'FeatureCollection'; }`\n\n**post** `/api/v1/isochrone`\n\nCalculate an isochrone from a point\n\n### Parameters\n\n- `geometry: { coordinates: number[]; type: 'Point'; }`\n  GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude] order. Optional third element is altitude in meters.\n  - `coordinates: number[]`\n    [longitude, latitude] or [longitude, latitude, altitude]\n  - `type: 'Point'`\n\n- `time: number[]`\n  Travel time budgets in seconds. Each value produces one contour polygon.\n\n- `format?: string`\n  Response format: json (default), geojson, csv, ndjson\n\n- `mode?: 'auto' | 'foot' | 'bicycle'`\n  Travel mode (default: `auto`)\n\n### Returns\n\n- `{ features: { geometry: geometry; properties: object; type: 'Feature'; id?: string; }[]; type: 'FeatureCollection'; }`\n  GeoJSON FeatureCollection of isochrone polygons — areas reachable within the specified travel time(s). Each Feature is a Polygon contour with travel time and area metadata in properties.\n\n  - `features: { geometry: object | object | object | object | object | object; properties: object; type: 'Feature'; id?: string; }[]`\n  - `type: 'FeatureCollection'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst response = await client.routing.isochrone({\n  geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },\n  time: [1],\n});\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'routing isochrone',
+      typescript: {
+        method: 'client.routing.isochrone',
         example:
-          "plaza routing isochrone \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [2.3522, 48.8566], type: Point}' \\\n  --time 1",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.routing.isochrone({\n  geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },\n  time: [1],\n});\n\nconsole.log(response.features);",
       },
-      csharp: {
-        method: 'Routing.Isochrone',
+      python: {
+        method: 'routing.isochrone',
         example:
-          'RoutingIsochroneParams parameters = new()\n{\n    Geometry = new()\n    {\n        Coordinates =\n        [\n            2.3522, 48.8566\n        ],\n        Type = Type.Point,\n    },\n    Time =\n    [\n        1\n    ],\n};\n\nvar response = await client.Routing.Isochrone(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Routing.Isochrone',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Routing.Isochrone(context.TODO(), githubcomplazafyiplazago.RoutingIsochroneParams{\n\t\tIsochroneRequest: githubcomplazafyiplazago.IsochroneRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t\tTime: githubcomplazafyiplazago.F([]int64{int64(1)}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Features)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/isochrone \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          },\n          "time": [\n            1\n          ]\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.routing.isochrone(\n    geometry={\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    },\n    time=[1],\n)\nprint(response.features)',
       },
       java: {
         method: 'routing().isochrone',
@@ -1065,25 +1056,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.PointGeometry\nimport com.plazafyi.models.routing.IsochroneRequest\nimport com.plazafyi.models.routing.RoutingIsochroneParams\nimport com.plazafyi.models.routing.RoutingIsochroneResponse\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: IsochroneRequest = IsochroneRequest.builder()\n        .geometry(PointGeometry.builder()\n            .addCoordinate(2.3522)\n            .addCoordinate(48.8566)\n            .type(PointGeometry.Type.POINT)\n            .build())\n        .addTime(1L)\n        .build()\n    val response: RoutingIsochroneResponse = client.routing().isochrone(params)\n}',
       },
-      php: {
-        method: 'routing->isochrone',
+      go: {
+        method: 'client.Routing.Isochrone',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$response = $client->routing->isochrone(\n  geometry: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  time: [1],\n  format: 'format',\n  mode: 'auto',\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'routing.isochrone',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.routing.isochrone(\n    geometry={\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    },\n    time=[1],\n)\nprint(response.features)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Routing.Isochrone(context.TODO(), githubcomplazafyiplazago.RoutingIsochroneParams{\n\t\tIsochroneRequest: githubcomplazafyiplazago.IsochroneRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t\tTime: githubcomplazafyiplazago.F([]int64{int64(1)}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Features)\n}\n',
       },
       ruby: {
         method: 'routing.isochrone',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nresponse = plaza.routing.isochrone(geometry: {coordinates: [2.3522, 48.8566], type: :Point}, time: [1])\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.routing.isochrone',
+      cli: {
+        method: 'routing isochrone',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.routing.isochrone({\n  geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },\n  time: [1],\n});\n\nconsole.log(response.features);",
+          "plaza routing isochrone \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [2.3522, 48.8566], type: Point}' \\\n  --time 1",
+      },
+      php: {
+        method: 'routing->isochrone',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$response = $client->routing->isochrone(\n  geometry: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  time: [1],\n  format: 'format',\n  mode: 'auto',\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Routing.Isochrone',
+        example:
+          'RoutingIsochroneParams parameters = new()\n{\n    Geometry = new()\n    {\n        Coordinates =\n        [\n            2.3522, 48.8566\n        ],\n        Type = Type.Point,\n    },\n    Time =\n    [\n        1\n    ],\n};\n\nvar response = await client.Routing.Isochrone(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/isochrone \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          },\n          "time": [\n            1\n          ]\n        }\'',
       },
     },
   },
@@ -1106,24 +1106,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## matrix\n\n`client.routing.matrix(destinations: { coordinates: number[]; type: 'Point'; }[], origins: { coordinates: number[]; type: 'Point'; }[], annotations?: string, fallback_speed?: number, mode?: 'auto' | 'foot' | 'bicycle'): object`\n\n**post** `/api/v1/matrix`\n\nCalculate a distance matrix between points\n\n### Parameters\n\n- `destinations: { coordinates: number[]; type: 'Point'; }[]`\n  Array of destination coordinates as GeoJSON Points (max 50)\n\n- `origins: { coordinates: number[]; type: 'Point'; }[]`\n  Array of origin coordinates as GeoJSON Points (max 50)\n\n- `annotations?: string`\n  Comma-separated list of annotations to include: `duration` (always included), `distance`. Example: `duration,distance`.\n\n- `fallback_speed?: number`\n  Fallback speed in km/h for pairs where no route exists. When set, unreachable pairs get estimated values instead of null.\n\n- `mode?: 'auto' | 'foot' | 'bicycle'`\n  Travel mode (default: `auto`)\n\n### Returns\n\n- `object`\n  Distance matrix result. The exact response shape depends on the routing backend. Contains duration (and optionally distance) data for all origin-destination pairs. Null values indicate unreachable pairs.\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst matrixResult = await client.routing.matrix({ destinations: [{ coordinates: [2.2945, 48.8584], type: 'Point' }], origins: [{ coordinates: [2.3522, 48.8566], type: 'Point' }, { coordinates: [2.3376, 48.8606], type: 'Point' }] });\n\nconsole.log(matrixResult);\n```",
     perLanguage: {
-      cli: {
-        method: 'routing matrix',
+      typescript: {
+        method: 'client.routing.matrix',
         example:
-          "plaza routing matrix \\\n  --api-key 'My API Key' \\\n  --destination '{coordinates: [2.2945, 48.8584], type: Point}' \\\n  --origin '{coordinates: [2.3522, 48.8566], type: Point}' \\\n  --origin '{coordinates: [2.3376, 48.8606], type: Point}'",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst matrixResult = await client.routing.matrix({\n  destinations: [{ coordinates: [2.2945, 48.8584], type: 'Point' }],\n  origins: [\n    { coordinates: [2.3522, 48.8566], type: 'Point' },\n    { coordinates: [2.3376, 48.8606], type: 'Point' },\n  ],\n});\n\nconsole.log(matrixResult);",
       },
-      csharp: {
-        method: 'Routing.Matrix',
+      python: {
+        method: 'routing.matrix',
         example:
-          'RoutingMatrixParams parameters = new()\n{\n    Destinations =\n    [\n        new()\n        {\n            Coordinates =\n            [\n                2.2945, 48.8584\n            ],\n            Type = Type.Point,\n        },\n    ],\n    Origins =\n    [\n        new()\n        {\n            Coordinates =\n            [\n                2.3522, 48.8566\n            ],\n            Type = Type.Point,\n        },\n        new()\n        {\n            Coordinates =\n            [\n                2.3376, 48.8606\n            ],\n            Type = Type.Point,\n        },\n    ],\n};\n\nvar matrixResult = await client.Routing.Matrix(parameters);\n\nConsole.WriteLine(matrixResult);',
-      },
-      go: {
-        method: 'client.Routing.Matrix',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tmatrixResult, err := client.Routing.Matrix(context.TODO(), githubcomplazafyiplazago.RoutingMatrixParams{\n\t\tMatrixRequest: githubcomplazafyiplazago.MatrixRequestParam{\n\t\t\tDestinations: githubcomplazafyiplazago.F([]githubcomplazafyiplazago.PointGeometryParam{{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.294500, 48.858400}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}}),\n\t\t\tOrigins: githubcomplazafyiplazago.F([]githubcomplazafyiplazago.PointGeometryParam{{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}, {\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.337600, 48.860600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", matrixResult)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/matrix \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "destinations": [\n            {\n              "coordinates": [\n                2.2945,\n                48.8584\n              ],\n              "type": "Point"\n            }\n          ],\n          "origins": [\n            {\n              "coordinates": [\n                2.3522,\n                48.8566\n              ],\n              "type": "Point"\n            },\n            {\n              "coordinates": [\n                2.3376,\n                48.8606\n              ],\n              "type": "Point"\n            }\n          ]\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nmatrix_result = client.routing.matrix(\n    destinations=[{\n        "coordinates": [2.2945, 48.8584],\n        "type": "Point",\n    }],\n    origins=[{\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    }, {\n        "coordinates": [2.3376, 48.8606],\n        "type": "Point",\n    }],\n)\nprint(matrix_result)',
       },
       java: {
         method: 'routing().matrix',
@@ -1135,25 +1126,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.PointGeometry\nimport com.plazafyi.models.routing.MatrixRequest\nimport com.plazafyi.models.routing.MatrixResult\nimport com.plazafyi.models.routing.RoutingMatrixParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: MatrixRequest = MatrixRequest.builder()\n        .addDestination(PointGeometry.builder()\n            .addCoordinate(2.2945)\n            .addCoordinate(48.8584)\n            .type(PointGeometry.Type.POINT)\n            .build())\n        .addOrigin(PointGeometry.builder()\n            .addCoordinate(2.3522)\n            .addCoordinate(48.8566)\n            .type(PointGeometry.Type.POINT)\n            .build())\n        .addOrigin(PointGeometry.builder()\n            .addCoordinate(2.3376)\n            .addCoordinate(48.8606)\n            .type(PointGeometry.Type.POINT)\n            .build())\n        .build()\n    val matrixResult: MatrixResult = client.routing().matrix(params)\n}',
       },
-      php: {
-        method: 'routing->matrix',
+      go: {
+        method: 'client.Routing.Matrix',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$matrixResult = $client->routing->matrix(\n  destinations: [['coordinates' => [2.2945, 48.8584], 'type' => 'Point']],\n  origins: [\n    ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n    ['coordinates' => [2.3376, 48.8606], 'type' => 'Point'],\n  ],\n  annotations: 'annotations',\n  fallbackSpeed: 1,\n  mode: 'auto',\n);\n\nvar_dump($matrixResult);",
-      },
-      python: {
-        method: 'routing.matrix',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nmatrix_result = client.routing.matrix(\n    destinations=[{\n        "coordinates": [2.2945, 48.8584],\n        "type": "Point",\n    }],\n    origins=[{\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    }, {\n        "coordinates": [2.3376, 48.8606],\n        "type": "Point",\n    }],\n)\nprint(matrix_result)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tmatrixResult, err := client.Routing.Matrix(context.TODO(), githubcomplazafyiplazago.RoutingMatrixParams{\n\t\tMatrixRequest: githubcomplazafyiplazago.MatrixRequestParam{\n\t\t\tDestinations: githubcomplazafyiplazago.F([]githubcomplazafyiplazago.PointGeometryParam{{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.294500, 48.858400}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}}),\n\t\t\tOrigins: githubcomplazafyiplazago.F([]githubcomplazafyiplazago.PointGeometryParam{{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}, {\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.337600, 48.860600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", matrixResult)\n}\n',
       },
       ruby: {
         method: 'routing.matrix',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nmatrix_result = plaza.routing.matrix(\n  destinations: [{coordinates: [2.2945, 48.8584], type: :Point}],\n  origins: [{coordinates: [2.3522, 48.8566], type: :Point}, {coordinates: [2.3376, 48.8606], type: :Point}]\n)\n\nputs(matrix_result)',
       },
-      typescript: {
-        method: 'client.routing.matrix',
+      cli: {
+        method: 'routing matrix',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst matrixResult = await client.routing.matrix({\n  destinations: [{ coordinates: [2.2945, 48.8584], type: 'Point' }],\n  origins: [\n    { coordinates: [2.3522, 48.8566], type: 'Point' },\n    { coordinates: [2.3376, 48.8606], type: 'Point' },\n  ],\n});\n\nconsole.log(matrixResult);",
+          "plaza routing matrix \\\n  --api-key 'My API Key' \\\n  --destination '{coordinates: [2.2945, 48.8584], type: Point}' \\\n  --origin '{coordinates: [2.3522, 48.8566], type: Point}' \\\n  --origin '{coordinates: [2.3376, 48.8606], type: Point}'",
+      },
+      php: {
+        method: 'routing->matrix',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$matrixResult = $client->routing->matrix(\n  destinations: [['coordinates' => [2.2945, 48.8584], 'type' => 'Point']],\n  origins: [\n    ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n    ['coordinates' => [2.3376, 48.8606], 'type' => 'Point'],\n  ],\n  annotations: 'annotations',\n  fallbackSpeed: 1,\n  mode: 'auto',\n);\n\nvar_dump($matrixResult);",
+      },
+      csharp: {
+        method: 'Routing.Matrix',
+        example:
+          'RoutingMatrixParams parameters = new()\n{\n    Destinations =\n    [\n        new()\n        {\n            Coordinates =\n            [\n                2.2945, 48.8584\n            ],\n            Type = Type.Point,\n        },\n    ],\n    Origins =\n    [\n        new()\n        {\n            Coordinates =\n            [\n                2.3522, 48.8566\n            ],\n            Type = Type.Point,\n        },\n        new()\n        {\n            Coordinates =\n            [\n                2.3376, 48.8606\n            ],\n            Type = Type.Point,\n        },\n    ],\n};\n\nvar matrixResult = await client.Routing.Matrix(parameters);\n\nConsole.WriteLine(matrixResult);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/matrix \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "destinations": [\n            {\n              "coordinates": [\n                2.2945,\n                48.8584\n              ],\n              "type": "Point"\n            }\n          ],\n          "origins": [\n            {\n              "coordinates": [\n                2.3522,\n                48.8566\n              ],\n              "type": "Point"\n            },\n            {\n              "coordinates": [\n                2.3376,\n                48.8606\n              ],\n              "type": "Point"\n            }\n          ]\n        }\'',
       },
     },
   },
@@ -1174,24 +1174,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## lookup\n\n`client.elevation.lookup(geometry: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'MultiPoint'; }, format?: string): { geometry: geometry; properties: object; type: 'Feature'; }`\n\n**post** `/api/v1/elevation`\n\nLook up elevation at one or more points\n\n### Parameters\n\n- `geometry: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'MultiPoint'; }`\n  Point or MultiPoint geometry to look up elevations for\n\n- `format?: string`\n  Response format: json (default), geojson, csv, ndjson\n\n### Returns\n\n- `{ geometry: object | object | object | object | object | object; properties: { elevation_m: number; }; type: 'Feature'; }`\n  GeoJSON Point Feature with a 3D coordinate [lng, lat, elevation] per RFC 7946 §3.1.1. The elevation is also available in `properties.elevation_m` for convenience.\n\n  - `geometry: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  - `properties: { elevation_m: number; }`\n  - `type: 'Feature'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst elevationLookupResult = await client.elevation.lookup({ geometry: { coordinates: [2.3522, 48.8566], type: 'Point' } });\n\nconsole.log(elevationLookupResult);\n```",
     perLanguage: {
-      cli: {
-        method: 'elevation lookup',
+      typescript: {
+        method: 'client.elevation.lookup',
         example:
-          "plaza elevation lookup \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [2.3522, 48.8566], type: Point}'",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst elevationLookupResult = await client.elevation.lookup({\n  geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },\n});\n\nconsole.log(elevationLookupResult.geometry);",
       },
-      csharp: {
-        method: 'Elevation.Lookup',
+      python: {
+        method: 'elevation.lookup',
         example:
-          'ElevationLookupParams parameters = new()\n{\n    Geometry = new PointGeometry()\n    {\n        Coordinates =\n        [\n            2.3522, 48.8566\n        ],\n        Type = Type.Point,\n    },\n};\n\nvar elevationLookupResult = await client.Elevation.Lookup(parameters);\n\nConsole.WriteLine(elevationLookupResult);',
-      },
-      go: {
-        method: 'client.Elevation.Lookup',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\televationLookupResult, err := client.Elevation.Lookup(context.TODO(), githubcomplazafyiplazago.ElevationLookupParams{\n\t\tElevationLookupRequest: githubcomplazafyiplazago.ElevationLookupRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F[githubcomplazafyiplazago.ElevationLookupRequestGeometryUnionParam](githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", elevationLookupResult.Geometry)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/elevation \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          }\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nelevation_lookup_result = client.elevation.lookup(\n    geometry={\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    },\n)\nprint(elevation_lookup_result.geometry)',
       },
       java: {
         method: 'elevation().lookup',
@@ -1203,25 +1194,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.PointGeometry\nimport com.plazafyi.models.elevation.ElevationLookupParams\nimport com.plazafyi.models.elevation.ElevationLookupRequest\nimport com.plazafyi.models.elevation.ElevationLookupResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: ElevationLookupRequest = ElevationLookupRequest.builder()\n        .geometry(PointGeometry.builder()\n            .addCoordinate(2.3522)\n            .addCoordinate(48.8566)\n            .type(PointGeometry.Type.POINT)\n            .build())\n        .build()\n    val elevationLookupResult: ElevationLookupResult = client.elevation().lookup(params)\n}',
       },
-      php: {
-        method: 'elevation->lookup',
+      go: {
+        method: 'client.Elevation.Lookup',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$elevationLookupResult = $client->elevation->lookup(\n  geometry: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  format: 'format',\n);\n\nvar_dump($elevationLookupResult);",
-      },
-      python: {
-        method: 'elevation.lookup',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nelevation_lookup_result = client.elevation.lookup(\n    geometry={\n        "coordinates": [2.3522, 48.8566],\n        "type": "Point",\n    },\n)\nprint(elevation_lookup_result.geometry)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\televationLookupResult, err := client.Elevation.Lookup(context.TODO(), githubcomplazafyiplazago.ElevationLookupParams{\n\t\tElevationLookupRequest: githubcomplazafyiplazago.ElevationLookupRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F[githubcomplazafyiplazago.ElevationLookupRequestGeometryUnionParam](githubcomplazafyiplazago.PointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([]float64{2.352200, 48.856600}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.PointGeometryTypePoint),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", elevationLookupResult.Geometry)\n}\n',
       },
       ruby: {
         method: 'elevation.lookup',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nelevation_lookup_result = plaza.elevation.lookup(geometry: {coordinates: [2.3522, 48.8566], type: :Point})\n\nputs(elevation_lookup_result)',
       },
-      typescript: {
-        method: 'client.elevation.lookup',
+      cli: {
+        method: 'elevation lookup',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst elevationLookupResult = await client.elevation.lookup({\n  geometry: { coordinates: [2.3522, 48.8566], type: 'Point' },\n});\n\nconsole.log(elevationLookupResult.geometry);",
+          "plaza elevation lookup \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [2.3522, 48.8566], type: Point}'",
+      },
+      php: {
+        method: 'elevation->lookup',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$elevationLookupResult = $client->elevation->lookup(\n  geometry: ['coordinates' => [2.3522, 48.8566], 'type' => 'Point'],\n  format: 'format',\n);\n\nvar_dump($elevationLookupResult);",
+      },
+      csharp: {
+        method: 'Elevation.Lookup',
+        example:
+          'ElevationLookupParams parameters = new()\n{\n    Geometry = new PointGeometry()\n    {\n        Coordinates =\n        [\n            2.3522, 48.8566\n        ],\n        Type = Type.Point,\n    },\n};\n\nvar elevationLookupResult = await client.Elevation.Lookup(parameters);\n\nConsole.WriteLine(elevationLookupResult);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/elevation \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          }\n        }\'',
       },
     },
   },
@@ -1239,24 +1239,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## profile\n\n`client.elevation.profile(geometry: { coordinates: number[][]; type: 'LineString'; }): { geometry: geometry; properties: object; type: 'Feature'; }`\n\n**post** `/api/v1/elevation/profile`\n\nElevation profile along coordinates\n\n### Parameters\n\n- `geometry: { coordinates: number[][]; type: 'LineString'; }`\n  GeoJSON LineString geometry per RFC 7946. An ordered sequence of two or more positions.\n  - `coordinates: number[][]`\n    Array of [lng, lat] or [lng, lat, alt] positions\n  - `type: 'LineString'`\n\n### Returns\n\n- `{ geometry: object | object | object | object | object | object; properties: { avg_elevation_m: number; max_elevation_m: number; min_elevation_m: number; total_ascent_m: number; total_descent_m: number; }; type: 'Feature'; }`\n  GeoJSON LineString Feature with 3D coordinates [lng, lat, elevation] representing the elevation profile along the input path. Summary statistics are in properties.\n\n  - `geometry: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }`\n  - `properties: { avg_elevation_m: number; max_elevation_m: number; min_elevation_m: number; total_ascent_m: number; total_descent_m: number; }`\n  - `type: 'Feature'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst elevationProfileResult = await client.elevation.profile({ geometry: { coordinates: [[2.3522, 48.8566], [2.34, 48.858], [2.2945, 48.8584]], type: 'LineString' } });\n\nconsole.log(elevationProfileResult);\n```",
     perLanguage: {
-      cli: {
-        method: 'elevation profile',
+      typescript: {
+        method: 'client.elevation.profile',
         example:
-          "plaza elevation profile \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [[2.3522, 48.8566], [2.34, 48.858], [2.2945, 48.8584]], type: LineString}'",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst elevationProfileResult = await client.elevation.profile({\n  geometry: {\n    coordinates: [\n      [2.3522, 48.8566],\n      [2.34, 48.858],\n      [2.2945, 48.8584],\n    ],\n    type: 'LineString',\n  },\n});\n\nconsole.log(elevationProfileResult.geometry);",
       },
-      csharp: {
-        method: 'Elevation.Profile',
+      python: {
+        method: 'elevation.profile',
         example:
-          'ElevationProfileParams parameters = new()\n{\n    Geometry = new()\n    {\n        Coordinates =\n        [\n\n            [\n                2.3522, 48.8566\n            ],\n\n            [\n                2.34, 48.858\n            ],\n\n            [\n                2.2945, 48.8584\n            ],\n        ],\n        Type = Type.LineString,\n    },\n};\n\nvar elevationProfileResult = await client.Elevation.Profile(parameters);\n\nConsole.WriteLine(elevationProfileResult);',
-      },
-      go: {
-        method: 'client.Elevation.Profile',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\televationProfileResult, err := client.Elevation.Profile(context.TODO(), githubcomplazafyiplazago.ElevationProfileParams{\n\t\tElevationProfileRequest: githubcomplazafyiplazago.ElevationProfileRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F(githubcomplazafyiplazago.LineStringGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([][]float64{{2.352200, 48.856600}, {2.340000, 48.858000}, {2.294500, 48.858400}}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.LineStringGeometryTypeLineString),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", elevationProfileResult.Geometry)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/elevation/profile \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              [\n                2.3522,\n                48.8566\n              ],\n              [\n                2.34,\n                48.858\n              ],\n              [\n                2.2945,\n                48.8584\n              ]\n            ],\n            "type": "LineString"\n          }\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nelevation_profile_result = client.elevation.profile(\n    geometry={\n        "coordinates": [[2.3522, 48.8566], [2.34, 48.858], [2.2945, 48.8584]],\n        "type": "LineString",\n    },\n)\nprint(elevation_profile_result.geometry)',
       },
       java: {
         method: 'elevation().profile',
@@ -1268,25 +1259,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.LineStringGeometry\nimport com.plazafyi.models.elevation.ElevationProfileParams\nimport com.plazafyi.models.elevation.ElevationProfileRequest\nimport com.plazafyi.models.elevation.ElevationProfileResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: ElevationProfileRequest = ElevationProfileRequest.builder()\n        .geometry(LineStringGeometry.builder()\n            .coordinates(listOf(\n              listOf(\n                2.3522, 48.8566\n              ),\n              listOf(\n                2.34, 48.858\n              ),\n              listOf(\n                2.2945, 48.8584\n              ),\n            ))\n            .type(LineStringGeometry.Type.LINE_STRING)\n            .build())\n        .build()\n    val elevationProfileResult: ElevationProfileResult = client.elevation().profile(params)\n}',
       },
-      php: {
-        method: 'elevation->profile',
+      go: {
+        method: 'client.Elevation.Profile',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$elevationProfileResult = $client->elevation->profile(\n  geometry: [\n    'coordinates' => [[2.3522, 48.8566], [2.34, 48.858], [2.2945, 48.8584]],\n    'type' => 'LineString',\n  ],\n);\n\nvar_dump($elevationProfileResult);",
-      },
-      python: {
-        method: 'elevation.profile',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nelevation_profile_result = client.elevation.profile(\n    geometry={\n        "coordinates": [[2.3522, 48.8566], [2.34, 48.858], [2.2945, 48.8584]],\n        "type": "LineString",\n    },\n)\nprint(elevation_profile_result.geometry)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\televationProfileResult, err := client.Elevation.Profile(context.TODO(), githubcomplazafyiplazago.ElevationProfileParams{\n\t\tElevationProfileRequest: githubcomplazafyiplazago.ElevationProfileRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F(githubcomplazafyiplazago.LineStringGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([][]float64{{2.352200, 48.856600}, {2.340000, 48.858000}, {2.294500, 48.858400}}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.LineStringGeometryTypeLineString),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", elevationProfileResult.Geometry)\n}\n',
       },
       ruby: {
         method: 'elevation.profile',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nelevation_profile_result = plaza.elevation.profile(\n  geometry: {coordinates: [[2.3522, 48.8566], [2.34, 48.858], [2.2945, 48.8584]], type: :LineString}\n)\n\nputs(elevation_profile_result)',
       },
-      typescript: {
-        method: 'client.elevation.profile',
+      cli: {
+        method: 'elevation profile',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst elevationProfileResult = await client.elevation.profile({\n  geometry: {\n    coordinates: [\n      [2.3522, 48.8566],\n      [2.34, 48.858],\n      [2.2945, 48.8584],\n    ],\n    type: 'LineString',\n  },\n});\n\nconsole.log(elevationProfileResult.geometry);",
+          "plaza elevation profile \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [[2.3522, 48.8566], [2.34, 48.858], [2.2945, 48.8584]], type: LineString}'",
+      },
+      php: {
+        method: 'elevation->profile',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$elevationProfileResult = $client->elevation->profile(\n  geometry: [\n    'coordinates' => [[2.3522, 48.8566], [2.34, 48.858], [2.2945, 48.8584]],\n    'type' => 'LineString',\n  ],\n);\n\nvar_dump($elevationProfileResult);",
+      },
+      csharp: {
+        method: 'Elevation.Profile',
+        example:
+          'ElevationProfileParams parameters = new()\n{\n    Geometry = new()\n    {\n        Coordinates =\n        [\n\n            [\n                2.3522, 48.8566\n            ],\n\n            [\n                2.34, 48.858\n            ],\n\n            [\n                2.2945, 48.8584\n            ],\n        ],\n        Type = Type.LineString,\n    },\n};\n\nvar elevationProfileResult = await client.Elevation.Profile(parameters);\n\nConsole.WriteLine(elevationProfileResult);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/elevation/profile \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              [\n                2.3522,\n                48.8566\n              ],\n              [\n                2.34,\n                48.858\n              ],\n              [\n                2.2945,\n                48.8584\n              ]\n            ],\n            "type": "LineString"\n          }\n        }\'',
       },
     },
   },
@@ -1304,24 +1304,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## match\n\n`client.mapMatch.match(geometry: { coordinates: number[][]; type: 'LineString'; }, radiuses?: number[]): { features: object[]; matchings: object[]; type: 'FeatureCollection'; }`\n\n**post** `/api/v1/map-match`\n\nMatch GPS coordinates to the road network\n\n### Parameters\n\n- `geometry: { coordinates: number[][]; type: 'LineString'; }`\n  GeoJSON LineString geometry per RFC 7946. An ordered sequence of two or more positions.\n  - `coordinates: number[][]`\n    Array of [lng, lat] or [lng, lat, alt] positions\n  - `type: 'LineString'`\n\n- `radiuses?: number[]`\n  Search radius per coordinate in meters. Must have the same length as the geometry coordinates or be omitted entirely. Default: 50m per point.\n\n### Returns\n\n- `{ features: { geometry: point_geometry | line_string_geometry | polygon_geometry | multi_point_geometry | multi_line_string_geometry | multi_polygon_geometry; properties: { distance_m?: number; edge_id?: number; matchings_index?: number; name?: string; original?: number[]; waypoint_index?: number; }; type: 'Feature'; }[]; matchings: object[]; type: 'FeatureCollection'; }`\n  Map matching result as a GeoJSON FeatureCollection. Each Feature is a snapped tracepoint. The top-level `matchings` array contains the matched sub-routes connecting consecutive tracepoints.\n\n  - `features: { geometry: { coordinates: number[]; type: 'Point'; } | { coordinates: number[][]; type: 'LineString'; } | { coordinates: number[][][]; type: 'Polygon'; } | { coordinates: number[][]; type: 'MultiPoint'; } | { coordinates: number[][][]; type: 'MultiLineString'; } | { coordinates: number[][][][]; type: 'MultiPolygon'; }; properties: { distance_m?: number; edge_id?: number; matchings_index?: number; name?: string; original?: number[]; waypoint_index?: number; }; type: 'Feature'; }[]`\n  - `matchings: object[]`\n  - `type: 'FeatureCollection'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst mapMatchResult = await client.mapMatch.match({ geometry: { coordinates: [[2.3522, 48.8566], [2.353, 48.857], [2.354, 48.8575]], type: 'LineString' } });\n\nconsole.log(mapMatchResult);\n```",
     perLanguage: {
-      cli: {
-        method: 'map_match match',
+      typescript: {
+        method: 'client.mapMatch.match',
         example:
-          "plaza map-match match \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [[2.3522, 48.8566], [2.353, 48.857], [2.354, 48.8575]], type: LineString}'",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst mapMatchResult = await client.mapMatch.match({\n  geometry: {\n    coordinates: [\n      [2.3522, 48.8566],\n      [2.353, 48.857],\n      [2.354, 48.8575],\n    ],\n    type: 'LineString',\n  },\n});\n\nconsole.log(mapMatchResult.features);",
       },
-      csharp: {
-        method: 'MapMatch.Match',
+      python: {
+        method: 'map_match.match',
         example:
-          'MapMatchMatchParams parameters = new()\n{\n    Geometry = new()\n    {\n        Coordinates =\n        [\n\n            [\n                2.3522, 48.8566\n            ],\n\n            [\n                2.353, 48.857\n            ],\n\n            [\n                2.354, 48.8575\n            ],\n        ],\n        Type = Type.LineString,\n    },\n};\n\nvar mapMatchResult = await client.MapMatch.Match(parameters);\n\nConsole.WriteLine(mapMatchResult);',
-      },
-      go: {
-        method: 'client.MapMatch.Match',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tmapMatchResult, err := client.MapMatch.Match(context.TODO(), githubcomplazafyiplazago.MapMatchMatchParams{\n\t\tMapMatchRequest: githubcomplazafyiplazago.MapMatchRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F(githubcomplazafyiplazago.LineStringGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([][]float64{{2.352200, 48.856600}, {2.353000, 48.857000}, {2.354000, 48.857500}}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.LineStringGeometryTypeLineString),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", mapMatchResult.Features)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/map-match \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              [\n                2.3522,\n                48.8566\n              ],\n              [\n                2.353,\n                48.857\n              ],\n              [\n                2.354,\n                48.8575\n              ]\n            ],\n            "type": "LineString"\n          }\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nmap_match_result = client.map_match.match(\n    geometry={\n        "coordinates": [[2.3522, 48.8566], [2.353, 48.857], [2.354, 48.8575]],\n        "type": "LineString",\n    },\n)\nprint(map_match_result.features)',
       },
       java: {
         method: 'mapMatch().match',
@@ -1333,25 +1324,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.LineStringGeometry\nimport com.plazafyi.models.mapmatch.MapMatchMatchParams\nimport com.plazafyi.models.mapmatch.MapMatchRequest\nimport com.plazafyi.models.mapmatch.MapMatchResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: MapMatchRequest = MapMatchRequest.builder()\n        .geometry(LineStringGeometry.builder()\n            .coordinates(listOf(\n              listOf(\n                2.3522, 48.8566\n              ),\n              listOf(\n                2.353, 48.857\n              ),\n              listOf(\n                2.354, 48.8575\n              ),\n            ))\n            .type(LineStringGeometry.Type.LINE_STRING)\n            .build())\n        .build()\n    val mapMatchResult: MapMatchResult = client.mapMatch().match(params)\n}',
       },
-      php: {
-        method: 'mapMatch->match',
+      go: {
+        method: 'client.MapMatch.Match',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$mapMatchResult = $client->mapMatch->match(\n  geometry: [\n    'coordinates' => [[2.3522, 48.8566], [2.353, 48.857], [2.354, 48.8575]],\n    'type' => 'LineString',\n  ],\n  radiuses: [0],\n);\n\nvar_dump($mapMatchResult);",
-      },
-      python: {
-        method: 'map_match.match',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nmap_match_result = client.map_match.match(\n    geometry={\n        "coordinates": [[2.3522, 48.8566], [2.353, 48.857], [2.354, 48.8575]],\n        "type": "LineString",\n    },\n)\nprint(map_match_result.features)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tmapMatchResult, err := client.MapMatch.Match(context.TODO(), githubcomplazafyiplazago.MapMatchMatchParams{\n\t\tMapMatchRequest: githubcomplazafyiplazago.MapMatchRequestParam{\n\t\t\tGeometry: githubcomplazafyiplazago.F(githubcomplazafyiplazago.LineStringGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([][]float64{{2.352200, 48.856600}, {2.353000, 48.857000}, {2.354000, 48.857500}}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.LineStringGeometryTypeLineString),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", mapMatchResult.Features)\n}\n',
       },
       ruby: {
         method: 'map_match.match',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nmap_match_result = plaza.map_match.match(\n  geometry: {coordinates: [[2.3522, 48.8566], [2.353, 48.857], [2.354, 48.8575]], type: :LineString}\n)\n\nputs(map_match_result)',
       },
-      typescript: {
-        method: 'client.mapMatch.match',
+      cli: {
+        method: 'map_match match',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst mapMatchResult = await client.mapMatch.match({\n  geometry: {\n    coordinates: [\n      [2.3522, 48.8566],\n      [2.353, 48.857],\n      [2.354, 48.8575],\n    ],\n    type: 'LineString',\n  },\n});\n\nconsole.log(mapMatchResult.features);",
+          "plaza map-match match \\\n  --api-key 'My API Key' \\\n  --geometry '{coordinates: [[2.3522, 48.8566], [2.353, 48.857], [2.354, 48.8575]], type: LineString}'",
+      },
+      php: {
+        method: 'mapMatch->match',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$mapMatchResult = $client->mapMatch->match(\n  geometry: [\n    'coordinates' => [[2.3522, 48.8566], [2.353, 48.857], [2.354, 48.8575]],\n    'type' => 'LineString',\n  ],\n  radiuses: [0],\n);\n\nvar_dump($mapMatchResult);",
+      },
+      csharp: {
+        method: 'MapMatch.Match',
+        example:
+          'MapMatchMatchParams parameters = new()\n{\n    Geometry = new()\n    {\n        Coordinates =\n        [\n\n            [\n                2.3522, 48.8566\n            ],\n\n            [\n                2.353, 48.857\n            ],\n\n            [\n                2.354, 48.8575\n            ],\n        ],\n        Type = Type.LineString,\n    },\n};\n\nvar mapMatchResult = await client.MapMatch.Match(parameters);\n\nConsole.WriteLine(mapMatchResult);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/map-match \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "geometry": {\n            "coordinates": [\n              [\n                2.3522,\n                48.8566\n              ],\n              [\n                2.353,\n                48.857\n              ],\n              [\n                2.354,\n                48.8575\n              ]\n            ],\n            "type": "LineString"\n          }\n        }\'',
       },
     },
   },
@@ -1374,24 +1374,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.optimize.create(waypoints: { coordinates: number[][]; type: 'MultiPoint'; }, format?: string, mode?: 'auto' | 'foot' | 'bicycle', roundtrip?: boolean): object | object`\n\n**post** `/api/v1/optimize`\n\nOptimize route through waypoints\n\n### Parameters\n\n- `waypoints: { coordinates: number[][]; type: 'MultiPoint'; }`\n  GeoJSON MultiPoint geometry per RFC 7946. An array of positions.\n  - `coordinates: number[][]`\n    Array of [lng, lat] or [lng, lat, alt] positions\n  - `type: 'MultiPoint'`\n\n- `format?: string`\n  Response format: json (default), geojson, csv, ndjson\n\n- `mode?: 'auto' | 'foot' | 'bicycle'`\n  Travel mode (default: `auto`)\n\n- `roundtrip?: boolean`\n  Whether the route should return to the starting waypoint (default: true)\n\n### Returns\n\n- `{ features: { geometry: geometry; properties: object; type: 'Feature'; }[]; optimization: string; roundtrip: boolean; total_cost_s: number; type: 'FeatureCollection'; } | { job_id: string; status: 'processing'; }`\n  Optimization response — either a completed FeatureCollection with the optimized route, or an async job reference to poll.\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst optimizeResult = await client.optimize.create({ waypoints: { coordinates: [[2.3522, 48.8566], [2.3376, 48.8606], [2.2945, 48.8584]], type: 'MultiPoint' } });\n\nconsole.log(optimizeResult);\n```",
     perLanguage: {
-      cli: {
-        method: 'optimize create',
+      typescript: {
+        method: 'client.optimize.create',
         example:
-          "plaza optimize create \\\n  --api-key 'My API Key' \\\n  --waypoints '{coordinates: [[2.3522, 48.8566], [2.3376, 48.8606], [2.2945, 48.8584]], type: MultiPoint}'",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst optimizeResult = await client.optimize.create({\n  waypoints: {\n    coordinates: [\n      [2.3522, 48.8566],\n      [2.3376, 48.8606],\n      [2.2945, 48.8584],\n    ],\n    type: 'MultiPoint',\n  },\n});\n\nconsole.log(optimizeResult);",
       },
-      csharp: {
-        method: 'Optimize.Create',
+      python: {
+        method: 'optimize.create',
         example:
-          'OptimizeCreateParams parameters = new()\n{\n    Waypoints = new()\n    {\n        Coordinates =\n        [\n\n            [\n                2.3522, 48.8566\n            ],\n\n            [\n                2.3376, 48.8606\n            ],\n\n            [\n                2.2945, 48.8584\n            ],\n        ],\n        Type = Type.MultiPoint,\n    },\n};\n\nvar optimizeResult = await client.Optimize.Create(parameters);\n\nConsole.WriteLine(optimizeResult);',
-      },
-      go: {
-        method: 'client.Optimize.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\toptimizeResult, err := client.Optimize.New(context.TODO(), githubcomplazafyiplazago.OptimizeNewParams{\n\t\tOptimizeRequest: githubcomplazafyiplazago.OptimizeRequestParam{\n\t\t\tWaypoints: githubcomplazafyiplazago.F(githubcomplazafyiplazago.MultiPointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([][]float64{{2.352200, 48.856600}, {2.337600, 48.860600}, {2.294500, 48.858400}}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.MultiPointGeometryTypeMultiPoint),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", optimizeResult)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/optimize \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "waypoints": {\n            "coordinates": [\n              [\n                2.3522,\n                48.8566\n              ],\n              [\n                2.3376,\n                48.8606\n              ],\n              [\n                2.2945,\n                48.8584\n              ]\n            ],\n            "type": "MultiPoint"\n          }\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\noptimize_result = client.optimize.create(\n    waypoints={\n        "coordinates": [[2.3522, 48.8566], [2.3376, 48.8606], [2.2945, 48.8584]],\n        "type": "MultiPoint",\n    },\n)\nprint(optimize_result)',
       },
       java: {
         method: 'optimize().create',
@@ -1403,25 +1394,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.MultiPointGeometry\nimport com.plazafyi.models.optimize.OptimizeCreateParams\nimport com.plazafyi.models.optimize.OptimizeRequest\nimport com.plazafyi.models.optimize.OptimizeResult\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: OptimizeRequest = OptimizeRequest.builder()\n        .waypoints(MultiPointGeometry.builder()\n            .coordinates(listOf(\n              listOf(\n                2.3522, 48.8566\n              ),\n              listOf(\n                2.3376, 48.8606\n              ),\n              listOf(\n                2.2945, 48.8584\n              ),\n            ))\n            .type(MultiPointGeometry.Type.MULTI_POINT)\n            .build())\n        .build()\n    val optimizeResult: OptimizeResult = client.optimize().create(params)\n}',
       },
-      php: {
-        method: 'optimize->create',
+      go: {
+        method: 'client.Optimize.New',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$optimizeResult = $client->optimize->create(\n  waypoints: [\n    'coordinates' => [[2.3522, 48.8566], [2.3376, 48.8606], [2.2945, 48.8584]],\n    'type' => 'MultiPoint',\n  ],\n  format: 'format',\n  mode: 'auto',\n  roundtrip: false,\n);\n\nvar_dump($optimizeResult);",
-      },
-      python: {
-        method: 'optimize.create',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\noptimize_result = client.optimize.create(\n    waypoints={\n        "coordinates": [[2.3522, 48.8566], [2.3376, 48.8606], [2.2945, 48.8584]],\n        "type": "MultiPoint",\n    },\n)\nprint(optimize_result)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\toptimizeResult, err := client.Optimize.New(context.TODO(), githubcomplazafyiplazago.OptimizeNewParams{\n\t\tOptimizeRequest: githubcomplazafyiplazago.OptimizeRequestParam{\n\t\t\tWaypoints: githubcomplazafyiplazago.F(githubcomplazafyiplazago.MultiPointGeometryParam{\n\t\t\t\tCoordinates: githubcomplazafyiplazago.F([][]float64{{2.352200, 48.856600}, {2.337600, 48.860600}, {2.294500, 48.858400}}),\n\t\t\t\tType:        githubcomplazafyiplazago.F(githubcomplazafyiplazago.MultiPointGeometryTypeMultiPoint),\n\t\t\t}),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", optimizeResult)\n}\n',
       },
       ruby: {
         method: 'optimize.create',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\noptimize_result = plaza.optimize.create(\n  waypoints: {coordinates: [[2.3522, 48.8566], [2.3376, 48.8606], [2.2945, 48.8584]], type: :MultiPoint}\n)\n\nputs(optimize_result)',
       },
-      typescript: {
-        method: 'client.optimize.create',
+      cli: {
+        method: 'optimize create',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst optimizeResult = await client.optimize.create({\n  waypoints: {\n    coordinates: [\n      [2.3522, 48.8566],\n      [2.3376, 48.8606],\n      [2.2945, 48.8584],\n    ],\n    type: 'MultiPoint',\n  },\n});\n\nconsole.log(optimizeResult);",
+          "plaza optimize create \\\n  --api-key 'My API Key' \\\n  --waypoints '{coordinates: [[2.3522, 48.8566], [2.3376, 48.8606], [2.2945, 48.8584]], type: MultiPoint}'",
+      },
+      php: {
+        method: 'optimize->create',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$optimizeResult = $client->optimize->create(\n  waypoints: [\n    'coordinates' => [[2.3522, 48.8566], [2.3376, 48.8606], [2.2945, 48.8584]],\n    'type' => 'MultiPoint',\n  ],\n  format: 'format',\n  mode: 'auto',\n  roundtrip: false,\n);\n\nvar_dump($optimizeResult);",
+      },
+      csharp: {
+        method: 'Optimize.Create',
+        example:
+          'OptimizeCreateParams parameters = new()\n{\n    Waypoints = new()\n    {\n        Coordinates =\n        [\n\n            [\n                2.3522, 48.8566\n            ],\n\n            [\n                2.3376, 48.8606\n            ],\n\n            [\n                2.2945, 48.8584\n            ],\n        ],\n        Type = Type.MultiPoint,\n    },\n};\n\nvar optimizeResult = await client.Optimize.Create(parameters);\n\nConsole.WriteLine(optimizeResult);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/optimize \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "waypoints": {\n            "coordinates": [\n              [\n                2.3522,\n                48.8566\n              ],\n              [\n                2.3376,\n                48.8606\n              ],\n              [\n                2.2945,\n                48.8584\n              ]\n            ],\n            "type": "MultiPoint"\n          }\n        }\'',
       },
     },
   },
@@ -1439,23 +1439,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.optimize.retrieve(job_id: string): { status: 'completed' | 'processing'; result?: optimize_completed_result; }`\n\n**get** `/api/v1/optimize/{job_id}`\n\nGet async optimization result\n\n### Parameters\n\n- `job_id: string`\n\n### Returns\n\n- `{ status: 'completed' | 'processing'; result?: { features: object[]; optimization: string; roundtrip: boolean; total_cost_s: number; type: 'FeatureCollection'; }; }`\n  Status of an async optimization job. When `completed`, the `result` field contains the full OptimizeCompletedResult. When `processing`, the job is still running — poll again. Failed jobs return a standard Error response (HTTP 422), not this schema.\n\n  - `status: 'completed' | 'processing'`\n  - `result?: { features: { geometry: point_geometry | line_string_geometry | polygon_geometry | multi_point_geometry | multi_line_string_geometry | multi_polygon_geometry; properties: { cost_s: number; cumulative_cost_s: number; waypoint_index: number; }; type: 'Feature'; }[]; optimization: string; roundtrip: boolean; total_cost_s: number; type: 'FeatureCollection'; }`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst optimizeJobStatus = await client.optimize.retrieve('job_id');\n\nconsole.log(optimizeJobStatus);\n```",
     perLanguage: {
-      cli: {
-        method: 'optimize retrieve',
-        example: "plaza optimize retrieve \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
-      },
-      csharp: {
-        method: 'Optimize.Retrieve',
+      typescript: {
+        method: 'client.optimize.retrieve',
         example:
-          'OptimizeRetrieveParams parameters = new() { JobID = "job_id" };\n\nvar optimizeJobStatus = await client.Optimize.Retrieve(parameters);\n\nConsole.WriteLine(optimizeJobStatus);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst optimizeJobStatus = await client.optimize.retrieve('job_id');\n\nconsole.log(optimizeJobStatus.status);",
       },
-      go: {
-        method: 'client.Optimize.Get',
+      python: {
+        method: 'optimize.retrieve',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\toptimizeJobStatus, err := client.Optimize.Get(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", optimizeJobStatus.Status)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/optimize/$JOB_ID \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\noptimize_job_status = client.optimize.retrieve(\n    "job_id",\n)\nprint(optimize_job_status.status)',
       },
       java: {
         method: 'optimize().retrieve',
@@ -1467,25 +1459,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.optimize.OptimizeJobStatus\nimport com.plazafyi.models.optimize.OptimizeRetrieveParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val optimizeJobStatus: OptimizeJobStatus = client.optimize().retrieve("job_id")\n}',
       },
-      php: {
-        method: 'optimize->retrieve',
+      go: {
+        method: 'client.Optimize.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$optimizeJobStatus = $client->optimize->retrieve('job_id');\n\nvar_dump($optimizeJobStatus);",
-      },
-      python: {
-        method: 'optimize.retrieve',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\noptimize_job_status = client.optimize.retrieve(\n    "job_id",\n)\nprint(optimize_job_status.status)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\toptimizeJobStatus, err := client.Optimize.Get(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", optimizeJobStatus.Status)\n}\n',
       },
       ruby: {
         method: 'optimize.retrieve',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\noptimize_job_status = plaza.optimize.retrieve("job_id")\n\nputs(optimize_job_status)',
       },
-      typescript: {
-        method: 'client.optimize.retrieve',
+      cli: {
+        method: 'optimize retrieve',
+        example: "plaza optimize retrieve \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+      },
+      php: {
+        method: 'optimize->retrieve',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst optimizeJobStatus = await client.optimize.retrieve('job_id');\n\nconsole.log(optimizeJobStatus.status);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$optimizeJobStatus = $client->optimize->retrieve('job_id');\n\nvar_dump($optimizeJobStatus);",
+      },
+      csharp: {
+        method: 'Optimize.Retrieve',
+        example:
+          'OptimizeRetrieveParams parameters = new() { JobID = "job_id" };\n\nvar optimizeJobStatus = await client.Optimize.Retrieve(parameters);\n\nConsole.WriteLine(optimizeJobStatus);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/optimize/$JOB_ID \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
       },
     },
   },
@@ -1503,24 +1503,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## execute\n\n`client.query.execute(data: string, format?: string): { features: geo_json_feature[]; type: 'FeatureCollection'; }`\n\n**post** `/api/v1/query`\n\nExecute a PlazaQL query\n\n### Parameters\n\n- `data: string`\n  PlazaQL query string\n\n- `format?: string`\n  Response format: json (default), geojson, csv, ndjson\n\n### Returns\n\n- `{ features: { geometry: geometry; properties: object; type: 'Feature'; id?: string; }[]; type: 'FeatureCollection'; }`\n  GeoJSON FeatureCollection (RFC 7946). For paginated endpoints, metadata is returned in HTTP response headers rather than the body:\n\n| Header | Description |\n|---|---|\n| `X-Limit` | Requested result limit |\n| `X-Has-More` | `true` if more results exist |\n| `X-Next-Cursor` | Opaque cursor for next page (cursor pagination) |\n| `X-Next-Offset` | Numeric offset for next page (offset pagination) |\n| `Link` | RFC 8288 `rel=\"next\"` link to the next page |\n\nContent-Type is `application/geo+json`.\n\n\n  - `features: { geometry: object | object | object | object | object | object; properties: object; type: 'Feature'; id?: string; }[]`\n  - `type: 'FeatureCollection'`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst featureCollection = await client.query.execute({ data: '$$ = search(node, amenity: \"cafe\").around(distance: 500, geometry: point(48.8566, 2.3522));' });\n\nconsole.log(featureCollection);\n```",
     perLanguage: {
-      cli: {
-        method: 'query execute',
+      typescript: {
+        method: 'client.query.execute',
         example:
-          "plaza query execute \\\n  --api-key 'My API Key' \\\n  --data '$$ = search(node, amenity: \"cafe\").around(distance: 500, geometry: point(48.8566, 2.3522));'",
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst featureCollection = await client.query.execute({\n  data: '$$ = search(node, amenity: \"cafe\").around(distance: 500, geometry: point(48.8566, 2.3522));',\n});\n\nconsole.log(featureCollection.features);",
       },
-      csharp: {
-        method: 'Query.Execute',
+      python: {
+        method: 'query.execute',
         example:
-          'QueryExecuteParams parameters = new()\n{\n    Data = "$$ = search(node, amenity: \\"cafe\\").around(distance: 500, geometry: point(48.8566, 2.3522));",\n};\n\nvar featureCollection = await client.Query.Execute(parameters);\n\nConsole.WriteLine(featureCollection);',
-      },
-      go: {
-        method: 'client.Query.Execute',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfeatureCollection, err := client.Query.Execute(context.TODO(), githubcomplazafyiplazago.QueryExecuteParams{\n\t\tPlazaqlQuery: githubcomplazafyiplazago.PlazaqlQueryParam{\n\t\t\tData: githubcomplazafyiplazago.F(`$$ = search(node, amenity: "cafe").around(distance: 500, geometry: point(48.8566, 2.3522));`),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", featureCollection.Features)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/query \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "data": "$$ = search(node, amenity: \\\\"cafe\\\\").around(distance: 500, geometry: point(48.8566, 2.3522));"\n        }\'',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nfeature_collection = client.query.execute(\n    data="$$ = search(node, amenity: \\"cafe\\").around(distance: 500, geometry: point(48.8566, 2.3522));",\n)\nprint(feature_collection.features)',
       },
       java: {
         method: 'query().execute',
@@ -1532,25 +1523,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.models.FeatureCollection\nimport com.plazafyi.models.query.PlazaqlQuery\nimport com.plazafyi.models.query.QueryExecuteParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: PlazaqlQuery = PlazaqlQuery.builder()\n        .data("\\$\\$ = search(node, amenity: \\"cafe\\").around(distance: 500, geometry: point(48.8566, 2.3522));")\n        .build()\n    val featureCollection: FeatureCollection = client.query().execute(params)\n}',
       },
-      php: {
-        method: 'query->execute',
+      go: {
+        method: 'client.Query.Execute',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->query->execute(\n  data: '$$ = search(node, amenity: \"cafe\").around(distance: 500, geometry: point(48.8566, 2.3522));',\n  format: 'format',\n);\n\nvar_dump($featureCollection);",
-      },
-      python: {
-        method: 'query.execute',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\nfeature_collection = client.query.execute(\n    data="$$ = search(node, amenity: \\"cafe\\").around(distance: 500, geometry: point(48.8566, 2.3522));",\n)\nprint(feature_collection.features)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tfeatureCollection, err := client.Query.Execute(context.TODO(), githubcomplazafyiplazago.QueryExecuteParams{\n\t\tPlazaqlQuery: githubcomplazafyiplazago.PlazaqlQueryParam{\n\t\t\tData: githubcomplazafyiplazago.F(`$$ = search(node, amenity: "cafe").around(distance: 500, geometry: point(48.8566, 2.3522));`),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", featureCollection.Features)\n}\n',
       },
       ruby: {
         method: 'query.execute',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\nfeature_collection = plaza.query.execute(\n  data: "$$ = search(node, amenity: \\"cafe\\").around(distance: 500, geometry: point(48.8566, 2.3522));"\n)\n\nputs(feature_collection)',
       },
-      typescript: {
-        method: 'client.query.execute',
+      cli: {
+        method: 'query execute',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst featureCollection = await client.query.execute({\n  data: '$$ = search(node, amenity: \"cafe\").around(distance: 500, geometry: point(48.8566, 2.3522));',\n});\n\nconsole.log(featureCollection.features);",
+          "plaza query execute \\\n  --api-key 'My API Key' \\\n  --data '$$ = search(node, amenity: \"cafe\").around(distance: 500, geometry: point(48.8566, 2.3522));'",
+      },
+      php: {
+        method: 'query->execute',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$featureCollection = $client->query->execute(\n  data: '$$ = search(node, amenity: \"cafe\").around(distance: 500, geometry: point(48.8566, 2.3522));',\n  format: 'format',\n);\n\nvar_dump($featureCollection);",
+      },
+      csharp: {
+        method: 'Query.Execute',
+        example:
+          'QueryExecuteParams parameters = new()\n{\n    Data = "$$ = search(node, amenity: \\"cafe\\").around(distance: 500, geometry: point(48.8566, 2.3522));",\n};\n\nvar featureCollection = await client.Query.Execute(parameters);\n\nConsole.WriteLine(featureCollection);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/query \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "data": "$$ = search(node, amenity: \\\\"cafe\\\\").around(distance: 500, geometry: point(48.8566, 2.3522));"\n        }\'',
       },
     },
   },
@@ -1567,23 +1567,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get\n\n`client.tiles.get(z: number, x: number, y: number): string`\n\n**get** `/api/v1/tiles/{z}/{x}/{y}`\n\nGet a Mapbox Vector Tile\n\n### Parameters\n\n- `z: number`\n\n- `x: number`\n\n- `y: number`\n\n### Returns\n\n- `string`\n\n### Example\n\n```typescript\nimport Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza();\n\nconst tile = await client.tiles.get(0, { z: 0, x: 0 });\n\nconsole.log(tile);\n\nconst content = await tile.blob()\nconsole.log(content)\n```",
     perLanguage: {
-      cli: {
-        method: 'tiles get',
-        example: "plaza tiles get \\\n  --api-key 'My API Key' \\\n  --z 0 \\\n  --x 0 \\\n  --y 0",
-      },
-      csharp: {
-        method: 'Tiles.Get',
+      typescript: {
+        method: 'client.tiles.get',
         example:
-          'TileGetParams parameters = new()\n{\n    Z = 0,\n    X = 0,\n    Y = 0,\n};\n\nvar tile = await client.Tiles.Get(parameters);\n\nConsole.WriteLine(tile);',
+          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst tile = await client.tiles.get(0, { z: 0, x: 0 });\n\nconsole.log(tile);\n\nconst content = await tile.blob();\nconsole.log(content);",
       },
-      go: {
-        method: 'client.Tiles.Get',
+      python: {
+        method: 'tiles.get',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttile, err := client.Tiles.Get(\n\t\tcontext.TODO(),\n\t\tint64(0),\n\t\tint64(0),\n\t\tint64(0),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tile)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://plaza.fyi/api/v1/tiles/$Z/$X/$Y \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
+          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ntile = client.tiles.get(\n    y=0,\n    z=0,\n    x=0,\n)\nprint(tile)\ncontent = tile.read()\nprint(content)',
       },
       java: {
         method: 'tiles().get',
@@ -1595,25 +1587,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.plazafyi.example\n\nimport com.plazafyi.client.PlazaClient\nimport com.plazafyi.client.okhttp.PlazaOkHttpClient\nimport com.plazafyi.core.http.HttpResponse\nimport com.plazafyi.models.tiles.TileGetParams\n\nfun main() {\n    val client: PlazaClient = PlazaOkHttpClient.fromEnv()\n\n    val params: TileGetParams = TileGetParams.builder()\n        .z(0L)\n        .x(0L)\n        .y(0L)\n        .build()\n    val tile: HttpResponse = client.tiles().get(params)\n}',
       },
-      php: {
-        method: 'tiles->get',
+      go: {
+        method: 'client.Tiles.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$tile = $client->tiles->get(0, z: 0, x: 0);\n\nvar_dump($tile);",
-      },
-      python: {
-        method: 'tiles.get',
-        example:
-          'import os\nfrom plaza import Plaza\n\nclient = Plaza(\n    api_key=os.environ.get("PLAZA_API_KEY"),  # This is the default and can be omitted\n)\ntile = client.tiles.get(\n    y=0,\n    z=0,\n    x=0,\n)\nprint(tile)\ncontent = tile.read()\nprint(content)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/plazafyi/plaza-go"\n\t"github.com/plazafyi/plaza-go/option"\n)\n\nfunc main() {\n\tclient := githubcomplazafyiplazago.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttile, err := client.Tiles.Get(\n\t\tcontext.TODO(),\n\t\tint64(0),\n\t\tint64(0),\n\t\tint64(0),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tile)\n}\n',
       },
       ruby: {
         method: 'tiles.get',
         example:
           'require "plaza"\n\nplaza = Plaza::Client.new(\n  api_key: "My API Key",\n  environment: "local" # defaults to "production"\n)\n\ntile = plaza.tiles.get(0, z: 0, x: 0)\n\nputs(tile)',
       },
-      typescript: {
-        method: 'client.tiles.get',
+      cli: {
+        method: 'tiles get',
+        example: "plaza tiles get \\\n  --api-key 'My API Key' \\\n  --z 0 \\\n  --x 0 \\\n  --y 0",
+      },
+      php: {
+        method: 'tiles->get',
         example:
-          "import Plaza from '@plazafyi/sdk';\n\nconst client = new Plaza({\n  apiKey: process.env['PLAZA_API_KEY'], // This is the default and can be omitted\n});\n\nconst tile = await client.tiles.get(0, { z: 0, x: 0 });\n\nconsole.log(tile);\n\nconst content = await tile.blob();\nconsole.log(content);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(apiKey: 'My API Key', environment: 'local');\n\n$tile = $client->tiles->get(0, z: 0, x: 0);\n\nvar_dump($tile);",
+      },
+      csharp: {
+        method: 'Tiles.Get',
+        example:
+          'TileGetParams parameters = new()\n{\n    Z = 0,\n    X = 0,\n    Y = 0,\n};\n\nvar tile = await client.Tiles.Get(parameters);\n\nConsole.WriteLine(tile);',
+      },
+      http: {
+        example:
+          'curl https://plaza.fyi/api/v1/tiles/$Z/$X/$Y \\\n    -H "Authorization: Bearer $PLAZA_API_KEY"',
       },
     },
   },
