@@ -16,31 +16,25 @@ const serverConfig: ServerConfig = {
   orgName: 'Plaza',
   instructionsUrl: undefined, // Set a url for where you show users how to get an API key
   logoUrl: undefined, // Set a custom logo url to appear during the OAuth flow
-  clientProperties: [
-    {
-      key: 'apiKey',
-      label: 'API Key',
-      description: 'Plaza API key',
-      required: true,
-      default: undefined,
-      placeholder: 'My API Key',
-      type: 'password',
-    },
-    {
-      key: 'environment',
-      label: 'Environment',
-      description: 'The environment to use for the client',
-      required: false,
-      default: 'production',
-      placeholder: 'production',
-      type: 'select',
-      options: [
-        { label: 'production', value: 'production' },
-        { label: 'local', value: 'local' },
-      ],
-    },
-  ],
-};
+  clientProperties: [{
+  key: 'apiKey',
+  label: 'API Key',
+  description: 'Plaza API key',
+  required: true,
+  default: undefined,
+  placeholder: 'My API Key',
+  type: 'password',
+}, {
+  key: 'environment',
+  label: 'Environment',
+  description: 'The environment to use for the client',
+  required: false,
+  default: 'production',
+  placeholder: 'production',
+  type: 'select',
+  options: [{ label: 'production', value: 'production' }, { label: 'local', value: 'local' }],
+}],
+};;
 
 export class MyMCP extends McpAgent<Env, unknown, MCPProps> {
   server = server;

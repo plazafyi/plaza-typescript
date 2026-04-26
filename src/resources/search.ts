@@ -10,29 +10,8 @@ export class Search extends APIResource {
    * Search OSM features by name
    */
   query(params: SearchQueryParams, options?: RequestOptions): APIPromise<TopLevelAPI.FeatureCollection> {
-    const {
-      q,
-      cursor,
-      format,
-      limit,
-      'output[fields]': outputFields,
-      'output[include]': outputInclude,
-      'output[precision]': outputPrecision,
-      'output[sort]': outputSort,
-    } = params;
-    return this._client.post('/api/v1/search', {
-      query: {
-        q,
-        cursor,
-        format,
-        limit,
-        'output[fields]': outputFields,
-        'output[include]': outputInclude,
-        'output[precision]': outputPrecision,
-        'output[sort]': outputSort,
-      },
-      ...options,
-    });
+    const { q, cursor, format, limit, 'output[fields]': outputFields, 'output[include]': outputInclude, 'output[precision]': outputPrecision, 'output[sort]': outputSort } = params
+    return this._client.post('/api/v1/search', { query: { q, cursor, format, limit, 'output[fields]': outputFields, 'output[include]': outputInclude, 'output[precision]': outputPrecision, 'output[sort]': outputSort }, ...options });
   }
 }
 
@@ -79,5 +58,7 @@ export interface SearchQueryParams {
 }
 
 export declare namespace Search {
-  export { type SearchQueryParams as SearchQueryParams };
+  export {
+    type SearchQueryParams as SearchQueryParams
+  };
 }
