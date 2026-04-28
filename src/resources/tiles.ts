@@ -11,8 +11,12 @@ export class Tiles extends APIResource {
    * Get a Mapbox Vector Tile
    */
   get(y: number, params: TileGetParams, options?: RequestOptions): APIPromise<Response> {
-    const { z, x } = params
-    return this._client.get(path`/api/v1/tiles/${z}/${x}/${y}`, { ...options, headers: buildHeaders([{Accept: 'application/vnd.mapbox-vector-tile'}, options?.headers]), __binaryResponse: true });
+    const { z, x } = params;
+    return this._client.get(path`/api/v1/tiles/${z}/${x}/${y}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: 'application/vnd.mapbox-vector-tile' }, options?.headers]),
+      __binaryResponse: true,
+    });
   }
 }
 
@@ -29,7 +33,5 @@ export interface TileGetParams {
 }
 
 export declare namespace Tiles {
-  export {
-    type TileGetParams as TileGetParams
-  };
+  export { type TileGetParams as TileGetParams };
 }
