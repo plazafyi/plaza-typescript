@@ -17,7 +17,7 @@ export class Query extends APIResource {
    * ```
    */
   execute(params: QueryExecuteParams, options?: RequestOptions): APIPromise<TopLevelAPI.FeatureCollection> {
-    const { format, ...body } = params
+    const { format, ...body } = params;
     return this._client.post('/api/v1/query', { query: { format }, body, ...options });
   }
 }
@@ -46,8 +46,5 @@ export interface QueryExecuteParams {
 }
 
 export declare namespace Query {
-  export {
-    type PlazaqlQuery as PlazaqlQuery,
-    type QueryExecuteParams as QueryExecuteParams
-  };
+  export { type PlazaqlQuery as PlazaqlQuery, type QueryExecuteParams as QueryExecuteParams };
 }

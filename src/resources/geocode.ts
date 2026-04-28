@@ -16,7 +16,7 @@ export class Geocode extends APIResource {
    * ```
    */
   autocomplete(params: GeocodeAutocompleteParams, options?: RequestOptions): APIPromise<AutocompleteResult> {
-    const { format, ...body } = params
+    const { format, ...body } = params;
     return this._client.post('/api/v1/geocode/autocomplete', { query: { format }, body, ...options });
   }
 
@@ -45,7 +45,7 @@ export class Geocode extends APIResource {
    * ```
    */
   forward(params: GeocodeForwardParams, options?: RequestOptions): APIPromise<GeocodeResult> {
-    const { format, ...body } = params
+    const { format, ...body } = params;
     return this._client.post('/api/v1/geocode', { query: { format }, body, ...options });
   }
 
@@ -63,7 +63,7 @@ export class Geocode extends APIResource {
    * ```
    */
   reverse(params: GeocodeReverseParams, options?: RequestOptions): APIPromise<ReverseGeocodeResult> {
-    const { format, ...body } = params
+    const { format, ...body } = params;
     return this._client.post('/api/v1/geocode/reverse', { query: { format }, body, ...options });
   }
 }
@@ -483,6 +483,6 @@ export declare namespace Geocode {
     type GeocodeAutocompleteParams as GeocodeAutocompleteParams,
     type GeocodeBatchParams as GeocodeBatchParams,
     type GeocodeForwardParams as GeocodeForwardParams,
-    type GeocodeReverseParams as GeocodeReverseParams
+    type GeocodeReverseParams as GeocodeReverseParams,
   };
 }

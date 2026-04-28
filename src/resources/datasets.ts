@@ -55,7 +55,10 @@ export class Datasets extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/api/v1/datasets/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/api/v1/datasets/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -219,6 +222,6 @@ export declare namespace Datasets {
     type Dataset as Dataset,
     type DatasetList as DatasetList,
     type DatasetCreateParams as DatasetCreateParams,
-    type DatasetListParams as DatasetListParams
+    type DatasetListParams as DatasetListParams,
   };
 }

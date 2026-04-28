@@ -22,7 +22,7 @@ export class Elevation extends APIResource {
    * ```
    */
   lookup(params: ElevationLookupParams, options?: RequestOptions): APIPromise<ElevationLookupResult> {
-    const { format, ...body } = params
+    const { format, ...body } = params;
     return this._client.post('/api/v1/elevation', { query: { format }, body, ...options });
   }
 
@@ -177,6 +177,6 @@ export declare namespace Elevation {
     type ElevationProfileRequest as ElevationProfileRequest,
     type ElevationProfileResult as ElevationProfileResult,
     type ElevationLookupParams as ElevationLookupParams,
-    type ElevationProfileParams as ElevationProfileParams
+    type ElevationProfileParams as ElevationProfileParams,
   };
 }

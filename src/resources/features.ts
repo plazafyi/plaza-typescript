@@ -17,8 +17,12 @@ export class Features extends APIResource {
    * });
    * ```
    */
-  retrieve(id: number, params: FeatureRetrieveParams, options?: RequestOptions): APIPromise<TopLevelAPI.GeoJsonFeature> {
-    const { type } = params
+  retrieve(
+    id: number,
+    params: FeatureRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.GeoJsonFeature> {
+    const { type } = params;
     return this._client.get(path`/api/v1/features/${type}/${id}`, options);
   }
 
@@ -47,9 +51,16 @@ export class Features extends APIResource {
    * const featureCollection = await client.features.query();
    * ```
    */
-  query(params: FeatureQueryParams | null | undefined = {}, options?: RequestOptions): APIPromise<TopLevelAPI.FeatureCollection> {
-    const { cursor, format, h3, limit, type, ...body } = params ?? {}
-    return this._client.post('/api/v1/features', { query: { cursor, format, h3, limit, type }, body, ...options });
+  query(
+    params: FeatureQueryParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.FeatureCollection> {
+    const { cursor, format, h3, limit, type, ...body } = params ?? {};
+    return this._client.post('/api/v1/features', {
+      query: { cursor, format, h3, limit, type },
+      body,
+      ...options,
+    });
   }
 }
 
@@ -285,6 +296,6 @@ export declare namespace Features {
     type SpatialPredicate as SpatialPredicate,
     type FeatureRetrieveParams as FeatureRetrieveParams,
     type FeatureBatchParams as FeatureBatchParams,
-    type FeatureQueryParams as FeatureQueryParams
+    type FeatureQueryParams as FeatureQueryParams,
   };
 }
