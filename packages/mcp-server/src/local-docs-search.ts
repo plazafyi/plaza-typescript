@@ -948,7 +948,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://plaza.fyi/api/v1/route \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "destination": {\n            "coordinates": [\n              2.2945,\n              48.8584\n            ],\n            "type": "Point"\n          },\n          "origin": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          }\n        }\'',
+          'curl https://plaza.fyi/api/v1/route \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "destination": {\n            "coordinates": [\n              2.2945,\n              48.8584\n            ],\n            "type": "Point"\n          },\n          "origin": {\n            "coordinates": [\n              2.3522,\n              48.8566\n            ],\n            "type": "Point"\n          },\n          "mode": "auto"\n        }\'',
       },
     },
   },
@@ -1153,7 +1153,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://plaza.fyi/api/v1/matrix \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "destinations": [\n            {\n              "coordinates": [\n                2.2945,\n                48.8584\n              ],\n              "type": "Point"\n            }\n          ],\n          "origins": [\n            {\n              "coordinates": [\n                2.3522,\n                48.8566\n              ],\n              "type": "Point"\n            },\n            {\n              "coordinates": [\n                2.3376,\n                48.8606\n              ],\n              "type": "Point"\n            }\n          ]\n        }\'',
+          'curl https://plaza.fyi/api/v1/matrix \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "destinations": [\n            {\n              "coordinates": [\n                2.2945,\n                48.8584\n              ],\n              "type": "Point"\n            }\n          ],\n          "origins": [\n            {\n              "coordinates": [\n                2.3522,\n                48.8566\n              ],\n              "type": "Point"\n            },\n            {\n              "coordinates": [\n                2.3376,\n                48.8606\n              ],\n              "type": "Point"\n            }\n          ],\n          "mode": "auto"\n        }\'',
       },
     },
   },
@@ -1421,7 +1421,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://plaza.fyi/api/v1/optimize \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "waypoints": {\n            "coordinates": [\n              [\n                2.3522,\n                48.8566\n              ],\n              [\n                2.3376,\n                48.8606\n              ],\n              [\n                2.2945,\n                48.8584\n              ]\n            ],\n            "type": "MultiPoint"\n          }\n        }\'',
+          'curl https://plaza.fyi/api/v1/optimize \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $PLAZA_API_KEY" \\\n    -d \'{\n          "waypoints": {\n            "coordinates": [\n              [\n                2.3522,\n                48.8566\n              ],\n              [\n                2.3376,\n                48.8606\n              ],\n              [\n                2.2945,\n                48.8584\n              ]\n            ],\n            "type": "MultiPoint"\n          },\n          "roundtrip": false\n        }\'',
       },
     },
   },
