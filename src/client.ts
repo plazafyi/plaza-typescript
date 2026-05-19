@@ -17,46 +17,36 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import {
-  Dataset,
-  DatasetCreateParams,
-  DatasetFeaturesParams,
-  DatasetList,
-  Datasets,
-} from './resources/datasets';
-import {
-  BatchRequest,
-  ElementBatchParams,
-  ElementNearbyParams,
-  ElementNearbyPostParams,
-  ElementQueryParams,
-  ElementQueryPostParams,
-  ElementRetrieveParams,
-  Elements,
-} from './resources/elements';
+import { Dataset, DatasetCreateParams, DatasetList, DatasetListParams, Datasets } from './resources/datasets';
 import {
   Elevation,
-  ElevationBatchParams,
-  ElevationBatchResult,
   ElevationLookupParams,
-  ElevationLookupPostParams,
+  ElevationLookupRequest,
   ElevationLookupResult,
   ElevationProfileParams,
   ElevationProfileRequest,
   ElevationProfileResult,
 } from './resources/elevation';
 import {
+  BatchRequest,
+  FeatureBatchParams,
+  FeatureQueryParams,
+  FeatureRetrieveParams,
+  Features,
+  SpatialPredicate,
+} from './resources/features';
+import {
+  AutocompleteRequest,
   AutocompleteResult,
   Geocode,
   GeocodeAutocompleteParams,
-  GeocodeAutocompletePostParams,
   GeocodeBatchParams,
   GeocodeBatchResponse,
   GeocodeForwardParams,
-  GeocodeForwardPostParams,
+  GeocodeForwardRequest,
   GeocodeResult,
   GeocodeReverseParams,
-  GeocodeReversePostParams,
+  GeocodeReverseRequest,
   GeocodingFeature,
   ReverseGeocodeResult,
 } from './resources/geocode';
@@ -70,35 +60,37 @@ import {
   OptimizeRequest,
   OptimizeResult,
 } from './resources/optimize';
+import { PlazaqlQuery, Query, QueryExecuteParams } from './resources/query';
 import {
-  OverpassQuery,
-  Query,
-  QueryExecuteParams,
-  QueryExecuteResponse,
-  QueryOverpassParams,
-  QuerySparqlParams,
-  SparqlQuery,
-  SparqlResult,
-} from './resources/query';
-import {
+  IsochroneRequest,
   MatrixRequest,
   MatrixResult,
+  NearestRequest,
   NearestResult,
   RouteRequest,
   RouteResult,
   Routing,
   RoutingIsochroneParams,
-  RoutingIsochronePostParams,
-  RoutingIsochronePostResponse,
   RoutingIsochroneResponse,
   RoutingMatrixParams,
   RoutingNearestParams,
-  RoutingNearestPostParams,
   RoutingRouteParams,
 } from './resources/routing';
-import { Search, SearchQueryParams, SearchQueryPostParams } from './resources/search';
+import { Search, SearchQueryParams } from './resources/search';
 import { TileGetParams, Tiles } from './resources/tiles';
-import { Error, FeatureCollection, GeoJsonFeature, GeoJsonGeometry } from './resources/top-level';
+import {
+  Error,
+  FeatureCollection,
+  GeoJsonFeature,
+  Geometry,
+  LineStringGeometry,
+  MultiLineStringGeometry,
+  MultiPointGeometry,
+  MultiPolygonGeometry,
+  PointGeometry,
+  PolygonGeometry,
+  ValidationError,
+} from './resources/top-level';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -271,6 +263,18 @@ export class Plaza {
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
+
+    const customHeadersEnv = readEnv('PLAZA_CUSTOM_HEADERS');
+    if (customHeadersEnv) {
+      const parsed: Record<string, string> = {};
+      for (const line of customHeadersEnv.split('\n')) {
+        const colon = line.indexOf(':');
+        if (colon >= 0) {
+          parsed[line.substring(0, colon).trim()] = line.substring(colon + 1).trim();
+        }
+      }
+      options.defaultHeaders = { ...parsed, ...options.defaultHeaders };
+    }
 
     this._options = options;
 
@@ -823,7 +827,7 @@ export class Plaza {
 
   static toFile = Uploads.toFile;
 
-  elements: API.Elements = new API.Elements(this);
+  features: API.Features = new API.Features(this);
   datasets: API.Datasets = new API.Datasets(this);
   geocode: API.Geocode = new API.Geocode(this);
   search: API.Search = new API.Search(this);
@@ -835,7 +839,7 @@ export class Plaza {
   tiles: API.Tiles = new API.Tiles(this);
 }
 
-Plaza.Elements = Elements;
+Plaza.Features = Features;
 Plaza.Datasets = Datasets;
 Plaza.Geocode = Geocode;
 Plaza.Search = Search;
@@ -853,18 +857,23 @@ export declare namespace Plaza {
     type Error as Error,
     type FeatureCollection as FeatureCollection,
     type GeoJsonFeature as GeoJsonFeature,
-    type GeoJsonGeometry as GeoJsonGeometry,
+    type Geometry as Geometry,
+    type LineStringGeometry as LineStringGeometry,
+    type MultiLineStringGeometry as MultiLineStringGeometry,
+    type MultiPointGeometry as MultiPointGeometry,
+    type MultiPolygonGeometry as MultiPolygonGeometry,
+    type PointGeometry as PointGeometry,
+    type PolygonGeometry as PolygonGeometry,
+    type ValidationError as ValidationError,
   };
 
   export {
-    Elements as Elements,
+    Features as Features,
     type BatchRequest as BatchRequest,
-    type ElementRetrieveParams as ElementRetrieveParams,
-    type ElementBatchParams as ElementBatchParams,
-    type ElementNearbyParams as ElementNearbyParams,
-    type ElementNearbyPostParams as ElementNearbyPostParams,
-    type ElementQueryParams as ElementQueryParams,
-    type ElementQueryPostParams as ElementQueryPostParams,
+    type SpatialPredicate as SpatialPredicate,
+    type FeatureRetrieveParams as FeatureRetrieveParams,
+    type FeatureBatchParams as FeatureBatchParams,
+    type FeatureQueryParams as FeatureQueryParams,
   };
 
   export {
@@ -872,57 +881,50 @@ export declare namespace Plaza {
     type Dataset as Dataset,
     type DatasetList as DatasetList,
     type DatasetCreateParams as DatasetCreateParams,
-    type DatasetFeaturesParams as DatasetFeaturesParams,
+    type DatasetListParams as DatasetListParams,
   };
 
   export {
     Geocode as Geocode,
+    type AutocompleteRequest as AutocompleteRequest,
     type AutocompleteResult as AutocompleteResult,
+    type GeocodeForwardRequest as GeocodeForwardRequest,
     type GeocodeResult as GeocodeResult,
+    type GeocodeReverseRequest as GeocodeReverseRequest,
     type GeocodingFeature as GeocodingFeature,
     type ReverseGeocodeResult as ReverseGeocodeResult,
     type GeocodeBatchResponse as GeocodeBatchResponse,
     type GeocodeAutocompleteParams as GeocodeAutocompleteParams,
-    type GeocodeAutocompletePostParams as GeocodeAutocompletePostParams,
     type GeocodeBatchParams as GeocodeBatchParams,
     type GeocodeForwardParams as GeocodeForwardParams,
-    type GeocodeForwardPostParams as GeocodeForwardPostParams,
     type GeocodeReverseParams as GeocodeReverseParams,
-    type GeocodeReversePostParams as GeocodeReversePostParams,
   };
 
-  export {
-    Search as Search,
-    type SearchQueryParams as SearchQueryParams,
-    type SearchQueryPostParams as SearchQueryPostParams,
-  };
+  export { Search as Search, type SearchQueryParams as SearchQueryParams };
 
   export {
     Routing as Routing,
+    type IsochroneRequest as IsochroneRequest,
     type MatrixRequest as MatrixRequest,
     type MatrixResult as MatrixResult,
+    type NearestRequest as NearestRequest,
     type NearestResult as NearestResult,
     type RouteRequest as RouteRequest,
     type RouteResult as RouteResult,
     type RoutingIsochroneResponse as RoutingIsochroneResponse,
-    type RoutingIsochronePostResponse as RoutingIsochronePostResponse,
     type RoutingIsochroneParams as RoutingIsochroneParams,
-    type RoutingIsochronePostParams as RoutingIsochronePostParams,
     type RoutingMatrixParams as RoutingMatrixParams,
     type RoutingNearestParams as RoutingNearestParams,
-    type RoutingNearestPostParams as RoutingNearestPostParams,
     type RoutingRouteParams as RoutingRouteParams,
   };
 
   export {
     Elevation as Elevation,
-    type ElevationBatchResult as ElevationBatchResult,
+    type ElevationLookupRequest as ElevationLookupRequest,
     type ElevationLookupResult as ElevationLookupResult,
     type ElevationProfileRequest as ElevationProfileRequest,
     type ElevationProfileResult as ElevationProfileResult,
-    type ElevationBatchParams as ElevationBatchParams,
     type ElevationLookupParams as ElevationLookupParams,
-    type ElevationLookupPostParams as ElevationLookupPostParams,
     type ElevationProfileParams as ElevationProfileParams,
   };
 
@@ -943,16 +945,7 @@ export declare namespace Plaza {
     type OptimizeCreateParams as OptimizeCreateParams,
   };
 
-  export {
-    Query as Query,
-    type OverpassQuery as OverpassQuery,
-    type SparqlQuery as SparqlQuery,
-    type SparqlResult as SparqlResult,
-    type QueryExecuteResponse as QueryExecuteResponse,
-    type QueryExecuteParams as QueryExecuteParams,
-    type QueryOverpassParams as QueryOverpassParams,
-    type QuerySparqlParams as QuerySparqlParams,
-  };
+  export { Query as Query, type PlazaqlQuery as PlazaqlQuery, type QueryExecuteParams as QueryExecuteParams };
 
   export { Tiles as Tiles, type TileGetParams as TileGetParams };
 }

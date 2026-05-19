@@ -10,11 +10,14 @@ const client = new Plaza({
 describe('resource optimize', () => {
   test('create: only required params', async () => {
     const responsePromise = client.optimize.create({
-      waypoints: [
-        { lat: 48.8566, lng: 2.3522 },
-        { lat: 48.8606, lng: 2.3376 },
-        { lat: 48.8584, lng: 2.2945 },
-      ],
+      waypoints: {
+        coordinates: [
+          [2.3522, 48.8566],
+          [2.3376, 48.8606],
+          [2.2945, 48.8584],
+        ],
+        type: 'MultiPoint',
+      },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -27,11 +30,15 @@ describe('resource optimize', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.optimize.create({
-      waypoints: [
-        { lat: 48.8566, lng: 2.3522 },
-        { lat: 48.8606, lng: 2.3376 },
-        { lat: 48.8584, lng: 2.2945 },
-      ],
+      waypoints: {
+        coordinates: [
+          [2.3522, 48.8566],
+          [2.3376, 48.8606],
+          [2.2945, 48.8584],
+        ],
+        type: 'MultiPoint',
+      },
+      format: 'format',
       mode: 'auto',
       roundtrip: false,
     });

@@ -8,27 +8,27 @@ import { RequestOptions } from '../internal/request-options';
 export class Geocode extends APIResource {
   /**
    * Autocomplete a partial address
+   *
+   * @example
+   * ```ts
+   * const autocompleteResult =
+   *   await client.geocode.autocomplete({ q: '221B Bak' });
+   * ```
    */
-  autocomplete(query: GeocodeAutocompleteParams, options?: RequestOptions): APIPromise<AutocompleteResult> {
-    return this._client.get('/api/v1/geocode/autocomplete', { query, ...options });
-  }
-
-  /**
-   * Autocomplete a partial address
-   */
-  autocompletePost(
-    params: GeocodeAutocompletePostParams,
-    options?: RequestOptions,
-  ): APIPromise<AutocompleteResult> {
-    const { q, country_code, lang, lat, layer, limit, lng } = params;
-    return this._client.post('/api/v1/geocode/autocomplete', {
-      query: { q, country_code, lang, lat, layer, limit, lng },
-      ...options,
-    });
+  autocomplete(params: GeocodeAutocompleteParams, options?: RequestOptions): APIPromise<AutocompleteResult> {
+    const { format, ...body } = params;
+    return this._client.post('/api/v1/geocode/autocomplete', { query: { format }, body, ...options });
   }
 
   /**
    * Batch geocode multiple addresses
+   *
+   * @example
+   * ```ts
+   * const response = await client.geocode.batch({
+   *   addresses: ['string'],
+   * });
+   * ```
    */
   batch(body: GeocodeBatchParams, options?: RequestOptions): APIPromise<GeocodeBatchResponse> {
     return this._client.post('/api/v1/geocode/batch', { body, ...options });
@@ -36,45 +36,73 @@ export class Geocode extends APIResource {
 
   /**
    * Forward geocode an address
+   *
+   * @example
+   * ```ts
+   * const geocodeResult = await client.geocode.forward({
+   *   q: '221B Baker Street, London',
+   * });
+   * ```
    */
-  forward(query: GeocodeForwardParams, options?: RequestOptions): APIPromise<GeocodeResult> {
-    return this._client.get('/api/v1/geocode', { query, ...options });
-  }
-
-  /**
-   * Forward geocode an address
-   */
-  forwardPost(params: GeocodeForwardPostParams, options?: RequestOptions): APIPromise<GeocodeResult> {
-    const { q, bbox, country_code, lang, lat, layer, limit, lng } = params;
-    return this._client.post('/api/v1/geocode', {
-      query: { q, bbox, country_code, lang, lat, layer, limit, lng },
-      ...options,
-    });
-  }
-
-  /**
-   * Reverse geocode a coordinate
-   */
-  reverse(
-    query: GeocodeReverseParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ReverseGeocodeResult> {
-    return this._client.get('/api/v1/geocode/reverse', { query, ...options });
+  forward(params: GeocodeForwardParams, options?: RequestOptions): APIPromise<GeocodeResult> {
+    const { format, ...body } = params;
+    return this._client.post('/api/v1/geocode', { query: { format }, body, ...options });
   }
 
   /**
    * Reverse geocode a coordinate
+   *
+   * @example
+   * ```ts
+   * const reverseGeocodeResult = await client.geocode.reverse({
+   *   geometry: {
+   *     coordinates: [2.3522, 48.8566],
+   *     type: 'Point',
+   *   },
+   * });
+   * ```
    */
-  reversePost(
-    params: GeocodeReversePostParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ReverseGeocodeResult> {
-    const { lang, lat, layer, limit, lng, near, radius } = params ?? {};
-    return this._client.post('/api/v1/geocode/reverse', {
-      query: { lang, lat, layer, limit, lng, near, radius },
-      ...options,
-    });
+  reverse(params: GeocodeReverseParams, options?: RequestOptions): APIPromise<ReverseGeocodeResult> {
+    const { format, ...body } = params;
+    return this._client.post('/api/v1/geocode/reverse', { query: { format }, body, ...options });
   }
+}
+
+/**
+ * Request body for autocomplete suggestions. Optimized for low-latency type-ahead
+ * UIs.
+ */
+export interface AutocompleteRequest {
+  /**
+   * Partial address or place name input
+   */
+  q: string;
+
+  /**
+   * ISO 3166-1 alpha-2 country code to restrict results
+   */
+  country_code?: string | null;
+
+  /**
+   * GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude]
+   * order. Optional third element is altitude in meters.
+   */
+  focus?: TopLevelAPI.PointGeometry | null;
+
+  /**
+   * Preferred response language (ISO 639-1)
+   */
+  lang?: string | null;
+
+  /**
+   * Filter by result layer (e.g. `address`, `place`, `poi`)
+   */
+  layer?: string | null;
+
+  /**
+   * Maximum number of suggestions (default: 5, max: 20)
+   */
+  limit?: number | null;
 }
 
 /**
@@ -91,6 +119,43 @@ export interface AutocompleteResult {
 }
 
 /**
+ * Request body for forward geocoding. Converts an address or place name to
+ * coordinates.
+ */
+export interface GeocodeForwardRequest {
+  /**
+   * Address or place name to geocode
+   */
+  q: string;
+
+  /**
+   * ISO 3166-1 alpha-2 country code to restrict results
+   */
+  country_code?: string | null;
+
+  /**
+   * GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude]
+   * order. Optional third element is altitude in meters.
+   */
+  focus?: TopLevelAPI.PointGeometry | null;
+
+  /**
+   * Preferred response language (ISO 639-1)
+   */
+  lang?: string | null;
+
+  /**
+   * Filter by result layer (e.g. `address`, `place`, `poi`)
+   */
+  layer?: string | null;
+
+  /**
+   * Maximum number of results (default: 5, max: 50)
+   */
+  limit?: number | null;
+}
+
+/**
  * GeoJSON FeatureCollection of forward geocoding results, ordered by relevance.
  * Content-Type: `application/geo+json`.
  */
@@ -104,16 +169,43 @@ export interface GeocodeResult {
 }
 
 /**
+ * Request body for reverse geocoding. Converts coordinates to addresses or place
+ * names.
+ */
+export interface GeocodeReverseRequest {
+  /**
+   * GeoJSON Point geometry per RFC 7946. Coordinates use [longitude, latitude]
+   * order. Optional third element is altitude in meters.
+   */
+  geometry: TopLevelAPI.PointGeometry;
+
+  /**
+   * Preferred response language (ISO 639-1)
+   */
+  lang?: string | null;
+
+  /**
+   * Maximum number of results (default: 1, max: 50)
+   */
+  limit?: number | null;
+
+  /**
+   * Search radius in meters (default: 100)
+   */
+  radius?: number | null;
+}
+
+/**
  * GeoJSON Feature representing a geocoding result. The geometry is always a Point.
  * Properties include the formatted display name, OSM metadata, confidence score,
  * and source type.
  */
 export interface GeocodingFeature {
   /**
-   * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
-   * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
+   * GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field
+   * determines the coordinate structure.
    */
-  geometry: TopLevelAPI.GeoJsonGeometry;
+  geometry: TopLevelAPI.Geometry;
 
   /**
    * Geocoding result properties
@@ -208,11 +300,10 @@ export namespace GeocodingFeature {
 
     /**
      * Result source indicating how the result was found: structured (exact field
-     * match), bm25 (full-text search), fuzzy (trigram similarity), address (reverse
-     * geocode address), place (reverse geocode POI), interpolation (estimated from
-     * neighboring addresses)
+     * match), fuzzy (trigram similarity), address (reverse geocode address), place
+     * (reverse geocode POI), interpolation (estimated from neighboring addresses)
      */
-    source?: 'structured' | 'bm25' | 'fuzzy' | 'address' | 'place' | 'interpolation' | null;
+    source?: 'structured' | 'fuzzy' | 'address' | 'place' | 'interpolation' | null;
 
     /**
      * State or province name. Present for reverse geocode address results.
@@ -273,76 +364,40 @@ export interface GeocodeBatchResponse {
 
 export interface GeocodeAutocompleteParams {
   /**
-   * Partial address query
+   * Body param: Partial address or place name input
    */
   q: string;
 
   /**
-   * ISO 3166-1 alpha-2 country code filter
+   * Query param: Response format: json (default), geojson, csv, ndjson
    */
-  country_code?: string;
+  format?: string;
 
   /**
-   * Language code for localized names (e.g. en, de, fr)
+   * Body param: ISO 3166-1 alpha-2 country code to restrict results
    */
-  lang?: string;
+  country_code?: string | null;
 
   /**
-   * Focus latitude
+   * Body param: GeoJSON Point geometry per RFC 7946. Coordinates use [longitude,
+   * latitude] order. Optional third element is altitude in meters.
    */
-  lat?: number;
+  focus?: TopLevelAPI.PointGeometry | null;
 
   /**
-   * Filter by layer: address, poi, or admin
+   * Body param: Preferred response language (ISO 639-1)
    */
-  layer?: string;
+  lang?: string | null;
 
   /**
-   * Maximum results (default 10, max 20)
+   * Body param: Filter by result layer (e.g. `address`, `place`, `poi`)
    */
-  limit?: number;
+  layer?: string | null;
 
   /**
-   * Focus longitude
+   * Body param: Maximum number of suggestions (default: 5, max: 20)
    */
-  lng?: number;
-}
-
-export interface GeocodeAutocompletePostParams {
-  /**
-   * Partial address query
-   */
-  q: string;
-
-  /**
-   * ISO 3166-1 alpha-2 country code filter
-   */
-  country_code?: string;
-
-  /**
-   * Language code for localized names (e.g. en, de, fr)
-   */
-  lang?: string;
-
-  /**
-   * Focus latitude
-   */
-  lat?: number;
-
-  /**
-   * Filter by layer: address, poi, or admin
-   */
-  layer?: string;
-
-  /**
-   * Maximum results (default 10, max 20)
-   */
-  limit?: number;
-
-  /**
-   * Focus longitude
-   */
-  lng?: number;
+  limit?: number | null;
 }
 
 export interface GeocodeBatchParams {
@@ -351,177 +406,83 @@ export interface GeocodeBatchParams {
 
 export interface GeocodeForwardParams {
   /**
-   * Address or place name
+   * Body param: Address or place name to geocode
    */
   q: string;
 
   /**
-   * Bounding box filter: south,west,north,east
+   * Query param: Response format: json (default), geojson, csv, ndjson
    */
-  bbox?: string;
+  format?: string;
 
   /**
-   * ISO 3166-1 alpha-2 country code filter
+   * Body param: ISO 3166-1 alpha-2 country code to restrict results
    */
-  country_code?: string;
+  country_code?: string | null;
 
   /**
-   * Language code for localized names (e.g. en, de, fr)
+   * Body param: GeoJSON Point geometry per RFC 7946. Coordinates use [longitude,
+   * latitude] order. Optional third element is altitude in meters.
    */
-  lang?: string;
+  focus?: TopLevelAPI.PointGeometry | null;
 
   /**
-   * Focus latitude
+   * Body param: Preferred response language (ISO 639-1)
    */
-  lat?: number;
+  lang?: string | null;
 
   /**
-   * Filter by layer: address, poi, or admin
+   * Body param: Filter by result layer (e.g. `address`, `place`, `poi`)
    */
-  layer?: string;
+  layer?: string | null;
 
   /**
-   * Maximum results (default 20, max 100)
+   * Body param: Maximum number of results (default: 5, max: 50)
    */
-  limit?: number;
-
-  /**
-   * Focus longitude
-   */
-  lng?: number;
-}
-
-export interface GeocodeForwardPostParams {
-  /**
-   * Address or place name
-   */
-  q: string;
-
-  /**
-   * Bounding box filter: south,west,north,east
-   */
-  bbox?: string;
-
-  /**
-   * ISO 3166-1 alpha-2 country code filter
-   */
-  country_code?: string;
-
-  /**
-   * Language code for localized names (e.g. en, de, fr)
-   */
-  lang?: string;
-
-  /**
-   * Focus latitude
-   */
-  lat?: number;
-
-  /**
-   * Filter by layer: address, poi, or admin
-   */
-  layer?: string;
-
-  /**
-   * Maximum results (default 20, max 100)
-   */
-  limit?: number;
-
-  /**
-   * Focus longitude
-   */
-  lng?: number;
+  limit?: number | null;
 }
 
 export interface GeocodeReverseParams {
   /**
-   * Language code for localized names (e.g. en, de, fr)
+   * Body param: GeoJSON Point geometry per RFC 7946. Coordinates use [longitude,
+   * latitude] order. Optional third element is altitude in meters.
    */
-  lang?: string;
+  geometry: TopLevelAPI.PointGeometry;
 
   /**
-   * Legacy shorthand. Latitude. Use near param instead.
+   * Query param: Response format: json (default), geojson, csv, ndjson
    */
-  lat?: number;
+  format?: string;
 
   /**
-   * Filter by layer: house or poi
+   * Body param: Preferred response language (ISO 639-1)
    */
-  layer?: string;
+  lang?: string | null;
 
   /**
-   * Maximum results (default 1, max 20)
+   * Body param: Maximum number of results (default: 1, max: 50)
    */
-  limit?: number;
+  limit?: number | null;
 
   /**
-   * Legacy shorthand. Longitude. Use near param instead.
+   * Body param: Search radius in meters (default: 100)
    */
-  lng?: number;
-
-  /**
-   * Point geometry for reverse geocode (lat,lng or GeoJSON). Alternative to lat/lng
-   * params.
-   */
-  near?: string;
-
-  /**
-   * Search radius in meters (default 200, max 5000)
-   */
-  radius?: number;
-}
-
-export interface GeocodeReversePostParams {
-  /**
-   * Language code for localized names (e.g. en, de, fr)
-   */
-  lang?: string;
-
-  /**
-   * Legacy shorthand. Latitude. Use near param instead.
-   */
-  lat?: number;
-
-  /**
-   * Filter by layer: house or poi
-   */
-  layer?: string;
-
-  /**
-   * Maximum results (default 1, max 20)
-   */
-  limit?: number;
-
-  /**
-   * Legacy shorthand. Longitude. Use near param instead.
-   */
-  lng?: number;
-
-  /**
-   * Point geometry for reverse geocode (lat,lng or GeoJSON). Alternative to lat/lng
-   * params.
-   */
-  near?: string;
-
-  /**
-   * Search radius in meters (default 200, max 5000)
-   */
-  radius?: number;
+  radius?: number | null;
 }
 
 export declare namespace Geocode {
   export {
+    type AutocompleteRequest as AutocompleteRequest,
     type AutocompleteResult as AutocompleteResult,
+    type GeocodeForwardRequest as GeocodeForwardRequest,
     type GeocodeResult as GeocodeResult,
+    type GeocodeReverseRequest as GeocodeReverseRequest,
     type GeocodingFeature as GeocodingFeature,
     type ReverseGeocodeResult as ReverseGeocodeResult,
     type GeocodeBatchResponse as GeocodeBatchResponse,
     type GeocodeAutocompleteParams as GeocodeAutocompleteParams,
-    type GeocodeAutocompletePostParams as GeocodeAutocompletePostParams,
     type GeocodeBatchParams as GeocodeBatchParams,
     type GeocodeForwardParams as GeocodeForwardParams,
-    type GeocodeForwardPostParams as GeocodeForwardPostParams,
     type GeocodeReverseParams as GeocodeReverseParams,
-    type GeocodeReversePostParams as GeocodeReversePostParams,
   };
 }

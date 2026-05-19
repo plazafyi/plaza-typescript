@@ -11,44 +11,20 @@ export type SdkMethod = {
 
 export const sdkMethods: SdkMethod[] = [
   {
-    clientCallName: 'client.elements.retrieve',
-    fullyQualifiedName: 'elements.retrieve',
+    clientCallName: 'client.features.retrieve',
+    fullyQualifiedName: 'features.retrieve',
     httpMethod: 'get',
     httpPath: '/api/v1/features/{type}/{id}',
   },
   {
-    clientCallName: 'client.elements.batch',
-    fullyQualifiedName: 'elements.batch',
+    clientCallName: 'client.features.batch',
+    fullyQualifiedName: 'features.batch',
     httpMethod: 'post',
     httpPath: '/api/v1/features/batch',
   },
   {
-    clientCallName: 'client.elements.lookup',
-    fullyQualifiedName: 'elements.lookup',
-    httpMethod: 'post',
-    httpPath: '/api/v1/features/lookup',
-  },
-  {
-    clientCallName: 'client.elements.nearby',
-    fullyQualifiedName: 'elements.nearby',
-    httpMethod: 'get',
-    httpPath: '/api/v1/features/nearby',
-  },
-  {
-    clientCallName: 'client.elements.nearbyPost',
-    fullyQualifiedName: 'elements.nearbyPost',
-    httpMethod: 'post',
-    httpPath: '/api/v1/features/nearby',
-  },
-  {
-    clientCallName: 'client.elements.query',
-    fullyQualifiedName: 'elements.query',
-    httpMethod: 'get',
-    httpPath: '/api/v1/features',
-  },
-  {
-    clientCallName: 'client.elements.queryPost',
-    fullyQualifiedName: 'elements.queryPost',
+    clientCallName: 'client.features.query',
+    fullyQualifiedName: 'features.query',
     httpMethod: 'post',
     httpPath: '/api/v1/features',
   },
@@ -77,20 +53,8 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/api/v1/datasets/{id}',
   },
   {
-    clientCallName: 'client.datasets.features',
-    fullyQualifiedName: 'datasets.features',
-    httpMethod: 'get',
-    httpPath: '/api/v1/datasets/{id}/features',
-  },
-  {
     clientCallName: 'client.geocode.autocomplete',
     fullyQualifiedName: 'geocode.autocomplete',
-    httpMethod: 'get',
-    httpPath: '/api/v1/geocode/autocomplete',
-  },
-  {
-    clientCallName: 'client.geocode.autocompletePost',
-    fullyQualifiedName: 'geocode.autocompletePost',
     httpMethod: 'post',
     httpPath: '/api/v1/geocode/autocomplete',
   },
@@ -103,48 +67,24 @@ export const sdkMethods: SdkMethod[] = [
   {
     clientCallName: 'client.geocode.forward',
     fullyQualifiedName: 'geocode.forward',
-    httpMethod: 'get',
-    httpPath: '/api/v1/geocode',
-  },
-  {
-    clientCallName: 'client.geocode.forwardPost',
-    fullyQualifiedName: 'geocode.forwardPost',
     httpMethod: 'post',
     httpPath: '/api/v1/geocode',
   },
   {
     clientCallName: 'client.geocode.reverse',
     fullyQualifiedName: 'geocode.reverse',
-    httpMethod: 'get',
-    httpPath: '/api/v1/geocode/reverse',
-  },
-  {
-    clientCallName: 'client.geocode.reversePost',
-    fullyQualifiedName: 'geocode.reversePost',
     httpMethod: 'post',
     httpPath: '/api/v1/geocode/reverse',
   },
   {
     clientCallName: 'client.search.query',
     fullyQualifiedName: 'search.query',
-    httpMethod: 'get',
-    httpPath: '/api/v1/search',
-  },
-  {
-    clientCallName: 'client.search.queryPost',
-    fullyQualifiedName: 'search.queryPost',
     httpMethod: 'post',
     httpPath: '/api/v1/search',
   },
   {
     clientCallName: 'client.routing.isochrone',
     fullyQualifiedName: 'routing.isochrone',
-    httpMethod: 'get',
-    httpPath: '/api/v1/isochrone',
-  },
-  {
-    clientCallName: 'client.routing.isochronePost',
-    fullyQualifiedName: 'routing.isochronePost',
     httpMethod: 'post',
     httpPath: '/api/v1/isochrone',
   },
@@ -157,12 +97,6 @@ export const sdkMethods: SdkMethod[] = [
   {
     clientCallName: 'client.routing.nearest',
     fullyQualifiedName: 'routing.nearest',
-    httpMethod: 'get',
-    httpPath: '/api/v1/nearest',
-  },
-  {
-    clientCallName: 'client.routing.nearestPost',
-    fullyQualifiedName: 'routing.nearestPost',
     httpMethod: 'post',
     httpPath: '/api/v1/nearest',
   },
@@ -173,20 +107,8 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/api/v1/route',
   },
   {
-    clientCallName: 'client.elevation.batch',
-    fullyQualifiedName: 'elevation.batch',
-    httpMethod: 'post',
-    httpPath: '/api/v1/elevation/batch',
-  },
-  {
     clientCallName: 'client.elevation.lookup',
     fullyQualifiedName: 'elevation.lookup',
-    httpMethod: 'get',
-    httpPath: '/api/v1/elevation',
-  },
-  {
-    clientCallName: 'client.elevation.lookupPost',
-    fullyQualifiedName: 'elevation.lookupPost',
     httpMethod: 'post',
     httpPath: '/api/v1/elevation',
   },
@@ -219,18 +141,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'query.execute',
     httpMethod: 'post',
     httpPath: '/api/v1/query',
-  },
-  {
-    clientCallName: 'client.query.overpass',
-    fullyQualifiedName: 'query.overpass',
-    httpMethod: 'post',
-    httpPath: '/api/v1/overpass',
-  },
-  {
-    clientCallName: 'client.query.sparql',
-    fullyQualifiedName: 'query.sparql',
-    httpMethod: 'post',
-    httpPath: '/api/v1/sparql',
   },
   {
     clientCallName: 'client.tiles.get',

@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as TopLevelAPI from './top-level';
 import { APIPromise } from '../core/api-promise';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
@@ -9,7 +8,7 @@ import { path } from '../internal/utils/path';
 
 export class Datasets extends APIResource {
   /**
-   * Create a new dataset (admin only)
+   * Create a new dataset
    *
    * @example
    * ```ts
@@ -36,15 +35,15 @@ export class Datasets extends APIResource {
   }
 
   /**
-   * List all datasets
+   * List datasets
    *
    * @example
    * ```ts
    * const datasetList = await client.datasets.list();
    * ```
    */
-  list(options?: RequestOptions): APIPromise<DatasetList> {
-    return this._client.get('/api/v1/datasets', options);
+  list(query: DatasetListParams | null | undefined = {}, options?: RequestOptions): APIPromise<DatasetList> {
+    return this._client.get('/api/v1/datasets', { query, ...options });
   }
 
   /**
@@ -60,24 +59,6 @@ export class Datasets extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
-  }
-
-  /**
-   * Query features in a dataset
-   *
-   * @example
-   * ```ts
-   * const featureCollection = await client.datasets.features(
-   *   'id',
-   * );
-   * ```
-   */
-  features(
-    id: string,
-    query: DatasetFeaturesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<TopLevelAPI.FeatureCollection> {
-    return this._client.get(path`/api/v1/datasets/${id}/features`, { query, ...options });
   }
 }
 
@@ -102,14 +83,29 @@ export interface Dataset {
   name: string;
 
   /**
+   * Dataset scope: plaza (managed by Plaza) or user (user-owned)
+   */
+  scope: 'plaza' | 'user';
+
+  /**
    * URL-friendly identifier
    */
   slug: string;
 
   /**
+   * Current processing status
+   */
+  status: 'pending' | 'processing' | 'ready' | 'error';
+
+  /**
    * Last update timestamp (UTC)
    */
   updated_at: string;
+
+  /**
+   * Number of addresses in this dataset
+   */
+  address_count?: number;
 
   /**
    * Required attribution text
@@ -122,18 +118,53 @@ export interface Dataset {
   description?: string | null;
 
   /**
+   * Number of routing edges in this dataset
+   */
+  edge_count?: number;
+
+  /**
+   * Error message if status is 'error'
+   */
+  error_message?: string | null;
+
+  /**
+   * Number of features in this dataset
+   */
+  feature_count?: number;
+
+  /**
    * License identifier (e.g. CC-BY-4.0)
    */
   license?: string | null;
 
   /**
+   * Detected or user-defined property schema
+   */
+  schema_definition?: unknown | null;
+
+  /**
+   * Data format (geojson)
+   */
+  source_format?: string | null;
+
+  /**
    * URL of the original data source
    */
   source_url?: string | null;
+
+  /**
+   * Total storage consumed in bytes
+   */
+  storage_bytes?: number;
+
+  /**
+   * Whether strict schema validation is enabled
+   */
+  strict_mode?: boolean;
 }
 
 /**
- * List of all available datasets.
+ * List of datasets visible to the authenticated user.
  */
 export interface DatasetList {
   /**
@@ -172,58 +203,18 @@ export interface DatasetCreateParams {
    * Source data URL
    */
   source_url?: string | null;
+
+  /**
+   * Enable strict schema validation (default true)
+   */
+  strict_mode?: boolean | null;
 }
 
-export interface DatasetFeaturesParams {
+export interface DatasetListParams {
   /**
-   * Cursor for pagination
+   * Filter by scope: plaza, user. Default shows user's own + plaza datasets.
    */
-  cursor?: string;
-
-  /**
-   * Maximum results
-   */
-  limit?: number;
-
-  /**
-   * Buffer geometry by meters
-   */
-  'output[buffer]'?: number;
-
-  /**
-   * Replace geometry with centroid
-   */
-  'output[centroid]'?: boolean;
-
-  /**
-   * Comma-separated property fields to include
-   */
-  'output[fields]'?: string;
-
-  /**
-   * Include geometry (default true)
-   */
-  'output[geometry]'?: boolean;
-
-  /**
-   * Extra computed fields: bbox, distance, center
-   */
-  'output[include]'?: string;
-
-  /**
-   * Coordinate decimal precision (1-15, default 7)
-   */
-  'output[precision]'?: number;
-
-  /**
-   * Simplify geometry tolerance in meters
-   */
-  'output[simplify]'?: number;
-
-  /**
-   * Sort by: distance, name, osm_id
-   */
-  'output[sort]'?: string;
+  scope?: string;
 }
 
 export declare namespace Datasets {
@@ -231,6 +222,6 @@ export declare namespace Datasets {
     type Dataset as Dataset,
     type DatasetList as DatasetList,
     type DatasetCreateParams as DatasetCreateParams,
-    type DatasetFeaturesParams as DatasetFeaturesParams,
+    type DatasetListParams as DatasetListParams,
   };
 }

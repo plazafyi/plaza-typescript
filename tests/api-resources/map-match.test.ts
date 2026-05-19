@@ -10,11 +10,14 @@ const client = new Plaza({
 describe('resource mapMatch', () => {
   test('match: only required params', async () => {
     const responsePromise = client.mapMatch.match({
-      coordinates: [
-        { lat: 48.8566, lng: 2.3522 },
-        { lat: 48.857, lng: 2.353 },
-        { lat: 48.8575, lng: 2.354 },
-      ],
+      geometry: {
+        coordinates: [
+          [2.3522, 48.8566],
+          [2.353, 48.857],
+          [2.354, 48.8575],
+        ],
+        type: 'LineString',
+      },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -27,11 +30,14 @@ describe('resource mapMatch', () => {
 
   test('match: required and optional params', async () => {
     const response = await client.mapMatch.match({
-      coordinates: [
-        { lat: 48.8566, lng: 2.3522 },
-        { lat: 48.857, lng: 2.353 },
-        { lat: 48.8575, lng: 2.354 },
-      ],
+      geometry: {
+        coordinates: [
+          [2.3522, 48.8566],
+          [2.353, 48.857],
+          [2.354, 48.8575],
+        ],
+        type: 'LineString',
+      },
       radiuses: [0],
     });
   });

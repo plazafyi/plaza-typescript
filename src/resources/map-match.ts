@@ -12,11 +12,14 @@ export class MapMatch extends APIResource {
    * @example
    * ```ts
    * const mapMatchResult = await client.mapMatch.match({
-   *   coordinates: [
-   *     { lat: 48.8566, lng: 2.3522 },
-   *     { lat: 48.857, lng: 2.353 },
-   *     { lat: 48.8575, lng: 2.354 },
-   *   ],
+   *   geometry: {
+   *     coordinates: [
+   *       [2.3522, 48.8566],
+   *       [2.353, 48.857],
+   *       [2.354, 48.8575],
+   *     ],
+   *     type: 'LineString',
+   *   },
    * });
    * ```
    */
@@ -26,37 +29,21 @@ export class MapMatch extends APIResource {
 }
 
 /**
- * GPS trace to snap to the road network. Provide an array of coordinate objects
- * representing the GPS points. Maximum 50 points per request.
+ * GPS trace to snap to the road network. Provide a GeoJSON LineString geometry
+ * representing the GPS trace.
  */
 export interface MapMatchRequest {
   /**
-   * GPS coordinates to match, in order of travel (max 50 points)
+   * GeoJSON LineString geometry per RFC 7946. An ordered sequence of two or more
+   * positions.
    */
-  coordinates: Array<MapMatchRequest.Coordinate>;
+  geometry: TopLevelAPI.LineStringGeometry;
 
   /**
-   * Search radius per coordinate in meters. Must have the same length as
-   * `coordinates` or be omitted entirely. Default: 50m per point.
+   * Search radius per coordinate in meters. Must have the same length as the
+   * geometry coordinates or be omitted entirely. Default: 50m per point.
    */
   radiuses?: Array<number> | null;
-}
-
-export namespace MapMatchRequest {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Coordinate {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
 }
 
 /**
@@ -85,10 +72,10 @@ export namespace MapMatchResult {
    */
   export interface Feature {
     /**
-     * GeoJSON Geometry object per RFC 7946. Coordinates use [longitude, latitude]
-     * order. 3D coordinates [lng, lat, elevation] are used for elevation endpoints.
+     * GeoJSON Geometry object per RFC 7946. Discriminated union — the `type` field
+     * determines the coordinate structure.
      */
-    geometry: TopLevelAPI.GeoJsonGeometry;
+    geometry: TopLevelAPI.Geometry;
 
     properties: Feature.Properties;
 
@@ -133,32 +120,16 @@ export namespace MapMatchResult {
 
 export interface MapMatchMatchParams {
   /**
-   * GPS coordinates to match, in order of travel (max 50 points)
+   * GeoJSON LineString geometry per RFC 7946. An ordered sequence of two or more
+   * positions.
    */
-  coordinates: Array<MapMatchMatchParams.Coordinate>;
+  geometry: TopLevelAPI.LineStringGeometry;
 
   /**
-   * Search radius per coordinate in meters. Must have the same length as
-   * `coordinates` or be omitted entirely. Default: 50m per point.
+   * Search radius per coordinate in meters. Must have the same length as the
+   * geometry coordinates or be omitted entirely. Default: 50m per point.
    */
   radiuses?: Array<number> | null;
-}
-
-export namespace MapMatchMatchParams {
-  /**
-   * Geographic coordinate as a JSON object with `lat` and `lng` fields.
-   */
-  export interface Coordinate {
-    /**
-     * Latitude in decimal degrees (-90 to 90)
-     */
-    lat: number;
-
-    /**
-     * Longitude in decimal degrees (-180 to 180)
-     */
-    lng: number;
-  }
 }
 
 export declare namespace MapMatch {

@@ -1,7 +1,6 @@
 import fs from 'fs';
 import type { ResponseLike } from '@plazafyi/sdk/internal/to-file';
 import { toFile } from '@plazafyi/sdk/core/uploads';
-import { File } from 'node:buffer';
 
 class MyClass {
   name: string = 'foo';
