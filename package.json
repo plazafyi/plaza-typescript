@@ -1,6 +1,6 @@
 {
   "name": "@plazafyi/sdk",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "The official TypeScript library for the Plaza API",
   "author": "Plaza <support@plaza.fyi>",
   "types": "dist/index.d.ts",
